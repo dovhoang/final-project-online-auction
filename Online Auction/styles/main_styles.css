@@ -854,8 +854,8 @@ section
 	justify-content: center;
 	align-items: center;
 	width: auto;
-	height: 40px;
-	background: #fe4c50;
+	height: 40px;	
+	background: green;
 	border-radius: 3px;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
@@ -1146,7 +1146,7 @@ section
 {
 	right: 15px;
 }
-.add_to_cart_button
+.auction_button
 {
 	width: 100%;
 	visibility: hidden;
@@ -1157,12 +1157,12 @@ section
 	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
 }
-.add_to_cart_button a
+.auction_button a
 {
 	font-size: 12px;
 	font-weight: 600;
 }
-.product-item:hover .add_to_cart_button
+.product-item:hover .auction_button
 {
 	visibility: visible;
 	opacity: 1;

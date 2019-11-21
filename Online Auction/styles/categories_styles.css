@@ -1379,6 +1379,23 @@ section
 	color: #b5aec4;
 	text-decoration: line-through;
 }
+.discount .product_info .product_time_remaining
+{
+	font-size: 14px;
+}
+.product_time_remaining
+{
+	font-size: 16px;
+	color: #1BABEE;
+	font-weight: 600;
+}
+.product_time_remaining span
+{
+	font-size: 9px;
+	margin-left: 10px;
+	color: #b5aec4;
+	text-decoration: line-through;
+}
 .product_bubble
 {
 	position: absolute;
@@ -1441,7 +1458,7 @@ section
 {
 	right: 15px;
 }
-.add_to_cart_button
+.auction_button
 {
 	width: 100%;
 	visibility: hidden;
@@ -1451,13 +1468,16 @@ section
 	-ms-transition: all 0.3s ease;
 	-o-transition: all 0.3s ease;
 	transition: all 0.3s ease;
+	
 }
-.add_to_cart_button a
+.auction_button a img
 {
-	font-size: 12px;
+	height: 50px;
+	width: auto;
 	font-weight: 600;
 }
-.product-item:hover .add_to_cart_button
+
+.product-item:hover .auction_button
 {
 	visibility: visible;
 	opacity: 1;
@@ -1716,3 +1736,5 @@ section
 {
 	color: #fe4c50;
 }
+
+
