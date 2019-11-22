@@ -212,12 +212,12 @@ jQuery(document).ready(function($)
 		{
 			var plus = $('.plus');
 			var minus = $('.minus');
-			var value = $('#quantity_value');
+			var value = $('#placebid_value');
 
 			plus.on('click', function()
 			{
 				var x = parseInt(value.text());
-				value.text(x + 1);
+				value.text(x + 4);
 			});
 
 			minus.on('click', function()
@@ -225,7 +225,7 @@ jQuery(document).ready(function($)
 				var x = parseInt(value.text());
 				if(x > 1)
 				{
-					value.text(x - 1);
+					value.text(x - 4);
 				}
 			});
 		}
