@@ -9,6 +9,12 @@
   font-size:20px;
 }
 .time_custom{
-  position: absolute;
-  margin-left: 20px;
+  position: static;
+}
+.date_post{
+  color: blue;
+}
+.price_custom{
+  font-size: 25px !important;
+  color: black !important;
 }

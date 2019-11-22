@@ -1008,7 +1008,7 @@ section
 .product-item
 {
 	width: 20%;
-	height: 380px;
+	height: 410px;
 	cursor: pointer;
 }
 .product-item::after
@@ -1088,14 +1088,14 @@ section
 {
 	position: absolute;
 	top: 15px;
-	width: 50px;
+	width: 100px;
 	height: 22px;
 	border-radius: 3px;
 	text-transform: uppercase;
 }
 .product_bubble span
 {
-	font-size: 12px;
+	font-size: 10px;
 	font-weight: 600;
 	color: #FFFFFF;
 }
@@ -1124,7 +1124,7 @@ section
 }
 .product_bubble_red::after
 {
-	border-color: transparent transparent transparent #fe4c50;
+	border-color: transparent transparent transparent #51a042;
 }
 .product_bubble_left::after
 {
@@ -1132,7 +1132,7 @@ section
 }
 .product_bubble_red
 {
-	background: #fe4c50;
+	background: #51a042;
 }
 .product_bubble_green
 {
@@ -1170,11 +1170,11 @@ section
 .favorite
 {
 	position: absolute;
-	top: 15px;
+	top: 20px;
 	right: 15px;
 	color: #b9b4c7;
-	width: 17px;
-	height: 17px;
+	width: 15px;
+	height: 15px;
 	visibility: hidden;
 	opacity: 0;
 }
