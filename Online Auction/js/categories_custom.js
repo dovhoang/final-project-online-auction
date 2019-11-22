@@ -325,7 +325,12 @@ jQuery(document).ready(function($)
 	            		var priceEle = $(itemElement).find('.product_price').text().replace( '$', '' );
 	            		return parseFloat(priceEle);
 	            	},
-	            	name: '.product_name'
+	            	name: '.product_name',
+	            	time:  function(itemElement)
+	            	{
+	            		var timeRemaining=new Date($(itemElement).find('.product_time_remaining').text())
+	            		return timeRemaining
+	            	}
 	            },
 	            animationOptions: {
 	                duration: 750,
