@@ -5,7 +5,7 @@ var length = 12
 var days,hours,minutes,seconds 
 var distance
 var countDownDate=new  Array(length)
-var allTimeRemaining = $(document).find('.product_time_remaining')
+var allTimeRemaining = $(document).find('.product_expiration_date')
 
 for (i = 0; i < allTimeRemaining.length; i++) {
     countDownDate[i] = new Date(allTimeRemaining[i].textContent).getTime();

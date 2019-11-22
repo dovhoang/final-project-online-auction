@@ -1,0 +1,67 @@
+.product_list_admin
+{
+	margin-top: 150px;
+}
+.scrollbar
+{
+	  height:400px;
+  overflow-y: scroll;
+}
+.product-line span
+{
+	color: #B5002B;
+	margin-right: 30px;
+}
+.product-line
+{
+	display: flex;
+	justify-content: space-between;
+}
+.prd-row0
+{
+	margin-left: 20px;
+	margin-right: 20px;
+	display: flex;
+	justify-content: space-between;
+}
+
+#prdid
+{
+
+}
+#prdname
+{
+
+
+}
+
+.mailbox
+{
+	margin-top: 200px;
+}
+
+.checkout a
+{
+	background: #eceff6;
+	border-radius: 50%;
+}
+.checkout_items
+{
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: -9px;
+	left: 22px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #fe4c50;
+	font-size: 12px;
+	color: #FFFFFF;
+}

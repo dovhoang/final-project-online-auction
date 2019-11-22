@@ -328,7 +328,7 @@ jQuery(document).ready(function($)
 	            	name: '.product_name',
 	            	time:  function(itemElement)
 	            	{
-	            		var timeRemaining=new Date($(itemElement).find('.product_time_remaining').text())
+	            		var timeRemaining=new Date($(itemElement).find('.product_expiration_date').text())
 	            		return timeRemaining
 	            	}
 	            },
