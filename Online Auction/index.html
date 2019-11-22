@@ -92,9 +92,26 @@
 							<nav class="navbar">
 								<ul class="navbar_menu">
 									<li><a href="#">home</a></li>
-									<li><a href="#">categories</a></li>
+									<li>
+										<a href="categories.html" class="dropdown-toggle" data-toggle="dropdown">Categories<b class="caret"></b></a>
+										<ul class="dropdown-menu">
+											<li><a href="categories.html">Fashion</a></li>
+											<li><a href="categories.html">Wonmen</a></li>
+											<li><a href="categories.html">Vehicle</a></li>
+											<li class="dropdown-submenu">
+												<a href="categories.html" class="dropdown-toggle" data-toggle="dropdown">Technology</a>
+												<ul class="dropdown-menu">
+													<li><a href="categories.html">Tablet</a></li>
+													<li><a href="categories.html">Smartphone</a></li>
+													<li><a href="categories.html">TV</a></li>
+													<li><a href="categories.html">Laptop</a></li>
+												</ul>
+											</li>
+											<li><a href="categories.html">Book</a></li>
+											<li><a href="categories.html">Food</a></li>
+										</ul>
+									</li>
 									<li><a href="#">your auction</a></li>
-									<li><a href="contact.html">contact</a></li>
 									<li>
 										<form class="form-inline my-2 my-lg-0 mr-2">
 											<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -102,7 +119,6 @@
 										</form>
 									</li>
 								</ul>
-
 								<ul class="navbar_user">
 									<li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
 									<li class="checkout mr-4">
@@ -683,6 +699,7 @@
 									</div>
 								</div>
 
+
 								<!-- Footer -->
 
 								<footer class="footer">
@@ -728,6 +745,15 @@
 							<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
 							<script src="plugins/easing/easing.js"></script>
 							<script src="js/custom.js"></script>
+							<script>
+								$(document).ready(function() {
+									$('.dropdown-submenu a.test').on("click", function(e) {
+										$(this).next('ul').toggle();
+										e.stopPropagation();
+										e.preventDefault();
+									});
+								});
+							</script>
 </body>
 
 </html>
