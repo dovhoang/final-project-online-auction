@@ -1,72 +1,86 @@
-.between_time{
-  font-size:20px;
+.between_time {
+  font-size: 20px;
   color: red;
   top: 50%;
   -ms-transform: translateY(30%);
   transform: translateY(30%);
 }
-.time_custom_number{
-  font-size:20px;
+
+.time_custom_number {
+  font-size: 20px;
 }
-.time_custom{
+
+.time_custom {
   position: static;
 }
-.date_post{
+
+.date_post {
   color: blue;
 }
-.price_custom{
+
+.price_custom {
   font-size: 25px !important;
   color: black !important;
 }
+
 .dropdown-submenu {
-    position: relative;
+  position: relative;
 }
-.dropdown-menu li{
+
+.dropdown-menu li {
   display: block;
   height: 40px;
   margin-top: -10px;
 }
 
 .dropdown-submenu>.dropdown-menu {
-
-    top: 0;
-    left:  100%;
-    margin-top: 0px;
-    margin-left: -1px;
-    -webkit-border-radius: 0 6px 6px 6px;
-    -moz-border-radius: 0 6px 6px;
-    border-radius: 0 6px 6px 6px;
+  top: 0;
+  left: 100%;
+  margin-top: 0px;
+  margin-left: -1px;
+  -webkit-border-radius: 0 6px 6px 6px;
+  -moz-border-radius: 0 6px 6px;
+  border-radius: 0 6px 6px 6px;
 }
 
 .dropdown-submenu:hover>.dropdown-menu {
-    display: block;
+  display: block;
 }
+
 .dropdown-submenu>a:after {
-    display: block;
-    content: " ";
-    float: right;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 5px 0 5px 5px;
-    border-left-color: #ccc;
-    margin-top: 5px;
-    margin-right: -10px;
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #ccc;
+  margin-top: 5px;
+  margin-right: -10px;
 }
 
 .dropdown-submenu:hover>a:after {
-    border-left-color: #fff;
+  border-left-color: #fff;
 }
 
 .dropdown-submenu.pull-left {
-    float: none;
+  float: none;
 }
 
 .dropdown-submenu.pull-left>.dropdown-menu {
-    right: -100%;
-    margin-left: 10px;
-    -webkit-border-radius: 6px 0 6px 6px;
-    -moz-border-radius: 6px 0 6px 6px;
-    border-radius: 6px 0 6px 6px;
+  right: -100%;
+  margin-left: 10px;
+  -webkit-border-radius: 6px 0 6px 6px;
+  -moz-border-radius: 6px 0 6px 6px;
+  border-radius: 6px 0 6px 6px;
+}
+
+.card {
+  margin: 0 auto;
+  float: none;
+  margin-bottom: 10px;
+  margin-top: 10px;
+
 }
