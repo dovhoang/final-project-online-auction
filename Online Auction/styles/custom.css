@@ -87,3 +87,10 @@
 .my_profile{
   margin-top:150px;
 }
+.form_edit{
+  margin-top: 20px;
+  display: none;
+  margin: 0 auto;
+  float: none;
+  width: 50%;
+}
