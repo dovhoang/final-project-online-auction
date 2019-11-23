@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Seller Profile</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Colo Shop Template">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
+  <link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+  <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+  <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
+  <link rel="stylesheet" href="plugins/themify-icons/themify-icons.css">
+  <link rel="stylesheet" type="text/css" href="plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+  <link rel="stylesheet" type="text/css" href="styles/single_responsive.css">
+  <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
+  <link rel="stylesheet" type="text/css" href="styles/custom.css">
+  <link rel="stylesheet" type="text/css" href="styles/single_styles.css">
+
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+
+<body>
+
+  <div class="super_container">
+
+    <!-- Header -->
+
+    <header class="header trans_300">
+
+      <!-- Top Navigation -->
+
+      <div class="top_nav">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6  ">
+              <div class="top_nav_left">free shipping on all u.s orders over $50</div>
+            </div>
+            <div class="col-lg-6 text-right d-flex align-items-center justify-content-end">
+              <div class="top_nav_right">
+                <ul class="top_nav_menu d-flex flex-row-reverse">
+                  <li><a href="signup.html"><button type="button" class="btn btn-success m-1">Sign up</button></a></li>
+                  <li><a href="signin.html"><button type="button" class="btn btn-primary m-1">Sign in</button></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Navigation -->
+
+      <div class="main_nav_container">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 text-right">
+              <div class="logo_container">
+                <a href="#">Online<span>Auction</span></a>
+              </div>
+              <nav class="navbar">
+                <ul class="navbar_menu">
+                  <li><a href="#">home</a></li>
+                  <li>
+                    <a href="categories.html" class="dropdown-toggle" data-toggle="dropdown">Categories<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="categories.html">Fashion</a></li>
+                      <li><a href="categories.html">Wonmen</a></li>
+                      <li><a href="categories.html">Vehicle</a></li>
+                      <li class="dropdown-submenu">
+                        <a href="categories.html" class="dropdown-toggle" data-toggle="dropdown">Technology</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="categories.html">Tablet</a></li>
+                          <li><a href="categories.html">Smartphone</a></li>
+                          <li><a href="categories.html">TV</a></li>
+                          <li><a href="categories.html">Laptop</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="categories.html">Book</a></li>
+                      <li><a href="categories.html">Food</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="#">your auction</a></li>
+                  <li>
+                    <form class="form-inline my-2 my-lg-0 mr-2">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                  </li>
+                </ul>
+                <ul class="navbar_user">
+                  <li class="checkout mr-4">
+                    <a href="#">
+                      <i class="fa fa-heart" aria-hidden="true"></i>
+                      <span id="checkout_items" class="checkout_items">2</span>
+                    </a>
+                  </li>
+                </ul>
+
+                <div class="hamburger_container">
+                  <i class="fa fa-bars" aria-hidden="true"></i>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </header>
+
+    <div class="fs_menu_overlay"></div>
+    <div class="hamburger_menu" style="width:200px">
+      <div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i></div>
+      <div class="hamburger_menu_content text-right">
+        <ul class="menu_top_nav">
+          <li class="menu_item has-children">
+            <a href="#">
+              My Account
+              <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="menu_selection">
+              <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
+              <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Sign up</a></li>
+            </ul>
+          </li>
+          <li class="menu_item"><a href="#">home</a></li>
+          <li class="menu_item"><a href="#">categories</a></li>
+          <li class="menu_item"><a href="#">your auction</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- My profile -->
+    <div class="my_profile row mb-5">
+      <div class="col text-center">
+        <div class="section_title new_arrivals_title">
+          <h4>My profile</h4>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img src="images/avatar.jpg" class="card-img" alt="">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <div class="d-flex flex-row justify-content-between">
+              <h5 class="card-title">viethoanghcmus99</h5>
+            </div>
+
+            <div class="d-flex flex-row">Name: <div>Do Viet Hoang</div>
+            </div>
+            <div class="d-flex flex-row">Date of birth: <div>09/09/1999</div>
+            </div>
+            <div class="d-flex flex-row">Email: <div>viethoang.hcmus@gmail.com</div>
+            </div>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('id_form_edit_profile').style.display='block'
+            document.getElementById('id_form_change_password').style.display='none'">
+              Edit Profile</button>
+            <button type="button" class="btn btn-danger" onclick="document.getElementById('id_form_change_password').style.display='block'
+            document.getElementById('id_form_edit_profile').style.display='none'">
+              Change Password</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+
+    </script>
+    <!-- FORM EDIT PROFILE -->
+    <form id="id_form_edit_profile" class="form_edit">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">First Name</label>
+          <input type="text" class="form-control" id="firstName" placeholder="Donald">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputAddress">Last name</label>
+          <input type="text" class="form-control" id="lastName" placeholder="Trump">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputAddress">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputAddress">Date of birth</label>
+          <input type="date" class="form-control" id="dateOfBirth">
+        </div>
+      </div>
+      <div class=" d-flex justify-content-center align-items-center">
+        <button type="submit" class="btn btn-primary" onclick="document.getElementById('id_form_edit_profile').style.display='none'">Submit</button>
+      </div>
+    </form>
+    <!-- FORM CHANG PASSWORD -->
+    <form id="id_form_change_password" class="form_edit">
+      <div class="form-column">
+        <div class="form-group col-md-12">
+          <label for="inputEmail4">Current password</label>
+          <input type="password" class="form-control" id="current_password">
+        </div>
+        <div class="form-group col-md-12">
+          <label for="inputAddress">New password</label>
+          <input type="password" class="form-control" id="newpassword">
+        </div>
+        <div class="form-group col-md-12">
+          <label for="inputAddress">Confirm password</label>
+          <input type="password" class="form-control" id="confirmpassword">
+        </div>
+      </div>
+      <div class=" d-flex justify-content-center align-items-center">
+        <button type="submit" class="btn btn-primary" onclick="document.getElementById('id_form_change_password').style.display='none'">Submit</button>
+      </div>
+    </form>
+
+
+    <!-- Tabs -->
+
+
+    <div class="tabs_section_container">
+
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="tabs_container">
+              <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
+                <li class="tab active" data-active-tab="tab_1"><span>Products finished</span></li>
+                <li class="tab" data-active-tab="tab_2"><span>Products are still in auction</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+
+            <!-- Tab Products are still in auction -->
+            <div id="tab_1" class="tab_container active">
+              <div class="row">
+                <div class="col text-center">
+                  <div class="section_title new_arrivals_title">
+                    <h2>Products finished</h2>
+                  </div>
+                </div>
+              </div>
+              <table class="table mt-5">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Time post</th>
+                    <th scope="col">Time expired</th>
+                    <th scope="col">Number of<br>auctions</th>
+                    <th scope="col">Winer</th>
+                    <th scope="col">Bid</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></td>
+                    <td>20:00 11/11/2019</td>
+                    <td>20:00 19/11/2109</td>
+                    <td>77</td>
+                    <td>tcf001vn</td>
+                    <td>122$</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></td>
+                    <td>20:00 11/11/2019</td>
+                    <td>20:00 19/11/2109</td>
+                    <td>77</td>
+                    <td>tcf001vn</td>
+                    <td>122$</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></td>
+                    <td>20:00 11/11/2019</td>
+                    <td>20:00 19/11/2109</td>
+                    <td>77</td>
+                    <td>tcf001vn</td>
+                    <td>122$</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></td>
+                    <td>20:00 11/11/2019</td>
+                    <td>20:00 19/11/2109</td>
+                    <td>77</td>
+                    <td>tcf001vn</td>
+                    <td>122$</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></td>
+                    <td>20:00 11/11/2019</td>
+                    <td>20:00 19/11/2109</td>
+                    <td>77</td>
+                    <td>tcf001vn</td>
+                    <td>122$</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Tab Products are still in auction -->
+            <div id="tab_2" class="tab_container">
+              <div class="row">
+                <div class="col text-center">
+                  <div class="section_title new_arrivals_title">
+                    <h2>Products are still in auction</h2>
+                  </div>
+                </div>
+              </div>
+              <table class="table mt-5">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Time post</th>
+                    <th scope="col">Time expired</th>
+                    <th scope="col">Time left</th>
+                    <th scope="col">Number of<br>auctions</th>
+                    <th scope="col">Current winer</th>
+                    <th scope="col">Bid</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></td>
+                    <td>20:00 11/11/2019</td>
+                    <td>20:00 19/11/2109</td>
+                    <td>10:02:59</td>
+                    <td>54</td>
+                    <td>tcf001vn</td>
+                    <td>122$</td>
+                    <td><a href="">Additional</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></td>
+                    <td>20:00 11/11/2019</td>
+                    <td>20:00 19/11/2109</td>
+                    <td>10:02:59</td>
+                    <td>54</td>
+                    <td>tcf001vn</td>
+                    <td>122$</td>
+                    <td><a href="">Additional</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></td>
+                    <td>20:00 11/11/2019</td>
+                    <td>20:00 19/11/2109</td>
+                    <td>10:02:59</td>
+                    <td>54</td>
+                    <td>tcf001vn</td>
+                    <td>122$</td>
+                    <td><a href="">Additional</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></td>
+                    <td>20:00 11/11/2019</td>
+                    <td>20:00 19/11/2109</td>
+                    <td>10:02:59</td>
+                    <td>54</td>
+                    <td>tcf001vn</td>
+                    <td>122$</td>
+                    <td><a href="">Additional</a></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td><a href="single.html">Blue Yeti USB Microphone Blackout Edition</a></td>
+                    <td>20:00 11/11/2019</td>
+                    <td>20:00 19/11/2109</td>
+                    <td>10:02:59</td>
+                    <td>54</td>
+                    <td>tcf001vn</td>
+                    <td>122$</td>
+                    <td><a href="">Additional</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+
+    <div class="newsletter">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
+              <h4>Newsletter</h4>
+              <p>Subscribe to our newsletter and get 20% off your first purchase</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Footer -->
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="footer_nav_container d-flex flex-sm-row flex-column align-items-center justify-content-lg-start justify-content-center text-center">
+              <ul class="footer_nav">
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="contact.html">Contact us</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="footer_social d-flex flex-row align-items-center justify-content-lg-end justify-content-center">
+              <ul>
+                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="footer_nav_container">
+              <div class="cr">©2018 All Rights Reserverd. This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#">Colorlib</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="styles/bootstrap4/popper.js"></script>
+  <script src="styles/bootstrap4/bootstrap.min.js"></script>
+  <script src="plugins/Isotope/isotope.pkgd.min.js"></script>
+  <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+  <script src="plugins/easing/easing.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="js/single_custom.js"></script>
+
+</body>
+
+</html>
