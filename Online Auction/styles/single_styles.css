@@ -29,6 +29,7 @@ COLOR PALETTE
 9. Benefit
 10. Newsletter
 11. Footer
+12.Product related
 
 
 ******************************/
@@ -1507,31 +1508,31 @@ section
 {
 	font-size: 14px !important;
 	font-weight: 400;
-	color: #b9b4c7 !important;
+	color: #777777 !important;
 }
 :-moz-placeholder /* older Firefox*/
 {
 	font-size: 14px !important;
 	font-weight: 400;
-	color: #b9b4c7 !important;
+	color: #777777 !important;
 }
 ::-moz-placeholder /* Firefox 19+ */
 {
 	font-size: 14px !important;
 	font-weight: 400;
-	color: #b9b4c7 !important;
+	color: #777777 !important;
 }
 :-ms-input-placeholder
 {
 	font-size: 14px !important;
 	font-weight: 400;
-	color: #b9b4c7 !important;
+	color: #777777 !important;
 }
 ::input-placeholder
 {
 	font-size: 14px !important;
 	font-weight: 400;
-	color: #b9b4c7 !important;
+	color: #777777 !important;
 }
 .newsletter_submit_btn
 {
@@ -1663,3 +1664,5 @@ section
 .date i span{
 	margin-left: 5px;
 }
+
+/* Product related */
