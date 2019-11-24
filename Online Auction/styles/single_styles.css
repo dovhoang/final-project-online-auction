@@ -1672,5 +1672,11 @@ section
 .date i span{
 	margin-left: 5px;
 }
+.button_favorite{
+	margin-left: 10px;
+}
+.button_favorite:hover{
+	
+}
 
 /* Product related */
