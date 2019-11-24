@@ -1653,13 +1653,16 @@ section
 {
 	color: #fac451;
 }
-.instancepurchase{
+.money_instance_purchase{
+	font-weight: 500;
 	font-size: 24px;
-	margin-top: 20px;
+	color: #b9b4c7;
+	line-height: 30px;
+	color: #fe4c50;
+	margin-top: 21px;
 }
-.instancepurchase span{
-	font-size: 24px;
-	color:rgb(236, 55, 55);
+.money_instance_purchase span{
+	
 }
 .date i span{
 	margin-left: 5px;
