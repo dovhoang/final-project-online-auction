@@ -1,0 +1,12 @@
+.form_post {
+  margin-top: 120px;
+  margin: 0 auto;
+  float: none;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+.title_post{
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
