@@ -240,12 +240,23 @@
 						</script>
 					</div>
 
-					<div class="money_instance_purchase">
+					<!-- <div class="money_instance_purchase">
 						$1000 for 
 						<span>
 							<button type="button" class="btn btn-warning">Instance Purchase</button>
 						</span>
+					</div> -->
+					<div class="instance_purchase">
+						Buy now:
 					</div>
+
+					<div class="money_instance_purchase">
+						$1000
+						<span class="buy">
+							<button type="button" class="btn btn-warning">Buy<span class="fa fa-shopping-cart"></span></button>
+						</span>
+					</div>
+
 
 
 
@@ -255,26 +266,29 @@
 					</div>
 					<div class="product_price">
 						$495.00
-						<span>
+						<span id="winner_name">
 							<img src="images/trophy.png" alt="">
 							**** Dần
 						</span>
+						<span id="winner_rate">
+							<ul class="star_rating">
+								<li><i class="fa fa-star" aria-hidden="true"></i></li>
+								<li><i class="fa fa-star" aria-hidden="true"></i></li>
+								<li><i class="fa fa-star" aria-hidden="true"></i></li>
+								<li><i class="fa fa-star" aria-hidden="true"></i></li>
+								<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+							</ul>
+						</span>
 					</div>
-					<ul class="star_rating">
-						<li><i class="fa fa-star" aria-hidden="true"></i></li>
-						<li><i class="fa fa-star" aria-hidden="true"></i></li>
-						<li><i class="fa fa-star" aria-hidden="true"></i></li>
-						<li><i class="fa fa-star" aria-hidden="true"></i></li>
-						<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-					</ul>
+
 					<div class="placebid d-flex flex-column flex-sm-row align-items-sm-center">
-						<div>Place your bid:</div>
+						<div>Place bid:</div>
 						<div class="placebid_selector">
 							<span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
 							<span id="placebid_value">495</span>
 							<span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
 						</div>
-						<button type="button" class="btn btn-danger m-1">Place bid</button>
+						<button type="button" class="btn btn-danger m-1">Place bid <span class="fas fa-hammer"></span></button>
 						<div class="product_favorite d-flex flex-column align-items-center justify-content-center"></div>
 					</div>
 				</div>

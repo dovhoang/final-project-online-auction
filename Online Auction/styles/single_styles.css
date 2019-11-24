@@ -1027,13 +1027,12 @@ section
 {
 	font-weight: 500;
 	color: #b9b4c7;
-	line-height: 30px;
 	margin-top: 21px;
 }
 .current_bid span{
 	margin-left: 40px;
 }
-.product_price span{
+#winner_name{
 	margin-left: 20px;
 	font-size: 24px;
 	text-decoration: none;
@@ -1044,8 +1043,6 @@ section
 	font-size: 24px;
 	color: #fe4c50;
 	font-weight: 500;
-	line-height: 30px;
-	margin-top: 2px;
 }
 .star_rating
 {	
@@ -1653,16 +1650,24 @@ section
 {
 	color: #fac451;
 }
+.instance_purchase{
+	font-weight: 500;
+	color: #b9b4c7;
+	line-height: 30px;
+	margin-top: 21px;
+}
 .money_instance_purchase{
 	font-weight: 500;
 	font-size: 24px;
 	color: #b9b4c7;
 	line-height: 30px;
 	color: #fe4c50;
-	margin-top: 21px;
 }
-.money_instance_purchase span{
-	
+.money_instance_purchase #buy{
+	margin-left: 10px;
+}
+.money_instance_purchase span span{
+	margin-left: 5px;
 }
 .date i span{
 	margin-left: 5px;
