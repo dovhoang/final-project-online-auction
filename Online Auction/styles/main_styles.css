@@ -543,7 +543,7 @@ section
 .navbar
 {
 	width: auto;
-	height: 100px;
+	height: 60px;
 	float: right;
 	padding-left: 0px;
 	padding-right: 0px;
@@ -559,7 +559,7 @@ section
 	font-size: 13px;
 	font-weight: 500;
 	text-transform: uppercase;
-	padding: 20px;
+	padding: 10px;
 	-webkit-transition: color 0.3s ease;
 	-moz-transition: color 0.3s ease;
 	-ms-transition: color 0.3s ease;
@@ -826,7 +826,7 @@ section
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
-	margin-top: 150px;
+	margin-top: 110px;
 }
 .main_slider_content
 {

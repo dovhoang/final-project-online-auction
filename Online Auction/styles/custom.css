@@ -32,6 +32,9 @@
   height: 40px;
   margin-top: -10px;
 }
+.dropdown-menu{
+  margin-left: 70px;
+}
 
 .dropdown-submenu>.dropdown-menu {
   top: 0;
