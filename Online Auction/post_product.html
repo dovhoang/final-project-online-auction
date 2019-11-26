@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Post product</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles/main_styles.css">
+  <link rel="stylesheet" href="styles/post_product.css">
+</head>
+
+<body>
+  <div class="super_container">
+    <!-- Header -->
+    <header class="header trans_300">
+      <!-- Top Navigation -->
+      <div class="top_nav">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6  ">
+              <div class="top_nav_left">Free shipping for first order, applicable in the Ho Chi Minh city </div>
+            </div>
+            <div class="col-lg-6 text-right d-flex align-items-center justify-content-end">
+              <div class="top_nav_right">
+                <ul class="top_nav_menu d-flex flex-row-reverse">
+                  <li><a href="signup.html"><button type="button" class="btn btn-success m-1">Sign up</button></a></li>
+                  <li><a href="signin.html"><button type="button" class="btn btn-primary m-1">Sign in</button></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Navigation -->
+
+      <div class="main_nav_container">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 text-right">
+              <div class="logo_container">
+                <a href="index.html">Online<span>Auction</span></a>
+              </div>
+              <nav class="navbar">
+                <ul class="navbar_menu">
+                  <li><a href="index.html">home</a></li>
+                  <li>
+                    <a href="categories.html" class="dropdown-toggle" data-toggle="dropdown">Categories<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li class="dropdown-submenu">
+                        <a href="categories.html" class="dropdown-toggle" data-toggle="dropdown">Technology</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="categories.html">Tablet</a></li>
+                          <li><a href="categories.html">Smartphone</a></li>
+                          <li><a href="categories.html">TV</a></li>
+                          <li><a href="categories.html">Laptop</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown-submenu">
+                        <a href="categories.html" class="dropdown-toggle" data-toggle="dropdown">Fashion</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="categories.html">Men Fashion</a></li>
+                          <li><a href="categories.html">Wonmen Fashion</a></li>
+                          <li><a href="categories.html">Luxury goods</a></li>
+                          <li><a href="categories.html">Hand bag</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown-submenu">
+                        <a href="categories.html" class="dropdown-toggle" data-toggle="dropdown">Family</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="categories.html">Food</a></li>
+                          <li><a href="categories.html">Home appliance</a></li>
+                          <li><a href="categories.html">Children</a></li>
+                          <li><a href="categories.html">Entertainment</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown-submenu">
+                        <a href="categories.html" class="dropdown-toggle" data-toggle="dropdown">Sport</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="categories.html">Shoe</a></li>
+                          <li><a href="categories.html">Food supplement</a></li>
+                          <li><a href="categories.html">Sport accessories</a></li>
+                          <li><a href="categories.html">Sport clothes</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown-submenu">
+                        <a href="categories.html" class="dropdown-toggle" data-toggle="dropdown">Electric appliances</a>
+                        <ul class="dropdown-menu">
+                          <li><a href="categories.html">refrigerator</a></li>
+                          <li><a href="categories.html">Microwave</a></li>
+                          <li><a href="categories.html">Gas stove</a></li>
+                          <li><a href="categories.html">Fan</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li><a href="#">your auction</a></li>
+                  <li>
+                    <form class="form-inline my-2 my-lg-0 mr-2">
+                      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                  </li>
+                </ul>
+                <ul class="navbar_user">
+                  <li>
+                    <a href="bidder_profile.html"><i class="fa fa-2x fa-user" aria-hidden="true"></i></a>
+                  </li>
+                  <li class="checkout ml-3">
+                    <a href="#">
+                      <i class="fa fa-heart" aria-hidden="true"></i>
+                      <span id="checkout_items" class="checkout_items">2</span>
+                    </a>
+                  </li>
+                </ul>
+                <div class="hamburger_container">
+                  <i class="fa fa-bars" aria-hidden="true"></i>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </header>
+
+    <div class="fs_menu_overlay"></div>
+    <div class="hamburger_menu" style="width:200px">
+      <div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i></div>
+      <div class="hamburger_menu_content text-right">
+        <ul class="menu_top_nav">
+          <li class="menu_item has-children">
+            <a href="#">
+              My Account
+              <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="menu_selection">
+              <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
+              <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Sign up</a></li>
+            </ul>
+          </li>
+          <li class="menu_item"><a href="index.html">home</a></li>
+          <li class="menu_item"><a href="categories.html">categories</a></li>
+          <li class="menu_item"><a href="#">your auction</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col text-center title_post">
+      <div class="section_title new_arrivals_title">
+        <h4>Post product</h4>
+      </div>
+    </div>
+    <form class="col-md-8 form_post">
+      <div class="form-group">
+        <label for="inputAddress">Product name</label>
+        <input type="text" class="form-control" id="inputAddress">
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="exampleFormControlSelect1">Example select</label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option>Tablet</option>
+            <option>Smartphone</option>
+            <option>TV</option>
+            <option>Laptop</option>
+            <option>Men fashion</option>
+            <option>Women fashion</option>
+            <option>Luxury goods</option>
+            <option>Hand bag</option>
+            <option>Fan</option>
+            <option>Gas stove</option>
+            <option>Microware</option>
+            <option>Shoes</option>
+            <option>Sport clothes</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2"></div>
+        <div class="form-group col-md-4">
+          <label for="form-control-file">Choose a main picture</label>
+          <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+      </div>
+      <label for="">Choose 3 extra pictures</label>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+        <div class="form-group col-md-4">
+          <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+        <div class="form-group col-md-4">
+          <input type="file" class="form-control-file" id="exampleFormControlFile1">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="inputEmail4">Starting price($)</label>
+          <input type="number" class="form-control" id="inputEmail4">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputEmail4">Price step($)</label>
+          <input type="number" class="form-control" id="inputEmail4">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputEmail4">Purchase price now($)</label>
+          <input type="number" class="form-control" id="inputEmail4">
+        </div>
+      </div>
+      <div class="d-flex flex-column">
+        <label for="desc">Description</label>
+        <textarea id="desc" rows="4" cols="50" name="desc" form="usrform">
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="gridCheck">
+          <label class="form-check-label" for="gridCheck">
+            Automatically renew auction time
+          </label>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center"><button type="submit" class="btn btn-primary">Post</button></div>
+    </form>
+    <!-- Newsletter -->
+
+    <div class="newsletter">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="newsletter_text d-flex flex-column justify-content-center align-items-lg-start align-items-md-center text-center">
+              <h4>Online Auction</h4>
+              <p>Committed to bringing the best quality to users</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Footer -->
+
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="footer_nav_container d-flex flex-sm-row flex-column align-items-center justify-content-lg-start justify-content-center text-center">
+              <ul class="footer_nav">
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="contact.html">Contact us</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="footer_nav_container">
+              <div class="cr">©2019 All Rights Reserverd. This website made with by <span style="color:red">myGroup</span> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
