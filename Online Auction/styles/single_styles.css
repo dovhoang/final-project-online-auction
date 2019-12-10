@@ -1029,20 +1029,27 @@ section
 	color: #b9b4c7;
 	margin-top: 21px;
 }
-.current_bid span{
-	margin-left: 40px;
-}
-#winner_name{
-	margin-left: 20px;
-	font-size: 24px;
-	text-decoration: none;
-}
-.product_price
-{
-	display: inline-block;
+.line_product_price1{
+	padding:0;
+	margin-left: 15px;
 	font-size: 24px;
 	color: #fe4c50;
 	font-weight: 500;
+}
+
+.line_product_price
+{
+	padding:0;
+	font-size: 24px;
+	color: #fe4c50;
+	font-weight: 500;
+}
+#current_winner{
+	text-decoration: none;
+	font-size: 24px	;
+}
+#winner_rate{
+	padding:0;
 }
 .star_rating
 {	
