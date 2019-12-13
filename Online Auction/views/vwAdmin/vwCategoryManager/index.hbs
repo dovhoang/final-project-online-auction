@@ -1,0 +1,49 @@
+<div class="col-sm-8 text-center center offset-sm-2" style="margin-top: 150px;">
+            <div class="card shadow mb-4">
+  <h4 class="card-header">
+    Categories manager
+  </h4>
+
+  {{#if this.empty}}
+  <div class="card-body">
+    <p class="card-text">
+      Không có dữ liệu.
+    </p>
+  </div>
+  {{else}}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">#</th>
+        <th scope="col">Category</th>
+        <th scope="col">Parent</th>
+        <th scope="col" class="text-right">
+          <a class="btn btn-outline-success" href="/admin/categories/add" role="button">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Add
+          </a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each this.categories}}
+      <tr>
+        <th scope="row" class="text-center">{{CatID}}</th>
+        <td>{{CatName}}</td>
+        <td>{{ParentName}}</td>
+        <td class="text-right">
+          <a class="btn btn-sm btn-primary" href="/admin/categories/edit/{{CatID}}" role="button">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </a>
+          </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+
+  <div class="card-footer text-muted">
+    Total number of categories: x
+  </div>
+</div>
+</div>

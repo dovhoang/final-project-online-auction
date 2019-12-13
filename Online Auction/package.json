@@ -2,7 +2,7 @@
   "name": "online-auction",
   "version": "1.0.0",
   "description": "final-project",
-  "main": "index.js",
+  "main": "app.js",
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
@@ -11,7 +11,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
   },
   "author": "17124228-1712433-1712455",
   "license": "ISC"
