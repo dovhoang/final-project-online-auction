@@ -9,21 +9,33 @@ app.use(express.static('assets'));
 app.use(express.static('pictures'));
 
 app.engine('hbs', exphbs({
+  helpers: {
+    if_eq: function(a, b, opts) {
+      if (a == b) {
+        return opts.fn(this);
+      } else {
+        return opts.inverse(this);
+      }
+    },
+},
 defaultLayout: 'main.hbs',
 layoutsDir: 'views/_layouts'
 }));
 app.set('view engine', 'hbs');
- 
-app.get('/home',(req, res) => {
-    res.render('index');
-});
 
+
+
+ 
 require('./middlewares/locals.mdw')(app);
 require('./middlewares/routes.mdw')(app);
 
-app.use((req, res, next) => {
-  res.send('You\'re lost');
-})
+app.get('/home',(req, res) => {
+  res.render('index');
+});
+
+// app.use((req, res, next) => {
+//   res.send('You\'re lost');
+// })
 
 // app.use((err, req, res, next) => {
 //   console.error(err.stack);
