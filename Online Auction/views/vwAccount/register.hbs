@@ -15,7 +15,92 @@
   });
 
   function validate() {
-    return true;
+    //Lấy dữ liệu từ form
+    var username = $('#txtUserName').val();
+    var password = $('#txtPassword').val();
+    var confirm_password = $('#txtConfirm').val();
+    var first_name = $('#txtFirstName').val();
+    var last_name = $('#txtLastName').val();
+    var email = $('#txtEmail').val();
+    var DOB = $('#txtDOB').val();
+    var city_province = $('#txtCityProvince').val();
+    var district = $('#txtDistrict').val();
+    var ward = $('#txtWard').val();
+    var street = $('#txtStreet').val();
+    //Validate dữ liệu
+    var flag = true;
+    //Username không được trống và phải lớn hơn 3 ký tự
+    if (username == '') {
+      $('.username_error').text("Username can't be blank !!!");
+      flag = false;
+    }
+    else if (username.length < 4) {
+      $('.username_error').text("Username must have above 3 characters !!!");
+      flag = false;
+    }
+    //Password không được trống và phải lớn hơn 3 ký tự
+    if (password == '') {
+      $('.password_error').text("Password can't be blank !!!");
+      flag = false;
+    }
+    else if (password.length < 4) {
+      $('.password_error').text("Password must have above 3 characters !!!");
+      flag = false;
+    }
+    //ConfirmPassword phải match với password
+    if (confirm_password != password) {
+      $('.confirmpassword_error').text("ConfirmPassword does not match !!!");
+      flag = false;
+    }
+    //FirstName không được trống và phải lớn hơn 3 ký tự
+    if (first_name == '') {
+      $('.firstname_error').text("First name can't be blank !!!");
+      flag = false;
+    }
+    else if (first_name.length < 4) {
+      $('.firstname_error').text("First name must have above 3 characters !!!");
+      flag = false;
+    }
+    //LastName không được trống và phải lớn hơn 3 ký tự
+    if (first_name == '') {
+      $('.lastname_error').text("Last name can't be blank !!!");
+      flag = false;
+    }
+    else if (first_name.length < 4) {
+      $('.lastname_error').text("Last name must have above 3 characters !!!");
+      flag = false;
+    }
+    //Email phải đúng định dạng
+    if (email.indexOf("@") == -1) {
+      $('.email_error').text("Email invalidate !!!");
+      flag = false;
+    }
+    //DOB không được trống
+    if (DOB == '') {
+      $('.dob_error').text("Day of birth can't be blank !!!");
+      flag = false;
+    }
+    //City/Province không được trống
+    if (city_province == '') {
+      $('.cityprovince_error').text("City/Province can't be blank !!!");
+      flag = false;
+    }
+    //district không được trống
+    if (district == '') {
+      $('.district_error').text("District can't be blank !!!");
+      flag = false;
+    }
+    //ward không được trống
+    if (ward == '') {
+      $('.ward_error').text("Ward can't be blank !!!");
+      flag = false;
+    }
+    //street không được trống
+    if (street == '') {
+      $('.street_error').text("Street can't be blank !!!");
+      flag = false;
+    }
+    return flag;
   }
 </script>
 {{/section}}
@@ -26,20 +111,23 @@
       Register
     </h3>
     <div class="card-body">
-      <form onsubmit="return validate();" method="POST" novalidate>
+      <form onsubmit="return validate();" method="POST" id="frmRegister" name="frmRegister">
         <h4 class="mb-3">Account</h4>
         <div class="form-group">
           <label for="txtUserName">UserName</label>
+          <span class="username_error float-right text-danger"></span>
           <input type="text" class="form-control" id="txtUserName" name="user_name" placeholder="Hienhhcc" autofocus>
         </div>
 
         <div class="form-group">
           <label for="txtPassWord">PassWord</label>
+          <span class="password_error float-right text-danger"></span>
           <input type="password" class="form-control" id="txtPassword" name="raw_password">
         </div>
 
         <div class="form-group">
           <label for="txtConfirm">Confirm Password</label>
+          <span class="confirmpassword_error float-right text-danger"></span>
           <input type="password" class="form-control" id="txtConfirm">
         </div>
 
@@ -47,27 +135,50 @@
         <h4 class="mb-3">Information</h4>
         <div class="form-group">
           <label for="txtFirstName">First name</label>
+          <span class="firstname_error float-right text-danger"></span>
           <input type="text" class="form-control" id="txtFirstName" name="first_name" placeholder="Vu Vinh">
         </div>
 
         <div class="form-group">
           <label for="txtLastName">Last name</label>
+          <span class="lastname_error float-right text-danger"></span>
           <input type="text" class="form-control" id="txtLastName" name="last_name" placeholder="Hien">
         </div>
 
         <div class="form-group">
           <label for="txtEmail">Email</label>
+          <span class="email_error float-right text-danger"></span>
           <input type="text" class="form-control" id="txtEmail" name="user_email" placeholder="abc@gmail.com">
         </div>
 
         <div class="form-group">
           <label for="txtDOB">Day of birth</label>
+          <span class="dob_error float-right text-danger"></span>
           <input type="text" class="form-control" id="txtDOB" name="user_dob">
         </div>
 
         <div class="form-group">
-          <label for="txtAddress">Address</label>
-          <input type="text" class="form-control" id="txtAddress" name="user_address">
+          <label for="txtCityProvince">City/Province</label>
+          <span class="cityprovince_error float-right text-danger"></span>
+          <input type="text" class="form-control" id="txtCityProvince" name="cityprovince" placeholder="TP Hồ Chí Minh">
+        </div>
+
+        <div class="form-group">
+          <label for="txtDistrict">District</label>
+          <span class="district_error float-right text-danger"></span>
+          <input type="text" class="form-control" id="txtDistrict" name="district" placeholder="7">
+        </div>
+
+        <div class="form-group">
+          <label for="txtWard">Ward</label>
+          <span class="ward_error float-right text-danger"></span>
+          <input type="text" class="form-control" id="txtWard" name="ward" placeholder="Tân Hưng">
+        </div>
+
+        <div class="form-group">
+          <label for="txtStreet">Street</label>
+          <span class="street_error float-right text-danger"></span>
+          <input type="text" class="form-control" id="txtStreet" name="street" placeholder="1041 Trần Xuân Soạn">
         </div>
 
         <button type="submit" class="btn btn-outline-success">

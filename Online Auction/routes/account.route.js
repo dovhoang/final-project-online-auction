@@ -21,7 +21,6 @@ router.post('/register', async (req, res) => {
     entity.lastname = req.body.last_name;
     entity.useremail=req.body.user_email;
     entity.userdob = dob;
-    entity.useraddress = req.body.user_address;
     entity.usertype = 0;
 
     delete entity.user_name;
