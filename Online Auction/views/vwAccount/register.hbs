@@ -1,0 +1,83 @@
+{{#section 'css'}}
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js">
+</script>
+<script>
+  $('#txtDOB').datetimepicker({
+    // format: 'd/m/Y H:i'
+    format: 'd/m/Y',
+    timepicker: false,
+    mask: true,
+  });
+
+  function validate() {
+    return true;
+  }
+</script>
+{{/section}}
+
+<div class="container">
+  <div class="card shadow mb-4" id="register">
+    <h3 class="card-header">
+      Register
+    </h3>
+    <div class="card-body">
+      <form onsubmit="return validate();" method="POST" novalidate>
+        <h4 class="mb-3">Account</h4>
+        <div class="form-group">
+          <label for="txtUserName">UserName</label>
+          <input type="text" class="form-control" id="txtUserName" name="user_name" placeholder="Hienhhcc" autofocus>
+        </div>
+
+        <div class="form-group">
+          <label for="txtPassWord">PassWord</label>
+          <input type="password" class="form-control" id="txtPassword" name="raw_password">
+        </div>
+
+        <div class="form-group">
+          <label for="txtConfirm">Confirm Password</label>
+          <input type="password" class="form-control" id="txtConfirm">
+        </div>
+
+        <hr class="mb-4">
+        <h4 class="mb-3">Information</h4>
+        <div class="form-group">
+          <label for="txtFirstName">First name</label>
+          <input type="text" class="form-control" id="txtFirstName" name="first_name" placeholder="Vu Vinh">
+        </div>
+
+        <div class="form-group">
+          <label for="txtLastName">Last name</label>
+          <input type="text" class="form-control" id="txtLastName" name="last_name" placeholder="Hien">
+        </div>
+
+        <div class="form-group">
+          <label for="txtEmail">Email</label>
+          <input type="text" class="form-control" id="txtEmail" name="user_email" placeholder="abc@gmail.com">
+        </div>
+
+        <div class="form-group">
+          <label for="txtDOB">Day of birth</label>
+          <input type="text" class="form-control" id="txtDOB" name="user_dob">
+        </div>
+
+        <div class="form-group">
+          <label for="txtAddress">Address</label>
+          <input type="text" class="form-control" id="txtAddress" name="user_address">
+        </div>
+
+        <button type="submit" class="btn btn-outline-success">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Register
+        </button>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+      Footer
+    </div>
+  </div>
+</div>
