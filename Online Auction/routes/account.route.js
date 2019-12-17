@@ -16,12 +16,12 @@ router.post('/register', async (req, res) => {
 
     const entity = req.body;
     entity.username = req.body.user_name;
-    entity.userpassword = hash;
+    entity.password = hash;
     entity.firstname = req.body.first_name;
     entity.lastname = req.body.last_name;
-    entity.useremail=req.body.user_email;
-    entity.userdob = dob;
-    entity.usertype = 0;
+    entity.email=req.body.user_email;
+    entity.dob = dob;
+    entity.type = 0;
 
     delete entity.user_name;
     delete entity.raw_password;
