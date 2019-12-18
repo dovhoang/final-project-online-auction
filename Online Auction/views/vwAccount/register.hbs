@@ -1,12 +1,19 @@
 {{#section 'css'}}
 <link rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+
 {{/section}}
 
 {{#section 'js'}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js">
 </script>
 <script>
+  {{#if signUpSuccess}}
+  alert("Sign up success");
+  {{/if}}
+   {{#if signUpFailed}}
+  alert("Sign up failed");
+  {{/if}}
   $('#txtDOB').datetimepicker({
     // format: 'd/m/Y H:i'
     format: 'd/m/Y',
@@ -103,6 +110,31 @@
     return flag;
   }
 </script>
+
+{{!-- <script>
+  document.getElementById('frmRegister').addEventListener('submit',submitForm);
+
+  function submitForm(e){
+    e.preventDefault();
+    const name = document.querySelector('#txtUserName').value;
+    const email = document.querySelector('#txtEmail').value;
+    const captcha = document.querySelector('#g-recaptcha-response').value;
+  }
+
+  fetch('/register',{
+    method:'POST',
+    headers:{
+      'Accept':'application/json, text/plain, */*',
+      'Content-type':'application/json'
+    }
+    body:JSON.stringify({name:name,email:email,captcha:captcha})
+  })
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data);
+    alert(data.msg);
+  });
+</script> --}}
 {{/section}}
 
 <div class="container">
@@ -170,7 +202,11 @@
           <div class="col-lg-4">
             <div class="form-group">
               <label for="txtEmail"><i class="fa fa-envelope"></i> Email <i class="fa fa-star text-danger"></i></label>
+              {{#if hasEmailInDatabase}}
+              <span class="email_error float-right text-danger">Email already exist !!!</span>
+              {{else}}
               <span class="email_error float-right text-danger"></span>
+              {{/if}}
               <input type="text" class="form-control" id="txtEmail" name="user_email" placeholder="abc@gmail.com">
             </div>
           </div>
@@ -216,12 +252,16 @@
           </div>
           <div class="col-lg-4">
             <div class="form-group">
-              <label for="txtStreet"><i class="fa fa-home"></i> Street <i class="fa fa-star text-danger"></i></label>
+              <label for="txtStreet"><i class="fa fa-road"></i> Street <i class="fa fa-star text-danger"></i></label>
               <span class="street_error float-right text-danger"></span>
               <input type="text" class="form-control" id="txtStreet" name="street" placeholder="1041 Trần Xuân Soạn">
             </div>
           </div>
         </div>
+        {{!-- <div class="form-group">
+          <div class="g-recaptcha"  data-sitekey="6LdiUsgUAAAAAPqZwqK2On-vyE2SW6Ov3j7ZagYS"></div>
+        </div> --}}
+
         <button type="submit" class="btn btn-outline-success">
           <i class="fa fa-check" aria-hidden="true"></i>
           Register
