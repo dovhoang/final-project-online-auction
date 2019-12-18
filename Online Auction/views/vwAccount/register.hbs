@@ -117,22 +117,30 @@
         <div class="row">
           <div class="col-lg-4">
             <div class="form-group">
-              <label for="txtUserName"><i class="fa fa-user"></i> UserName <i class="fa fa-star text-danger"></i></label>
+              <label for="txtUserName"><i class="fa fa-user"></i> UserName <i
+                  class="fa fa-star text-danger"></i></label>
+              {{#if hasUserNameInDatabase}}
+              <span class="username_error float-right text-danger">Username already exist !!!</span>
+              {{else}}
               <span class="username_error float-right text-danger"></span>
+              {{/if}}
+
               <input type="text" class="form-control" id="txtUserName" name="user_name" placeholder="Hienhhcc"
                 autofocus>
             </div>
           </div>
           <div class="col-lg-4">
             <div class="form-group">
-              <label for="txtPassWord"><i class="fa fa-lock"></i> PassWord <i class="fa fa-star text-danger"></i></label>
+              <label for="txtPassWord"><i class="fa fa-lock"></i> PassWord <i
+                  class="fa fa-star text-danger"></i></label>
               <span class="password_error float-right text-danger"></span>
               <input type="password" class="form-control" id="txtPassword" name="raw_password">
             </div>
           </div>
           <div class="col-lg-4">
             <div class="form-group">
-              <label for="txtConfirm"><i class="fa fa-unlock-alt"></i> Confirm Password <i class="fa fa-star text-danger"></i></label>
+              <label for="txtConfirm"><i class="fa fa-unlock-alt"></i> Confirm Password <i
+                  class="fa fa-star text-danger"></i></label>
               <span class="confirmpassword_error float-right text-danger"></span>
               <input type="password" class="form-control" id="txtConfirm">
             </div>
@@ -145,14 +153,16 @@
         <div class="row">
           <div class="col-lg-4">
             <div class="form-group">
-              <label for="txtFirstName"><i class="fa fa-user"></i> First name <i class="fa fa-star text-danger"></i></label>
+              <label for="txtFirstName"><i class="fa fa-user"></i> First name <i
+                  class="fa fa-star text-danger"></i></label>
               <span class="firstname_error float-right text-danger"></span>
               <input type="text" class="form-control" id="txtFirstName" name="first_name" placeholder="Vu Vinh">
             </div>
           </div>
           <div class="col-lg-4">
             <div class="form-group">
-              <label for="txtLastName"><i class="fa fa-user"></i> Last name <i class="fa fa-star text-danger"></i></label>
+              <label for="txtLastName"><i class="fa fa-user"></i> Last name <i
+                  class="fa fa-star text-danger"></i></label>
               <span class="lastname_error float-right text-danger"></span>
               <input type="text" class="form-control" id="txtLastName" name="last_name" placeholder="Hien">
             </div>
@@ -170,14 +180,16 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="txtDOB"><i class="fa fa-birthday-cake"></i> Day of birth <i class="fa fa-star text-danger"></i></label>
+              <label for="txtDOB"><i class="fa fa-birthday-cake"></i> Day of birth <i
+                  class="fa fa-star text-danger"></i></label>
               <span class="dob_error float-right text-danger"></span>
               <input type="text" class="form-control" id="txtDOB" name="user_dob">
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="txtCityProvince"><i class="fa fa-building"></i> City/Province <i class="fa fa-star text-danger"></i></label>
+              <label for="txtCityProvince"><i class="fa fa-building"></i> City/Province <i
+                  class="fa fa-star text-danger"></i></label>
               <span class="cityprovince_error float-right text-danger"></span>
               <input type="text" class="form-control" id="txtCityProvince" name="cityprovince"
                 placeholder="TP Hồ Chí Minh">
@@ -189,7 +201,8 @@
         <div class="row">
           <div class="col-lg-4">
             <div class="form-group">
-              <label for="txtDistrict"><i class="fa fa-home"></i> District <i class="fa fa-star text-danger"></i></label>
+              <label for="txtDistrict"><i class="fa fa-home"></i> District <i
+                  class="fa fa-star text-danger"></i></label>
               <span class="district_error float-right text-danger"></span>
               <input type="text" class="form-control" id="txtDistrict" name="district" placeholder="7">
             </div>
