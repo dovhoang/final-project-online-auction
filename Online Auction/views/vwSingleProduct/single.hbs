@@ -1,0 +1,527 @@
+<div style="margin-top: 150px;">
+	{{#if this.PrdEmpty}}
+	<div class="card-body">
+		<p class="card-text">
+			Product not found...
+		</p>
+	</div>
+	{{else}}
+	<div class="super_container">
+		<div class="container single_product_container">
+			<div class="row">
+				<div class="col">
+
+					<!-- Breadcrumbs -->
+
+					<div class="breadcrumbs d-flex flex-row align-items-center">
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="categories.html"><i class="fa fa-angle-right"
+										aria-hidden="true"></i>Men's</a></li>
+							<li class="active"><a href="#"><i class="fa fa-angle-right"
+										aria-hidden="true"></i>Single Product</a></li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="row">
+				{{#each this.product}}
+				<div class="col-lg-7">
+					<div class="single_product_pics">
+						<div class="row">
+							<div class="col-lg-3 thumbnails_col order-lg-1 order-2">
+								<div class="single_product_thumbnails">
+									<ul>
+										<li><img src="/{{ProID}}/1_thumbs.png" alt="{{ProName}}"
+												title="{{ProName}}"></li>
+										<li class="active"><img src="/{{ProID}}/2_thumbs.png"
+												alt="{{ProName}}" title="{{ProName}}"></li>
+										<li><img src="/{{ProID}}/3_thumbs.png" alt="{{ProName}}"
+												title="{{ProName}}"></li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-lg-9 image_col order-lg-2 order-1">
+								<div class="single_product_image">
+									<div class="single_product_image_background"
+										style="background-image:url(/{{ProID}}/main_thumbs.png" )"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-5">
+					<div class="product_details">
+
+						<div class="product_details_title">
+							<h2 id="main_product_name">{{ProName}}</h2>
+							<div id="timepostingproduct">Time post:<span>{{time_post}}</span></div>
+							<div id="countdowntimer">Time left: <div class="product_expiration_date
+									timer_num time_custom_number">{{time_exp}}</div></div>
+						</div>
+						<div class="row">
+							<div class="col instance_purchase">Buy now:</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-2 money_instance_purchase">{{price_purchase}}</div>
+							<div class="col-lg-10 money_instance_purchase">
+								<button type="button" class="btn btn-warning">Buy <span class="fa
+										fa-shopping-cart"></span></button>
+							</div>
+						</div>
+						{{/each}}
+						{{#if this.curWinnerInfoEmpty}}
+						<div class="card-body">
+							<p class="card-text">
+							</p>
+						</div>
+						{{else}}
+						<div class="row">
+							<div class="col-lg-3 current_bid">Current bid:</div>
+							<div class="col-lg-9 current_bid">Current winner:</div>
+						</div>
+						{{#each this.curWinnerInfo}}
+						<div class="row">
+							<div class="col-lg-3 line_product_price1" id="product_price">{{CurBid}}$</div>
+							<div class="col-lg-4 line_product_price">
+								<i class="fas fa-trophy"></i>
+								<span id="current_winner">{{curWinnerName}}</span>
+							</div>
+
+							<div class="col-lg-3" id="winner_rate">
+								{{!-- <ul class="star_rating">
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+								</ul> --}}
+								Rate: {{rateStar}} sao
+							</div>
+						</div>
+						{{/each}}
+						{{/if}}
+						<div class="placebid d-flex flex-column flex-sm-row
+							align-items-sm-center">
+							<div>Place bid:</div>
+							<div class="placebid_selector">
+								<span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+								<span id="placebid_value">495</span>
+								<span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+							</div>
+							<button type="button" class="btn btn-danger m-1">Place bid <span
+									class="fas fa-hammer"></span></button>
+							<button type="button" class="btn btn-danger button_favorite"><span
+									class="fa fa-heart"></span></button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Đấu giá -->
+		{{#each this.g4}}
+		<div class="auction">
+			<div class="container">
+				<table class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">User/Auto Bid</th>
+							<th scope="col">Amount</th>
+							<th scope="col">Rate</th>
+							<th scope="col">Time</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>{{name}}</td>
+							<td>$495</td>
+							<td>
+								<ul class="star_rating1">
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+								</ul>
+							</td>
+							<td>Jan 5, 2021 18:37:25</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>**** Jacob</td>
+							<td>$399</td>
+							<td>
+								<ul class="star_rating1">
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+								</ul>
+							</td>
+							<td>Jan 5, 2021 17:37:25</td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td>**** Mark</td>
+							<td>$300</td>
+							<td>
+								<ul class="star_rating1">
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star" aria-hidden="true"></i></li>
+									<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+								</ul>
+							</td>
+							<td>Jan 5, 2021 16:37:25</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{{/each}}
+
+		<!-- Tabs -->
+
+		<div class="tabs_section_container">
+
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="tabs_container">
+							<ul class="tabs d-flex flex-sm-row flex-column align-items-left
+								align-items-md-center justify-content-center">
+								<li class="tab active" data-active-tab="tab_1"><span>Product Information</span></li>
+								<li class="tab" data-active-tab="tab_2"><span>Seller Information</span></li>
+								<li class="tab" data-active-tab="tab_3"><span>Reviews (2)</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+
+						<!-- Tab Product Info -->
+
+						<div id="tab_1" class="tab_container active">
+							<div class="row">
+								<div class="col desc_col">
+									<div class="tab_title">
+										<h4>Product Information</h4>
+									</div>
+									<div class="date"><span class="fa fa-edit">31/1/2019</span></div>
+									{{#each this.product}}
+									<div class="info_product">
+										{{description}}
+									</div>
+										{{/each}}
+
+								</div>
+							</div>
+						</div>
+
+						<!-- Tab Seller Info -->
+						{{#if this.sellerInfoEmpty}}
+						<div class="card-body">
+							<p class="card-text">
+								seller info not found...
+							</p>
+						</div>
+						{{else}}
+						<div id="tab_2" class="tab_container">
+							{{#each this.sellerInfo}}
+							<div class="row">
+								<div class="col additional_info_col">
+									<div class="tab_title additional_info_title">
+										<h4>Seller Information</h4>
+									</div>
+									<p class="seller-info">
+										NAME:
+										<span>{{sellerName}}</span>
+									</p>
+									<p class="seller-info">
+										EMAIL:
+										<span>{{email}}</span>
+									</p>
+									<p class="seller-info1">
+										RATE:
+										{{!-- <ul class="star_rating">
+											<li><i class="fa fa-star" aria-hidden="true"></i></li>
+											<li><i class="fa fa-star" aria-hidden="true"></i></li>
+											<li><i class="fa fa-star" aria-hidden="true"></i></li>
+											<li><i class="fa fa-star" aria-hidden="true"></i></li>
+											<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+										</ul> --}}
+										{{rate}}
+									</p>
+
+								</div>
+							</div>
+							{{/each}}
+						</div>
+						{{/if}}
+						<!-- Tab Reviews -->
+
+						<div id="tab_3" class="tab_container">
+							<div class="row">
+
+								<!-- User Reviews -->
+
+								<div class="col-lg-6 reviews_col">
+									<div class="tab_title reviews_title">
+										<h4>Reviews (2)</h4>
+									</div>
+
+									<!-- User Review -->
+
+									<div class="user_review_container d-flex flex-column flex-sm-row">
+										<div class="user">
+											<div class="user_pic"></div>
+											<div class="user_rating">
+												<ul class="star_rating">
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+												</ul>
+											</div>
+										</div>
+										<div class="review">
+											<div class="review_date">27 Aug 2016</div>
+											<div class="user_name">Brandon William</div>
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+												eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+										</div>
+									</div>
+
+									<!-- User Review -->
+
+									<div class="user_review_container d-flex flex-column flex-sm-row">
+										<div class="user">
+											<div class="user_pic"></div>
+											<div class="user_rating">
+												<ul class="star_rating">
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+												</ul>
+											</div>
+										</div>
+										<div class="review">
+											<div class="review_date">27 Aug 2016</div>
+											<div class="user_name">Brandon William</div>
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+												eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+										</div>
+									</div>
+								</div>
+
+								<!-- Add Review -->
+
+								<div class="col-lg-6 add_review_col">
+
+									<div class="add_review">
+										<form id="review_form" action="post">
+											<div>
+												<h1>Add Review</h1>
+												<input id="review_name" class="form_input input_name" type="text"
+													name="name" placeholder="Name*" required="required"
+													data-error="Name is required.">
+												<input id="review_email" class="form_input input_email" type="email"
+													name="email" placeholder="Email*" required="required"
+													data-error="Valid email is required.">
+											</div>
+											<div>
+												<h1>Your Rating:</h1>
+												<ul class="user_star_rating">
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star" aria-hidden="true"></i></li>
+													<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+												</ul>
+												<textarea id="review_message" class="input_review" name="message"
+													placeholder="Your Review" rows="4" required data-error="Please,
+													leave us a review."></textarea>
+											</div>
+											<div class="text-left text-sm-right">
+												<button id="review_submit" type="submit" class="red_button
+													review_submit_btn trans_300" value="Submit">submit</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Related Product -->
+						<div class="related">
+							<div class="row">
+								<div class="col relatedproduct_col">
+									<div class="tab_title relatedproduct_title">
+										<h4>Related Product</h4>
+									</div>
+									<div class="product-grid" data-isotope='{" itemSelector" :"
+										.product-item"
+										," layoutMode" :" fitRows" }'>
+										<div class="timer">
+										</div>
+										{{!-- <!-- Product 1 -->
+										<div class="product-item men">
+											<div class="product discount product_filter">
+												<div class="product_image">
+													<img src="images/product_2.jpg" alt="">
+												</div>
+												<div class="product_bubble product_bubble_right product_bubble_red
+													d-flex flex-column align-items-center"><span>Buy now: 200K</span></div>
+												<div class="favorite favorite_left"></div>
+												<div class="product_info">
+													<h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP
+															Digital Camera (Silver)</a></h6>
+													<div class="line_product_price price_custom">90K</div>
+													<div class="d-flex flex-row time_custom justify-content-center">
+														<div id="hour" class="timer_num time_custom_number">1</div>
+														<div class="between_time">:</div>
+														<div id="minute" class="timer_num time_custom_number">59</div>
+														<div class="between_time">:</div>
+														<div id="second" class="timer_num time_custom_number">21</div>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3 ml-3">Current Winer: tcs123</div>
+											<div class="d-flex flex-row justify-content-between mr-3">
+												<div class="ml-3 date_post">01/11/2019</div>
+												<div>30&nbsp<i class="fa fa-gavel" aria-hidden="true"></i></div>
+											</div>
+										</div>
+										<!-- Product 2 -->
+										<div class="product-item men">
+											<div class="product discount product_filter">
+												<div class="product_image">
+													<img src="images/product_8.jpg" alt="">
+												</div>
+												<div class="product_bubble product_bubble_right product_bubble_red
+													d-flex flex-column align-items-center"><span>Buy now: 200K</span></div>
+												<div class="favorite favorite_left"></div>
+												<div class="product_info">
+													<h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP
+															Digital Camera (Silver)</a></h6>
+													<div class="line_product_price price_custom">90K</div>
+													<div class="d-flex flex-row time_custom justify-content-center">
+														<div id="hour" class="timer_num time_custom_number">1</div>
+														<div class="between_time">:</div>
+														<div id="minute" class="timer_num time_custom_number">59</div>
+														<div class="between_time">:</div>
+														<div id="second" class="timer_num time_custom_number">21</div>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3 ml-3">Current Winer: tcs123</div>
+											<div class="d-flex flex-row justify-content-between mr-3">
+												<div class="ml-3 date_post">01/11/2019</div>
+												<div>30&nbsp<i class="fa fa-gavel" aria-hidden="true"></i></div>
+											</div>
+										</div>
+										<!-- Product 3 -->
+										<div class="product-item men">
+											<div class="product discount product_filter">
+												<div class="product_image">
+													<img src="images/product_10.jpg" alt="">
+												</div>
+												<div class="favorite favorite_left"></div>
+												<div class="product_info">
+													<h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP
+															Digital Camera (Silver)</a></h6>
+													<div class="line_product_price price_custom">90K</div>
+													<div class="d-flex flex-row time_custom justify-content-center">
+														<div id="hour" class="timer_num time_custom_number">1</div>
+														<div class="between_time">:</div>
+														<div id="minute" class="timer_num time_custom_number">59</div>
+														<div class="between_time">:</div>
+														<div id="second" class="timer_num time_custom_number">21</div>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3 ml-3">Current Winer: tcs123</div>
+											<div class="d-flex flex-row justify-content-between mr-3">
+												<div class="ml-3 date_post">01/11/2019</div>
+												<div>30&nbsp<i class="fa fa-gavel" aria-hidden="true"></i></div>
+											</div>
+										</div>
+										<!-- Product 4 -->
+										<div class="product-item men">
+											<div class="product discount product_filter">
+												<div class="product_image">
+													<img src="images/product_5.jpg" alt="">
+												</div>
+												<div class="product_bubble product_bubble_right product_bubble_red
+													d-flex flex-column align-items-center"><span>Buy now: 200K</span></div>
+												<div class="favorite favorite_left"></div>
+												<div class="product_info">
+													<h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP
+															Digital Camera (Silver)</a></h6>
+													<div class="line_product_price price_custom">90K</div>
+													<div class="d-flex flex-row time_custom justify-content-center">
+														<div id="hour" class="timer_num time_custom_number">1</div>
+														<div class="between_time">:</div>
+														<div id="minute" class="timer_num time_custom_number">59</div>
+														<div class="between_time">:</div>
+														<div id="second" class="timer_num time_custom_number">21</div>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3 ml-3">Current Winer: tcs123</div>
+											<div class="d-flex flex-row justify-content-between mr-3">
+												<div class="ml-3 date_post">01/11/2019</div>
+												<div>30&nbsp<i class="fa fa-gavel" aria-hidden="true"></i></div>
+											</div>
+										</div>
+										<!-- Product 5 -->
+										<div class="product-item men">
+											<div class="product discount product_filter">
+												<div class="product_image">
+													<img src="images/product_6.jpg" alt="">
+												</div>
+												<div class="product_bubble product_bubble_right product_bubble_red
+													d-flex flex-column align-items-center"><span>Buy now: 200K</span></div>
+												<div class="favorite favorite_left"></div>
+												<div class="product_info">
+													<h6 class="product_name"><a href="single.html">Fujifilm X100T 16 MP
+															Digital Camera (Silver)</a></h6>
+													<div class="line_product_price price_custom">90K</div>
+													<div class="d-flex flex-row time_custom justify-content-center">
+														<div id="hour" class="timer_num time_custom_number">1</div>
+														<div class="between_time">:</div>
+														<div id="minute" class="timer_num time_custom_number">59</div>
+														<div class="between_time">:</div>
+														<div id="second" class="timer_num time_custom_number">21</div>
+													</div>
+												</div>
+											</div>
+											<div class="mt-3 ml-3">Current Winer: tcs123</div>
+											<div class="d-flex flex-row justify-content-between mr-3">
+												<div class="ml-3 date_post">01/11/2019</div>
+												<div>30&nbsp<i class="fa fa-gavel" aria-hidden="true"></i></div>
+											</div>
+										</div> --}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{/if}}
+</div>
