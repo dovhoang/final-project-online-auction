@@ -1,9 +1,11 @@
-var express = require('express');
-var exphbs = require('express-handlebars');
-var morgan = require('morgan')
+const express = require('express');
+const exphbs = require('express-handlebars');
+const morgan = require('morgan')
 const hbs_sections = require('express-handlebars-sections');
 require('express-async-errors');
-var app = express();
+const session = require('express-session')
+const flash = require('connect-flash');
+const app = express();
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -12,6 +14,16 @@ app.use(express.urlencoded({
 }))
 app.use(express.static('assets'));
 app.use(express.static('pictures'));
+
+//Express-Session
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true,
+}))
+
+//Flash
+app.use(flash());
 
 app.engine('hbs', exphbs({
   helpers: {
@@ -28,9 +40,6 @@ app.engine('hbs', exphbs({
   layoutsDir: 'views/_layouts'
 }));
 app.set('view engine', 'hbs');
-
-
-
 
 require('./middlewares/locals.mdw')(app);
 require('./middlewares/routes.mdw')(app);

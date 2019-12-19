@@ -1,6 +1,10 @@
 const categoryModel = require('../models/category.model');
 
 module.exports = function (app) {
+  app.use( (req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    next();
+  });
   app.use(async (req, res, next) => {
     const rows = await categoryModel.all();
     console.log("all:", rows);

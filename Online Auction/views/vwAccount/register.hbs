@@ -8,132 +8,37 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js">
 </script>
 <script>
-  {{#if signUpSuccess}}
-  alert("Sign up success");
-  {{/if}}
-   {{#if signUpFailed}}
-  alert("Sign up failed");
-  {{/if}}
   $('#txtDOB').datetimepicker({
     // format: 'd/m/Y H:i'
     format: 'd/m/Y',
     timepicker: false,
     mask: true,
   });
-
-  function validate() {
-    //Lấy dữ liệu từ form
-    var username = $('#txtUserName').val();
-    var password = $('#txtPassword').val();
-    var confirm_password = $('#txtConfirm').val();
-    var first_name = $('#txtFirstName').val();
-    var last_name = $('#txtLastName').val();
-    var email = $('#txtEmail').val();
-    var DOB = $('#txtDOB').val();
-    var city_province = $('#txtCityProvince').val();
-    var district = $('#txtDistrict').val();
-    var ward = $('#txtWard').val();
-    var street = $('#txtStreet').val();
-    //Validate dữ liệu
-    var flag = true;
-    //Username không được trống và phải lớn hơn 3 ký tự
-    if (username == '') {
-      $('.username_error').text("Username can't be blank !!!");
-      flag = false;
-    }
-    else if (username.length < 4) {
-      $('.username_error').text("Username must have above 3 characters !!!");
-      flag = false;
-    }
-    //Password không được trống và phải lớn hơn 3 ký tự
-    if (password == '') {
-      $('.password_error').text("Password can't be blank !!!");
-      flag = false;
-    }
-    else if (password.length < 4) {
-      $('.password_error').text("Password must have above 3 characters !!!");
-      flag = false;
-    }
-    //ConfirmPassword phải match với password
-    if (confirm_password != password) {
-      $('.confirmpassword_error').text("ConfirmPassword does not match !!!");
-      flag = false;
-    }
-    //FirstName không được trống và phải lớn hơn 3 ký tự
-    if (first_name == '') {
-      $('.firstname_error').text("First name can't be blank !!!");
-      flag = false;
-    }
-    else if (first_name.length < 4) {
-      $('.firstname_error').text("First name must have above 3 characters !!!");
-      flag = false;
-    }
-    //LastName không được trống và phải lớn hơn 3 ký tự
-    if (first_name == '') {
-      $('.lastname_error').text("Last name can't be blank !!!");
-      flag = false;
-    }
-    else if (first_name.length < 4) {
-      $('.lastname_error').text("Last name must have above 3 characters !!!");
-      flag = false;
-    }
-    //Email phải đúng định dạng
-    if (email.indexOf("@") == -1) {
-      $('.email_error').text("Email invalidate !!!");
-      flag = false;
-    }
-    //DOB không được trống
-    if (DOB == '') {
-      $('.dob_error').text("Day of birth can't be blank !!!");
-      flag = false;
-    }
-    //City/Province không được trống
-    if (city_province == '') {
-      $('.cityprovince_error').text("City/Province can't be blank !!!");
-      flag = false;
-    }
-    //district không được trống
-    if (district == '') {
-      $('.district_error').text("District can't be blank !!!");
-      flag = false;
-    }
-    //ward không được trống
-    if (ward == '') {
-      $('.ward_error').text("Ward can't be blank !!!");
-      flag = false;
-    }
-    //street không được trống
-    if (street == '') {
-      $('.street_error').text("Street can't be blank !!!");
-      flag = false;
-    }
-    return flag;
-  }
 </script>
 
 {{!-- <script>
-  document.getElementById('frmRegister').addEventListener('submit',submitForm);
+  document.getElementById('frmRegister').addEventListener('submit', submitForm);
 
-  function submitForm(e){
+  function submitForm(e) {
     e.preventDefault();
     const name = document.querySelector('#txtUserName').value;
     const email = document.querySelector('#txtEmail').value;
     const captcha = document.querySelector('#g-recaptcha-response').value;
   }
 
-  fetch('/register',{
-    method:'POST',
-    headers:{
-      'Accept':'application/json, text/plain, */*',
-      'Content-type':'application/json'
+  fetch('/register', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-type': 'application/json'
     }
-    body:JSON.stringify({name:name,email:email,captcha:captcha})
+    body: JSON.stringify({ name: name, email: email, captcha: captcha })
   })
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data);
-    alert(data.msg);
-  });
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      alert(data.msg);
+    });
 </script> --}}
 {{/section}}
 
@@ -143,38 +48,48 @@
       <i class="fa fa-edit text-danger"></i> Register
     </h3>
     <div class="card-body">
-      <form onsubmit="return validate();" method="POST" id="frmRegister" name="frmRegister">
-        <h4 class="mb-3">Account</h4>
+      <form onsubmit="return true;" method="POST" id="frmRegister" name="frmRegister">
+        {{#each error}}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{msg}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {{/each}}
 
+        <h4 class="mb-3">Account</h4>
         <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-6">
             <div class="form-group">
               <label for="txtUserName"><i class="fa fa-user"></i> UserName <i
                   class="fa fa-star text-danger"></i></label>
-              {{#if hasUserNameInDatabase}}
-              <span class="username_error float-right text-danger">Username already exist !!!</span>
-              {{else}}
-              <span class="username_error float-right text-danger"></span>
-              {{/if}}
-
               <input type="text" class="form-control" id="txtUserName" name="user_name" placeholder="Hienhhcc"
-                autofocus>
+                value="{{fields.user_name}}" autofocus>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="txtEmail"><i class="fa fa-envelope"></i> Email <i class="fa fa-star text-danger"></i></label>
+              <input type="text" class="form-control" id="txtEmail" name="user_email" placeholder="abc@gmail.com"
+                value="{{fields.user_email}}">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
             <div class="form-group">
               <label for="txtPassWord"><i class="fa fa-lock"></i> PassWord <i
                   class="fa fa-star text-danger"></i></label>
-              <span class="password_error float-right text-danger"></span>
               <input type="password" class="form-control" id="txtPassword" name="raw_password">
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-6">
             <div class="form-group">
               <label for="txtConfirm"><i class="fa fa-unlock-alt"></i> Confirm Password <i
                   class="fa fa-star text-danger"></i></label>
-              <span class="confirmpassword_error float-right text-danger"></span>
-              <input type="password" class="form-control" id="txtConfirm">
+              <input type="password" class="form-control" id="txtConfirm" name="confirm_password">
             </div>
           </div>
         </div>
@@ -187,80 +102,59 @@
             <div class="form-group">
               <label for="txtFirstName"><i class="fa fa-user"></i> First name <i
                   class="fa fa-star text-danger"></i></label>
-              <span class="firstname_error float-right text-danger"></span>
-              <input type="text" class="form-control" id="txtFirstName" name="first_name" placeholder="Vu Vinh">
+              <input type="text" class="form-control" id="txtFirstName" name="first_name" placeholder="Vu Vinh"
+                value="{{fields.first_name}}">
             </div>
           </div>
           <div class="col-lg-4">
             <div class="form-group">
               <label for="txtLastName"><i class="fa fa-user"></i> Last name <i
                   class="fa fa-star text-danger"></i></label>
-              <span class="lastname_error float-right text-danger"></span>
-              <input type="text" class="form-control" id="txtLastName" name="last_name" placeholder="Hien">
+              <input type="text" class="form-control" id="txtLastName" name="last_name" placeholder="Hien"
+                value="{{fields.last_name}}">
             </div>
           </div>
           <div class="col-lg-4">
-            <div class="form-group">
-              <label for="txtEmail"><i class="fa fa-envelope"></i> Email <i class="fa fa-star text-danger"></i></label>
-              {{#if hasEmailInDatabase}}
-              <span class="email_error float-right text-danger">Email already exist !!!</span>
-              {{else}}
-              <span class="email_error float-right text-danger"></span>
-              {{/if}}
-              <input type="text" class="form-control" id="txtEmail" name="user_email" placeholder="abc@gmail.com">
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row">
-          <div class="col-lg-6">
             <div class="form-group">
               <label for="txtDOB"><i class="fa fa-birthday-cake"></i> Day of birth <i
                   class="fa fa-star text-danger"></i></label>
-              <span class="dob_error float-right text-danger"></span>
-              <input type="text" class="form-control" id="txtDOB" name="user_dob">
+              <input type="text" class="form-control" id="txtDOB" name="user_dob" value="{{fields.user_dob}}">
             </div>
           </div>
-          <div class="col-lg-6">
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3">
             <div class="form-group">
               <label for="txtCityProvince"><i class="fa fa-building"></i> City/Province <i
                   class="fa fa-star text-danger"></i></label>
-              <span class="cityprovince_error float-right text-danger"></span>
               <input type="text" class="form-control" id="txtCityProvince" name="cityprovince"
-                placeholder="TP Hồ Chí Minh">
+                placeholder="TP Hồ Chí Minh" value="{{fields.cityprovince}}">
             </div>
           </div>
-        </div>
-
-
-        <div class="row">
-          <div class="col-lg-4">
+          <div class="col-lg-3">
             <div class="form-group">
               <label for="txtDistrict"><i class="fa fa-home"></i> District <i
                   class="fa fa-star text-danger"></i></label>
-              <span class="district_error float-right text-danger"></span>
-              <input type="text" class="form-control" id="txtDistrict" name="district" placeholder="7">
+              <input type="text" class="form-control" id="txtDistrict" name="district" placeholder="7"
+                value="{{fields.district}}">
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-3">
             <div class="form-group">
               <label for="txtWard"><i class="fa fa-home"></i> Ward <i class="fa fa-star text-danger"></i></label>
-              <span class="ward_error float-right text-danger"></span>
-              <input type="text" class="form-control" id="txtWard" name="ward" placeholder="Tân Hưng">
+              <input type="text" class="form-control" id="txtWard" name="ward" placeholder="Tân Hưng"
+                value="{{fields.ward}}">
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-lg-3">
             <div class="form-group">
               <label for="txtStreet"><i class="fa fa-road"></i> Street <i class="fa fa-star text-danger"></i></label>
-              <span class="street_error float-right text-danger"></span>
-              <input type="text" class="form-control" id="txtStreet" name="street" placeholder="1041 Trần Xuân Soạn">
+              <input type="text" class="form-control" id="txtStreet" name="street" placeholder="1041 Trần Xuân Soạn"
+                value="{{fields.street}}">
             </div>
           </div>
         </div>
-        {{!-- <div class="form-group">
-          <div class="g-recaptcha"  data-sitekey="6LdiUsgUAAAAAPqZwqK2On-vyE2SW6Ov3j7ZagYS"></div>
-        </div> --}}
 
         <button type="submit" class="btn btn-outline-success">
           <i class="fa fa-check" aria-hidden="true"></i>
