@@ -1259,6 +1259,7 @@ section
 .additional_info_col p span
 {
 	margin-left: 22px;
+	padding-top: 50px;
 }
 .additional_info_title
 {
@@ -1287,6 +1288,12 @@ section
 	width: 70px;
 	height: 70px;
 	background: #ebebeb;
+	border-radius: 50%;
+}
+.user_pic img
+{
+	width: 70px;
+	height: 70px;
 	border-radius: 50%;
 }
 .user_rating .star_rating
@@ -1630,7 +1637,7 @@ section
 	color: rgb(236, 55, 55);
 }
 .seller-info{
-	font-size: 20px;
+	font-size: 15px;
 }
 .seller-info1{
 	font-size: 20px;
@@ -1681,5 +1688,8 @@ section
 }
 .button_favorite{
 	margin-left: 10px;
+}
+.info_product{
+	font-size: 15px;
 }
 /* Product related */
