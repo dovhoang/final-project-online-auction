@@ -15,31 +15,6 @@
     mask: true,
   });
 </script>
-
-{{!-- <script>
-  document.getElementById('frmRegister').addEventListener('submit', submitForm);
-
-  function submitForm(e) {
-    e.preventDefault();
-    const name = document.querySelector('#txtUserName').value;
-    const email = document.querySelector('#txtEmail').value;
-    const captcha = document.querySelector('#g-recaptcha-response').value;
-  }
-
-  fetch('/register', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-type': 'application/json'
-    }
-    body: JSON.stringify({ name: name, email: email, captcha: captcha })
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      alert(data.msg);
-    });
-</script> --}}
 {{/section}}
 
 <div class="container">
@@ -48,7 +23,7 @@
       <i class="fa fa-edit text-danger"></i> Register
     </h3>
     <div class="card-body">
-      <form onsubmit="return true;" method="POST" id="frmRegister" name="frmRegister">
+      <form method="POST" id="frmRegister" name="frmRegister">
         {{#each error}}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>{{msg}}</strong>
@@ -57,7 +32,6 @@
           </button>
         </div>
         {{/each}}
-
         <h4 class="mb-3">Account</h4>
         <div class="row">
           <div class="col-lg-6">

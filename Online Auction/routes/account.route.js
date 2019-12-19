@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const userModel = require('../models/user.model');
 const restrict = require('../middlewares/auth.mdw');
+const nodemailer = require('nodemailer');
 
 router.get('/register', async (req, res) => {
     res.render('vwAccount/register');
@@ -49,34 +50,34 @@ router.post('/register', async (req, res) => {
             fields,
         });
     } else {//Nếu không có lỗi
-        const N = bcrypt.genSaltSync(10);
-        console.log(raw_password);
-        const hash = bcrypt.hashSync(raw_password, N);
-        const dob = moment(user_dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
-
-        //Thiết lập các trường cần thiết
-        const entity = req.body;
-        entity.username = user_name;
-        entity.password = hash;
-        entity.firstname = first_name;
-        entity.lastname = last_name;
-        entity.email = user_email;
-        entity.dob = dob;
-        entity.type = 0;
-
-        //Xóa những trường không cần thiết
-        delete entity.user_name;
-        delete entity.confirm_password;
-        delete entity.raw_password;
-        delete entity.first_name;
-        delete entity.last_name;
-        delete entity.user_email;
-        delete entity.user_dob;
-        delete entity.user_address;
-        //Thêm user vào bảng và render trang login
-        const result = await userModel.add(entity);
-        req.flash('success_msg', 'You are now registered and can log in');
-        res.redirect('/account/signin');
+        const otp = Math.floor(Math.random() * 1001);
+        //Gửi email xác nhận
+        var transporter = nodemailer.createTransport({ // config mail server
+            service: 'gmail',
+            auth: {
+                user: 'thachdau16t@gmail.com',
+                pass: 'timpassanhha2timtimconcacne2'
+            }
+        });
+        var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
+            from: 'thachdau16t@gmail.com',
+            to: req.body.user_email,
+            subject: 'Test Nodemailer',
+            text: 'You recieved message from ' + req.body.user_email,
+            html: `<b>Your OTP is: ${otp}</b>`
+        }
+        transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+                console.log(err);
+                return res.render('vwAccount/register');
+            } else {
+                console.log('Message sent: ' + info.response);
+                req.session.info = req.body;
+                req.session.OTP = otp;
+                req.flash('success_msg', 'Please check your email and verify by OTP');
+                return res.redirect('/account/verify');
+            }
+        });
     }
 });
 
@@ -118,6 +119,47 @@ router.post('/signout', (req, res) => {
     req.session.isAuthenticated = false;
     req.session.authUser = null;
     res.redirect(req.headers.referer);
+})
+
+router.get('/verify', (req, res) => {
+    res.render('vwAccount/verify');
+})
+
+router.post('/verify', async (req, res) => {
+
+    const info = req.session.info;
+    if (+req.body.OTP === +req.session.OTP) {
+        const N = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(info.raw_password, N);
+        const dob = moment(info.user_dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
+
+        //Thiết lập các trường cần thiết
+        info.username = info.user_name;
+        info.password = hash;
+        info.firstname = info.first_name;
+        info.lastname = info.last_name;
+        info.email = info.user_email;
+        info.dob = dob;
+        info.type = 0;
+
+        //Xóa những trường không cần thiết
+        delete info.user_name;
+        delete info.confirm_password;
+        delete info.raw_password;
+        delete info.first_name;
+        delete info.last_name;
+        delete info.user_email;
+        delete info.user_dob;
+        delete info.user_address;
+        //Thêm user vào bảng và render trang login
+        const result = await userModel.add(info);
+        req.flash('success_msg', 'You are now registered and can log in');
+        res.redirect('/account/signin');
+    }else{
+        res.render('vwAccount/verify',{
+            isWrongOTP: true,
+        })
+    }
 })
 
 module.exports = router;

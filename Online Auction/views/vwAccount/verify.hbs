@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="card shadow mb-4" id="otp">
+        <h3 class="card-header">
+            <i class="fa fa-edit text-danger"></i> Verification
+        </h3>
+
+        <div class="card-body">
+
+            <form method="POST" id="frmOTP" name="frmOTP">
+                {{#if success_msg}}
+                <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                    <strong>{{success_msg}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{/if}}
+                {{#if isWrongOTP}}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Wrong OTP</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{/if}}
+                <div class="form-group">
+                    <label for="txtOTP"><i class="fa fa-edit"></i> OTP <i class="fa fa-star text-danger"></i></label>
+                    <input type="text" class="form-control" id="txtOTP" name="OTP" placeholder="Your otp" autofocus>
+                </div>
+
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Verify
+                </button>
+            </form>
+        </div>
+        <div class="card-footer text-muted">
+            Footer
+        </div>
+    </div>
+</div>
