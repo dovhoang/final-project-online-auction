@@ -55,12 +55,12 @@ router.post('/register', async (req, res) => {
         var transporter = nodemailer.createTransport({ // config mail server
             service: 'gmail',
             auth: {
-                user: 'thachdau16t@gmail.com',
-                pass: 'timpassanhha2timtimconcacne2'
+                user: 'hiendeptraiso1thegioi@gmail.com',
+                pass: 'hiendeptraiqua'
             }
         });
         var mailOptions = { // thiết lập đối tượng, nội dung gửi mail
-            from: 'thachdau16t@gmail.com',
+            from: 'hiendeptraiso1thegioi@gmail.com',
             to: req.body.user_email,
             subject: 'Test Nodemailer',
             text: 'You recieved message from ' + req.body.user_email,
