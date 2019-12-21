@@ -16,5 +16,18 @@ module.exports = {
     return user[0];
   },
   add: entity => db.add('user', entity),
+
+  patch: (entity,username) => {
+    const condition = { username: username };
+    return db.patch('user', entity, condition);
+  },
+  // patchPassword: (entity,username) => {
+  //   const condition = { username: username };
+  //   entity.password = entity.newpassword;
+  //   delete entity.oldpassword;
+  //   delete entity.newpassword;
+  //   delete entity.confirmpassword;
+  //   return db.patch('user', entity, condition);
+  // },
   del: id => db.del('user', { userID: id }),
 };

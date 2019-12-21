@@ -48,14 +48,14 @@ app.get('/home', (req, res) => {
   res.render('index');
 });
 
-// app.use((req, res, next) => {
-//   res.send('You\'re lost');
-// })
+app.use((req, res, next) => {
+  res.send('You\'re lost');
+})
 
-// app.use((err, req, res, next) => {
-//   console.error(err.stack);
-//   res.status(500).send('View error on console.');
-// })
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('View error on console.');
+})
 
 const PORT = 3000;
 app.listen(PORT, () => {

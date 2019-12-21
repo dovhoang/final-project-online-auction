@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="card shadow mb-4" id="register">
+        <h3 class="card-header">
+            <i class="fa fa-edit text-danger"></i> Street
+        </h3>
+        <div class="card-body">
+            <form method="POST" id="frmStreet" name="frmStreet">
+                {{#if error}}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{error}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{/if}}
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="txtStreet"><i class="fa fa-road"></i> Street <i
+                                    class="fa fa-star text-danger"></i></label>
+                            <input type="text" class="form-control" id="txtStreet" name="street" autofocus>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Change
+                </button>
+            </form>
+        </div>
+        <div class="card-footer text-muted">
+            Footer
+        </div>
+    </div>
+</div>

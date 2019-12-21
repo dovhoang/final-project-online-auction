@@ -1,0 +1,54 @@
+{{#section 'css'}}
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js">
+</script>
+<script>
+  $('#txtDOB').datetimepicker({
+    // format: 'd/m/Y H:i'
+    format: 'd/m/Y',
+    timepicker: false,
+    mask: true,
+  });
+</script>
+{{/section}}
+
+<div class="container">
+    <div class="card shadow mb-4" id="register">
+        <h3 class="card-header">
+            <i class="fa fa-edit text-danger"></i> Day of birth
+        </h3>
+        <div class="card-body">
+            <form method="POST" id="frmDOB" name="frmDOB">
+                {{#if error}}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{error}}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{/if}}
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="txtDOB"><i class="fa fa-birthday-cake"></i> Day of birth <i
+                                    class="fa fa-star text-danger"></i></label>
+                            <input type="text" class="form-control" id="txtDOB" name="dob" autofocus>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Change
+                </button>
+            </form>
+        </div>
+        <div class="card-footer text-muted">
+            Footer
+        </div>
+    </div>
+</div>

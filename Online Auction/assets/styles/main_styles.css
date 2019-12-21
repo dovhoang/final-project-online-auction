@@ -1692,3 +1692,18 @@ section
 #otp{
 	margin-top: 130px;
 }
+
+.profile_line{
+	line-height: 40px;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.profile_line:hover{
+	background-color: rgb(14, 211, 96);
+}
+
+.indam{
+	font-weight: bold;
+}
+

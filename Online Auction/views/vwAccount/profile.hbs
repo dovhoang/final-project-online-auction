@@ -1,0 +1,180 @@
+<div class="container">
+    <div class="card shadow mb-4" id="register">
+        <h3 class="card-header">
+            <i class="fa fa-edit text-danger"></i> Information
+        </h3>
+        <div class="card-body">
+            {{#if success_msg}}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{success_msg}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+            <div class="row profile_line">
+                <div class="col-lg-4 indam">
+                    <i class="fa fa-user"></i>
+                    Username
+                </div>
+                <div class="col-lg-4">
+                    {{authUser.username}}
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-warning float-right" href="/account/profile/edit/username" role="button">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                </div>
+            </div>
+
+            <div class="row profile_line">
+                <div class="col-lg-4 indam">
+                    <i class="fa fa-key"></i>
+                    Password
+                </div>
+                <div class="col-lg-4">
+                    *********
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-warning float-right" href="/account/profile/edit/password" role="button">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                </div>
+            </div>
+
+            <div class="row profile_line">
+                <div class="col-lg-4 indam">
+                    <i class="fa fa-envelope"></i>
+                    Email
+                </div>
+                <div class="col-lg-4">
+                    {{authUser.email}}
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-warning float-right" href="/account/profile/edit/email" role="button">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                </div>
+            </div>
+
+            <div class="row profile_line">
+                <div class="col-lg-4 indam">
+                    <i class="fa fa-user"></i>
+                    First name
+                </div>
+                <div class="col-lg-4">
+                    {{authUser.firstname}}
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-warning float-right" href="/account/profile/edit/firstname" role="button">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                </div>
+            </div>
+
+            <div class="row profile_line">
+                <div class="col-lg-4 indam">
+                    <i class="fa fa-user"></i>
+                    Last name
+                </div>
+                <div class="col-lg-4">
+                    {{authUser.lastname}}
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-warning float-right" href="/account/profile/edit/lastname" role="button">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                </div>
+            </div>
+
+            <div class="row profile_line">
+                <div class="col-lg-4 indam">
+                    <i class="fa fa-birthday-cake"></i>
+                    Day of birth
+                </div>
+                <div class="col-lg-4">
+                    {{authUser.dob}}
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-warning float-right" href="/account/profile/edit/dob" role="button">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                </div>
+            </div>
+
+            <div class="row profile_line">
+                <div class="col-lg-4 indam">
+                    <i class="fa fa-building"></i>
+                    City/Province
+                </div>
+                <div class="col-lg-4">
+                    {{authUser.cityprovince}}
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-warning float-right" href="/account/profile/edit/cityprovince" role="button">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                </div>
+            </div>
+
+            <div class="row profile_line">
+                <div class="col-lg-4 indam">
+                    <i class="fa fa-home"></i>
+                    District
+                </div>
+                <div class="col-lg-4">
+                    {{authUser.district}}
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-warning float-right" href="/account/profile/edit/district" role="button">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                </div>
+            </div>
+
+            <div class="row profile_line">
+                <div class="col-lg-4 indam">
+                    <i class="fa fa-home"></i>
+                    Ward
+                </div>
+                <div class="col-lg-4">
+                    {{authUser.ward}}
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-warning float-right" href="/account/profile/edit/ward" role="button">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                </div>
+            </div>
+
+            <div class="row profile_line">
+                <div class="col-lg-4 indam">
+                    <i class="fa fa-road"></i>
+                    Street
+                </div>
+                <div class="col-lg-4">
+                    {{authUser.street}}
+                </div>
+                <div class="col-lg-4">
+                    <a class="btn btn-warning float-right" href="/account/profile/edit/street" role="button">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                        Edit
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer text-muted">
+            Footer
+        </div>
+    </div>
+</div>
