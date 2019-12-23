@@ -34,7 +34,7 @@ for (i = 0; i < allTimeRemaining.length; i++) {
 }
 var x = setInterval(function() {
     var now = new Date().getTime();
-    for (i = 0; i < length; i++) {
+    for (i = 0; i < allTimeRemaining.length; i++) {
          distance = countDownDate[i] - now;
          days = Math.floor(distance / (1000 * 60 * 60 * 24));
          hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
