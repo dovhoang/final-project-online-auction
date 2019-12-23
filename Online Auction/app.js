@@ -44,7 +44,7 @@ app.set('view engine', 'hbs');
 require('./middlewares/locals.mdw')(app);
 require('./middlewares/routes.mdw')(app);
 
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
   res.render('index');
 });
 

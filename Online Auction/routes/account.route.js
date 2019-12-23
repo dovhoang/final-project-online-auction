@@ -157,7 +157,7 @@ router.post('/signin', async (req, res) => {
     delete user.password;
     req.session.isAuthenticated = true;
     req.session.authUser = user;
-    const url = req.query.retUrl || '/home';
+    const url = req.query.retUrl || '/';
     res.redirect(url);
 });
 
@@ -489,7 +489,7 @@ router.post('/forgotpassword', async (req, res) => {
 });
 
 //OTP forgotpassword
-router.get('/forgotpassword/otp', (req, res) => {
+router.get('/forgotpassword/otp',restrict.forGuestNotEnterEmailRecovery, (req, res) => {
     res.render('vwAccount/otpforgotpassword')
 })
 
@@ -501,9 +501,9 @@ router.post('/forgotpassword/otp', async (req, res) => {
         });
     }
     //Kiểm tra nếu OTP nhập vào có đúng không
-    console.log(+req.body.OTP === +req.session.OTP1);
     if (+req.body.OTP === +req.session.OTP1) {//Đúng
         req.session.OTP1 = null;
+        req.session.isTrueOTP = true;
         res.redirect('/account/forgotpassword/newpassword');
     } else {//Không đúng
         res.render('vwAccount/otpforgotpassword', {
@@ -513,7 +513,7 @@ router.post('/forgotpassword/otp', async (req, res) => {
 });
 
 //New password 
-router.get('/forgotpassword/newpassword', (req, res) => {
+router.get('/forgotpassword/newpassword',restrict.forGuestNotEnterOTP, (req, res) => {
     res.render('vwAccount/newpassword')
 })
 
@@ -544,6 +544,9 @@ router.post('/forgotpassword/newpassword', async (req, res) => {
         delete req.body.confirmpassword;
         const user = await userModel.singleByEmail(req.session.email);
         const result = await userModel.patch(req.body, user.username);
+        //Xóa các session
+        req.session.email = null;
+        req.session.isTrueOTP = null;
         req.flash('success_msg', 'Changing password complete');
         res.redirect('/account/signin');
     } else {//Nếu không match
