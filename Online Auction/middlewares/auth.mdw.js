@@ -9,7 +9,7 @@ module.exports = {
     forUserSignIn: (req, res, next) => {
         if (req.session.isAuthenticated === true) {
             // req.flash('error_msg', 'Please sign in first')
-            return res.redirect(`/`);
+            return res.redirect('/');
         }
         next();
     },
@@ -28,6 +28,29 @@ module.exports = {
         if (req.session.isTrueOTP !== true) {
             req.flash('error_msg', 'Please enter otp first')
             return res.redirect(`/account/forgotpassword/otp`);
+        }
+        next();
+    },
+    forGuestNotEnterRegisterForm: (req,res,next) =>{
+        //Nếu session OTP chưa có 
+        //Redirect về trang nhập register form
+        if (req.session.OTP === null || req.session.OTP === undefined) {
+            req.flash('error_msg', 'Please fill out this form')
+            return res.redirect(`/account/register`);
+        }
+        next();
+    },
+    forUserNotAdmin: (req,res,next) =>{
+        //Nếu không là admin hoặc chưa đăng nhập
+        if (req.session.isAuthenticated === false || req.session.authUser.type !== 2) {
+            return res.redirect('/');
+        }
+        next();
+    },
+    forAdmin: (req,res,next) =>{
+        //Nếu là admin
+        if (req.session.authUser.type === 2) {
+            return res.redirect('/');
         }
         next();
     },

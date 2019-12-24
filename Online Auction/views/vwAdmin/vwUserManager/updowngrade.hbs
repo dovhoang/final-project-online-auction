@@ -1,0 +1,95 @@
+{{!-- {{#section 'js'}}
+<script>
+    $(document).ready(function () {
+        const a = {{ users.username }
+    };
+    $('.profile_line').mouseenter(() => {
+        const a = "hien2";
+        $(a).css('background-color', 'rgb(14, 211, 96)');
+    });
+
+    $('.profile_line').mouseleave(() => {
+        $(a).css('background-color', 'rgb(255, 255, 255)');
+    });
+    })
+</script>
+{{/section}} --}}
+
+<div class="container">
+    <div class="card shadow mb-4" id="register">
+        <h3 class="card-header">
+            <i class="fa fa-users text-danger"></i> Users
+        </h3>
+        <div class="card-body">
+            {{#if success_msg}}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{success_msg}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+            <div class="row profile_line1">
+                <div class="col-lg-2 indam text-danger">
+                    <i class="fa fa-sort-numeric-down"></i>
+                    #
+                </div>
+                <div class="col-lg-4 indam text-danger">
+                    <i class="fa fa-user"></i>
+                    Username
+                </div>
+                <div class="col-lg-3 indam text-danger">
+                    <i class="fa fa-star"></i>
+                    Rating
+                </div>
+            </div>
+            {{#each users}}
+
+            <form method="POST" id="frmUpDownGrade">
+                <div class="row profile_line">
+                    <div class="col-lg-2 mt-1 mb-1">
+                        {{userID}}
+                    </div>
+                    <div class="col-lg-4 mt-1 mb-1">
+                        <input type="text" class="form-control username" id="{{username}}" name="username"
+                            value="{{username}}" readonly>
+                    </div>
+                    <div class="col-lg-3 mt-1 mb-1">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-o"></i>
+                    </div>
+                    {{#if_eq type 1}}
+                    <div class="col-lg-3">
+                        <button type="submit" class="btn btn-danger float-right mt-1 mb-1"
+                            formaction="/admin/user/updowngrade/down">
+                            <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+                            Bidder
+                        </button>
+                    </div>
+                    {{else}}
+                    <div class="col-lg-3">
+                        <button type="submit" class="btn btn-danger float-right mt-1 mb-1"
+                            formaction="/admin/user/updowngrade/reject">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Reject
+                        </button>
+                        <button type="submit" class="btn btn-primary float-right mr-1 mt-1 mb-1"
+                            formaction="/admin/user/updowngrade/up">
+                            <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                            Seller
+                        </button>
+                    </div>
+                    {{/if_eq}}
+                </div>
+            </form>
+            {{/each}}
+
+        </div>
+        <div class="card-footer text-muted">
+            Footer
+        </div>
+    </div>
+</div>

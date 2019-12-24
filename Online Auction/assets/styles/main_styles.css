@@ -1693,7 +1693,7 @@ section
 	margin-top: 130px;
 }
 
-.profile_line{
+.profile_line ,.profile_line1{
 	line-height: 40px;
 	border-top: 1px solid black;
 	border-bottom: 1px solid black;
@@ -1705,5 +1705,18 @@ section
 
 .indam{
 	font-weight: bold;
+}
+
+.hover:hover{
+	background-color: rgb(14, 211, 96);
+}
+
+.username{
+	font-weight: bold;
+	border:none;
+	width:fit-content;
+	height:fit-content;
+	color: black;
+	background-color:  rgb(255, 255, 255) !important;
 }
 

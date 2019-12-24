@@ -7,7 +7,7 @@ const restrict = require('../middlewares/auth.mdw');
 const nodemailer = require('nodemailer');
 
 //Register
-router.get('/register', async (req, res) => {
+router.get('/register', restrict.forUserSignIn, async (req, res) => {
     res.render('vwAccount/register');
 });
 
@@ -86,12 +86,11 @@ router.post('/register', async (req, res) => {
 });
 
 //Verify OTP
-router.get('/verify', (req, res) => {
+router.get('/verify', restrict.forUserSignIn, restrict.forGuestNotEnterRegisterForm, (req, res) => {
     res.render('vwAccount/verify');
 })
 
 router.post('/verify', async (req, res) => {
-
     const info = req.session.info;
     if (+req.body.OTP === +req.session.OTP) {
         const N = bcrypt.genSaltSync(10);
@@ -106,6 +105,7 @@ router.post('/verify', async (req, res) => {
         info.email = info.user_email;
         info.dob = dob;
         info.type = 0;
+        info.isUpgrade = 0;
 
         //Xóa những trường không cần thiết
         delete info.user_name;
@@ -131,7 +131,7 @@ router.post('/verify', async (req, res) => {
 
 
 //Sign in
-router.get('/signin', async (req, res) => {
+router.get('/signin', restrict.forUserSignIn, async (req, res) => {
     res.render('vwAccount/signin');
 })
 
@@ -169,11 +169,8 @@ router.post('/signout', (req, res) => {
 })
 
 
-
-
-
 //View profile
-router.get('/profile', restrict.forUserNotSignIn, (req, res) => {
+router.get('/profile', restrict.forUserNotSignIn, restrict.forAdmin, (req, res) => {
     res.render('vwAccount/profile');
 })
 
@@ -489,7 +486,7 @@ router.post('/forgotpassword', async (req, res) => {
 });
 
 //OTP forgotpassword
-router.get('/forgotpassword/otp',restrict.forGuestNotEnterEmailRecovery, (req, res) => {
+router.get('/forgotpassword/otp', restrict.forGuestNotEnterEmailRecovery, (req, res) => {
     res.render('vwAccount/otpforgotpassword')
 })
 
@@ -513,7 +510,7 @@ router.post('/forgotpassword/otp', async (req, res) => {
 });
 
 //New password 
-router.get('/forgotpassword/newpassword',restrict.forGuestNotEnterOTP, (req, res) => {
+router.get('/forgotpassword/newpassword', restrict.forGuestNotEnterOTP, (req, res) => {
     res.render('vwAccount/newpassword')
 })
 
@@ -555,5 +552,17 @@ router.post('/forgotpassword/newpassword', async (req, res) => {
         });
     }
 });
+
+
+//Upgrade to seller
+router.post('/profile/upgrade', async (req, res) => {
+    //Set thông tin của user là muốn upgrade lên thành seller
+    req.session.authUser.isUpgrade = 1;
+    //Ghi thông tin vào database
+    const isupgrade = { isUpgrade: req.session.authUser.isUpgrade };
+    const result = await userModel.patch(isupgrade, req.session.authUser.username);
+    req.flash('success_msg', 'Your request has been sent');
+    res.redirect('/account/profile');
+})
 
 module.exports = router;
