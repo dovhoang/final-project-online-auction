@@ -15,16 +15,16 @@
       {{#each this.product}}
       <div class="col-sm-3 mb-3">
         <div class="card h-10 w-80">
-            {{#if price_purchase}}
-                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>{{price_purchase}}</span></div>
+            {{#if PricePurchase}}
+                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>{{PricePurchase}}</span></div>
             {{/if}}
             <div class="favorite favorite_left"></div>
-          <img src="/{{ProID}}/main_thumbs.png" alt="{{ProName}}" title="{{ProName}}" class="card-img-top center" style="width:200px">
+          <img src="/{{ProductID}}/main_thumbs.png" alt="{{ProductName}}" title="{{ProductName}}" class="card-img-top center" style="width:200px">
           <div class="card-body">
-            <h6 class="card-title">{{ProName}}</h6>
+            <h6 class="card-title">{{ProductName}}</h6>
             
-            <h5 class="card-title text-danger">{{price_start}}</h5>
-            <div class="product_expiration_date timer_num time_custom_number">{{time_exp}}</div>
+            <h5 class="card-title text-danger">{{PriceStart}}</h5>
+            <div class="product_expiration_date timer_num time_custom_number">{{TimeExp}}</div>
           </div>
           <div class="card-footer text-center">
         </div>

@@ -1,9 +1,9 @@
 const db = require('../utils/db');
 
 module.exports = {
-  all: () => db.load('select * from product'),
+  all: () => db.load('select * from Products'),
   allByCat: catId => db.load(`
-      select * from product p join categories c
+      select * from Products p join Categories c
       on p.CatID = c.CatID
       where p.CatID = ${catId} or c.ParentID = ${catId}`),
 
@@ -13,12 +13,12 @@ module.exports = {
   get3TimesLatestPrice: id => db.load(`CALL getInfo3TimesLatestPrice(${id}) `),
   getReview: id=> db.load(`CALL getReview(${id})`),
   get5RelatedProduct: id=>db.load (`CALL get5RelatedProduct(${id})`),
-  add: entity => db.add('product', entity),
-  addBid: entity => db.add('bid', entity),
-  del: id => db.del('product', { ProID: id }),
+  add: entity => db.add('Products', entity),
+  addBid: entity => db.add('Bid', entity),
+  del: id => db.del('Products', { ProID: id }),
   patch: entity => {
     const condition = { ProID: entity.ProID };
     delete entity.ProID;
-    return db.patch('product', entity, condition);
+    return db.patch('Products', entity, condition);
   }
 };
