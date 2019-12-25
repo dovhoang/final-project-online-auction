@@ -7,7 +7,8 @@
                     Views
                 </h4>
                 <div class="list-group list-group-flush">
-                    <a href="/admin/user/updowngrade" class="list-group-item list-group-item-action indam active hover">
+                    <a href="/admin/user/updowngrade"
+                        class="list-group-item list-group-item-action indam hover">
                         <i class="fa fa-arrow-circle-up"></i>
                         Upgrade -
                         <i class="fa fa-arrow-circle-down"></i>
@@ -17,7 +18,8 @@
                         {{/if}}
                     </a>
 
-                    <a href="/admin/user/upgrade" class="list-group-item list-group-item-action indam hover">
+                    <a href="/admin/user/upgrade"
+                        class="list-group-item list-group-item-action indam active hover">
                         <i class="fa fa-arrow-circle-up"></i>
                         Upgrade
                         {{#if countAllBidder}}
@@ -25,7 +27,8 @@
                         {{/if}}
                     </a>
 
-                    <a href="/admin/user/downgrade" class="list-group-item list-group-item-action indam hover">
+                    <a href="/admin/user/downgrade"
+                        class="list-group-item list-group-item-action indam hover">
                         <i class="fa fa-arrow-circle-down"></i>
                         Downgrade
                         {{#if countAllSeller}}
@@ -71,8 +74,6 @@
                                 {{UserID}}
                             </div>
                             <div class="col-lg-4 mt-1 mb-1 indam">
-                                {{!-- <input type="text" class="form-control username" id="{{Username}}" name="username"
-                                    value="{{Username}}" readonly> --}}
                                 {{Username}}
                             </div>
                             <div class="col-lg-3 mt-1 mb-1 text-warning">
@@ -82,15 +83,6 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star-o"></i>
                             </div>
-                            {{#if_eq Type 1}}
-                            <div class="col-lg-3">
-                                <button type="submit" class="btn btn-danger float-right mt-1 mb-1"
-                                    formaction="/admin/user/updowngrade/down">
-                                    <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
-                                    Bidder
-                                </button>
-                            </div>
-                            {{else}}
                             <div class="col-lg-3">
                                 <button type="submit" class="btn btn-danger float-right mt-1 mb-1"
                                     formaction="/admin/user/updowngrade/reject">
@@ -103,11 +95,9 @@
                                     Seller
                                 </button>
                             </div>
-                            {{/if_eq}}
                         </div>
                     </form>
                     {{/each}}
-
                 </div>
                 <div class="card-footer text-muted">
                     Footer

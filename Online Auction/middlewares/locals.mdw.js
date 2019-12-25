@@ -1,9 +1,20 @@
 const categoryModel = require('../models/category.model');
+const userModel = require('../models/user.model')
 
-module.exports = function (app) {
-  app.use((req, res, next) => {
+module.exports = app => {
+  app.use(async (req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
+
+    const all = await userModel.countAll();
+    res.locals.countAll = all[0].total;
+
+    const allBidder = await userModel.countBidderWantToBeSeller();
+    res.locals.countAllBidder = allBidder[0].totalBidder;
+    
+    const allSeller = await userModel.countSeller();
+    res.locals.countAllSeller = allSeller[0].totalSeller;
+    // res.locals.lcCategories = rows;
     // res.locals.otp = req.flash('otp');
     if (typeof (req.session.isAuthenticated) === 'undefined') {
       req.session.isAuthenticated = false;

@@ -88,20 +88,22 @@
 								<ul class="navbar_menu">
 									<li><a href="/">home</a></li>
 									<li>
-										<a class="dropdown-toggle" data-toggle="dropdown">Categories<b class="caret"></b></a>
+										<a class="dropdown-toggle" data-toggle="dropdown">Categories<b
+												class="caret"></b></a>
 										<ul class="dropdown-menu">
 											{{#each lcCatLevel1}}
-												<li class="dropdown-submenu">
+											<li class="dropdown-submenu">
 												<a href="/user/categories/{{CatID}}/products"
 													class="dropdown-toggle">{{CatName}}</a>
 												<ul class="dropdown-menu">
 													{{#each ../lcCatAll}}
 													{{#if_eq ParentID ../CatID}}
-													<li><a href="/user/categories/{{CatID}}/products">{{CatName}}</a></li>
+													<li><a href="/user/categories/{{CatID}}/products">{{CatName}}</a>
+													</li>
 													{{/if_eq}}
 													{{/each}}
 												</ul>
-												</li>
+											</li>
 											{{/each}}
 										</ul>
 									</li>
@@ -122,11 +124,11 @@
 										<button type="button" class="btn btn-success dropdown-toggle"
 											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											<i class="fa fa-cogs" aria-hidden="true"></i>
-											Admin
+											{{authUser.Username}}
 										</button>
 										<div class="dropdown-menu dropdown-menu-right">
-											<a class="dropdown-item hover" href="/admin/user/manage"><i class="fa fa-user"
-													aria-hidden="true"></i> Manage users</a>
+											<a class="dropdown-item hover" href="/admin/user/manage"><i
+													class="fa fa-users" aria-hidden="true"></i> Manage users</a>
 											<a class="dropdown-item hover" href="/admin/user/updowngrade">
 												<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
 												Upgrade -
@@ -141,15 +143,23 @@
 									<li>
 										<a href="/account/profile">
 											<i class="fa fa-2x fa-user" aria-hidden="true"></i>
-											Profile
+											{{authUser.Username}}
 										</a>
 									</li>
-									<li class="checkout ml-3">
+									<li class="checkout ml-3 mr-3">
 										<a href="#">
-											<i class="fa fa-heart" aria-hidden="true"></i>
+											<i class="fa fa-2x fa-heart text-danger" aria-hidden="true"></i>
 											<span id="checkout_items" class="checkout_items">2</span>
 										</a>
 									</li>
+									{{!-- {{#if_eq authUser.Type 1}}
+									<li>
+										<i class="fa fa-2x fa-money" aria-hidden="true"></i>
+										Seller
+									</li>
+									{{else}} --}}
+
+									{{!-- {{/if_eq}} --}}
 									{{/if_eq}}
 									{{/if}}
 								</ul>

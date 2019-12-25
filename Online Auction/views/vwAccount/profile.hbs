@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card shadow mb-4" id="register">
-        <h3 class="card-header">
-            <i class="fa fa-edit text-danger"></i> Information
+        <h3 class="card-header text-danger">
+            <i class="fa fa-edit"></i> Information
         </h3>
         <div class="card-body">
             {{#if success_msg}}
@@ -21,7 +21,8 @@
                     {{authUser.Username}}
                 </div>
                 <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/username" role="button">
+                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/username"
+                        role="button">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         Edit
                     </a>
@@ -37,7 +38,8 @@
                     *********
                 </div>
                 <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1 " href="/account/profile/edit/password" role="button">
+                    <a class="btn btn-warning float-right mt-1 mb-1 " href="/account/profile/edit/password"
+                        role="button">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         Edit
                     </a>
@@ -69,7 +71,8 @@
                     {{authUser.FirstName}}
                 </div>
                 <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/firstname" role="button">
+                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/firstname"
+                        role="button">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         Edit
                     </a>
@@ -85,7 +88,8 @@
                     {{authUser.LastName}}
                 </div>
                 <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/lastname" role="button">
+                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/lastname"
+                        role="button">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         Edit
                     </a>
@@ -117,7 +121,8 @@
                     {{authUser.CityProvince}}
                 </div>
                 <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/cityprovince" role="button">
+                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/cityprovince"
+                        role="button">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         Edit
                     </a>
@@ -133,7 +138,8 @@
                     {{authUser.District}}
                 </div>
                 <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/district" role="button">
+                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/district"
+                        role="button">
                         <i class="fa fa-edit" aria-hidden="true"></i>
                         Edit
                     </a>
@@ -171,14 +177,16 @@
                     </a>
                 </div>
             </div>
-                
-                
+
+            {{#if_eq authUser.Type 0}}
             <form method="POST">
-                <button type="submit" class="btn btn-primary float-right mt-2" formaction="/account/profile/upgrade" {{#if authUser.IsUpgrade}} disabled {{/if}}>
+                <button type="submit" class="btn btn-primary float-right mt-2" formaction="/account/profile/upgrade"
+                    {{#if authUser.IsUpgrade}} disabled {{/if}}>
                     <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
                     Upgrade to seller
                 </button>
             </form>
+            {{/if_eq}}
 
 
         </div>

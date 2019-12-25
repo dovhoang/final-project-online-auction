@@ -7,6 +7,29 @@ module.exports = {
     const sql = `select * from Users where ((Type = 0 && IsUpgrade = 1) || Type = 1)`;
     return db.load(sql);
   },
+  allBidderWantToBeSeller: () => {
+    const sql = `select * from Users where (Type = 0 && IsUpgrade = 1)`;
+    return db.load(sql);
+  },
+  allSeller: () => {
+    const sql = `select * from Users where Type = 1`;
+    return db.load(sql);
+  },
+
+  countSeller: () => {
+    const sql = `select count(*) as totalSeller from Users where Type = 1`;
+    return db.load(sql);
+  },
+
+  countBidderWantToBeSeller: () => {
+    const sql = `select count(*) as totalBidder from Users where (Type = 0 && IsUpgrade = 1)`;
+    return db.load(sql);
+  },
+
+  countAll: () => {
+    const sql = `select count(*) as total from Users where ((Type = 0 && IsUpgrade = 1) || Type = 1)`;
+    return db.load(sql);
+  },
   ///Chọn ra tất cả users không là admin
   allWithCondition2: () => {
     const sql = `select * from Users where Type != 2`;

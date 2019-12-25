@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card shadow mb-4" id="register">
-        <h3 class="card-header">
-            <i class="fa fa-users text-danger"></i> All users
+        <h3 class="card-header text-danger">
+            <i class="fa fa-users"></i> All users
         </h3>
         <div class="card-body">
             {{#if success_msg}}
@@ -33,11 +33,12 @@
                     <div class="col-lg-2 mt-1 mb-1">
                         {{UserID}}
                     </div>
-                    <div class="col-lg-4 mt-1 mb-1">
-                        <input type="text" class="form-control username" id="{{Username}}" name="username"
-                            value="{{Username}}" readonly>
+                    <div class="col-lg-4 mt-1 mb-1 indam">
+                        {{!-- <input type="text" class="form-control username" id="{{Username}}" name="username"
+                            value="{{Username}}" readonly> --}}
+                        {{Username}}
                     </div>
-                    <div class="col-lg-3 mt-1 mb-1">
+                    <div class="col-lg-3 mt-1 mb-1 text-warning">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -51,7 +52,7 @@
                             Delete  
                         </button>
 
-                        <a class="btn btn-success float-right mt-1 mb-1 mr-1" href="/admin/user/manage/{{UserID}}/profile"
+                        <a class="btn btn-info float-right mt-1 mb-1 mr-1" href="/admin/user/manage/{{UserID}}/profile"
                             role="button">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                             Profile

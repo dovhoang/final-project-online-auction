@@ -1,7 +1,7 @@
 <div class="container">
   <div class="card shadow mb-4" id="register">
-    <h3 class="card-header">
-      <i class="fa fa-edit text-danger"></i> Username
+    <h3 class="card-header text-danger">
+      <i class="fa fa-edit"></i> Username
     </h3>
     <div class="card-body">
       <form method="POST" id="frmChangeUsername" name="frmChangeUsername">
@@ -16,10 +16,20 @@
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label for="txtUserName"><i class="fa fa-user"></i> UserName <i
+              <label for="txtPassword"><i class="fa fa-lock"></i> Confirm Password <i
+                  class="fa fa-star text-danger"></i></label>
+              <input type="password" class="form-control" id="txtPassword" name="password" autofocus>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="txtUserName"><i class="fa fa-user"></i> New Username <i
                   class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtUserName" name="username" placeholder="Hienhhcc"
-                value="{{name}}" autofocus>
+                value="{{name}}">
             </div>
           </div>
         </div>

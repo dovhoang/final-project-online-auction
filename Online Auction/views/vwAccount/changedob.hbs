@@ -1,6 +1,6 @@
 {{#section 'css'}}
 <link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 
 {{/section}}
 
@@ -8,19 +8,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js">
 </script>
 <script>
-  $('#txtDOB').datetimepicker({
-    // format: 'd/m/Y H:i'
-    format: 'd/m/Y',
-    timepicker: false,
-    mask: true,
-  });
+    $('#txtDOB').datetimepicker({
+        // format: 'd/m/Y H:i'
+        format: 'd/m/Y',
+        timepicker: false,
+        mask: true,
+    });
 </script>
 {{/section}}
 
 <div class="container">
     <div class="card shadow mb-4" id="register">
-        <h3 class="card-header">
-            <i class="fa fa-edit text-danger"></i> Day of birth
+        <h3 class="card-header text-danger">
+            <i class="fa fa-edit"></i> Day of birth
         </h3>
         <div class="card-body">
             <form method="POST" id="frmDOB" name="frmDOB">
@@ -32,6 +32,16 @@
                     </button>
                 </div>
                 {{/if}}
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="txtPassword"><i class="fa fa-lock"></i> Confirm Password <i
+                                    class="fa fa-star text-danger"></i></label>
+                            <input type="password" class="form-control" id="txtPassword" name="password" autofocus>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col">
                         <div class="form-group">

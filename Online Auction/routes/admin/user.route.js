@@ -23,7 +23,7 @@ router.post('/manage/del', async (req, res) => {
 
 //View profile user
 router.get('/manage/:id/profile', restrict.forUserNotAdmin, async (req, res) => {
-    //Lấy ra những users không phải admin
+    //Lấy ra user có UserID
     const userID = req.params.id;
     const user = await userModel.singleByUserID(userID);
     res.render('vwAdmin/vwUserManager/profileuser', {
@@ -37,7 +37,25 @@ router.get('/updowngrade', restrict.forUserNotAdmin, async (req, res) => {
     //Lấy ra những bidder muốn nâng cấp thành seller và các seller
     const rows = await userModel.allWithCondition1();
     res.render('vwAdmin/vwUserManager/updowngrade', {
-        users: rows
+        users: rows,
+    });
+});
+
+//Nâng cấp bidder
+router.get('/upgrade', restrict.forUserNotAdmin, async (req, res) => {
+    //Lấy ra những bidder muốn nâng cấp thành seller
+    const rows = await userModel.allBidderWantToBeSeller();
+    res.render('vwAdmin/vwUserManager/upgrade', {
+        users: rows,
+    });
+});
+
+//Hạ cấp seller
+router.get('/downgrade', restrict.forUserNotAdmin, async (req, res) => {
+    //Lấy ra những bidder muốn nâng cấp thành seller và các seller
+    const rows = await userModel.allSeller();
+    res.render('vwAdmin/vwUserManager/downgrade', {
+        users: rows,
     });
 });
 

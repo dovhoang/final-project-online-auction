@@ -180,9 +180,17 @@ router.get('/profile/edit/username', restrict.forUserNotSignIn, (req, res) => {
 
 router.post('/profile/edit/username', restrict.forUserNotSignIn, async (req, res) => {
     //Kiểm tra các trường có trống hay không
-    if (req.body.username === '') {
+    if (req.body.username === '' || req.body.password === '') {
         return res.render('vwAccount/changeusername', {
             error: 'Please fill in all fields'
+        });
+    }
+    //Kiểm tra password có khớp hay không
+    const user1 = await userModel.singleByUsername(req.session.authUser.Username);
+    const rs = bcrypt.compareSync(req.body.password, user1.Password);
+    if (rs === false) {//Nếu không đúng password
+        return res.render('vwAccount/changeusername', {
+            error: 'Password incorrect'
         });
     }
     //Kiểm tra các trường có nhỏ hơn 4 ký tự hay không
@@ -195,9 +203,10 @@ router.post('/profile/edit/username', restrict.forUserNotSignIn, async (req, res
     //So sánh có người dùng với username nhập vào hay không
     const user = await userModel.singleByUsername(req.body.username);
     if (user === null) {//Nếu không có người dùng
+        delete req.body.password;
         const result = await userModel.patch(req.body, req.session.authUser.Username);
         req.session.authUser.Username = req.body.username;
-        req.flash('success_msg', 'Changing username success');
+        req.flash('success_msg', 'Change username success');
         res.redirect('/account/profile');
     } else {
         // console.log(user === null);
@@ -244,6 +253,7 @@ router.post('/profile/edit/password', restrict.forUserNotSignIn, async (req, res
     } else {//Nếu oldpassword đúng
         //So sánh nếu không ko match password
         if (req.body.newpassword === req.body.confirmpassword) {//Nếu match
+            delete req.body.password;
             const N = bcrypt.genSaltSync(10);
             const hash = bcrypt.hashSync(req.body.newpassword, N);
             req.body.password = hash;
@@ -251,7 +261,7 @@ router.post('/profile/edit/password', restrict.forUserNotSignIn, async (req, res
             delete req.body.newpassword;
             delete req.body.confirmpassword;
             const result = await userModel.patch(req.body, req.session.authUser.Username);
-            req.flash('success_msg', 'Changing password success');
+            req.flash('success_msg', 'Change password success');
             res.redirect('/account/profile');
         } else {//Nếu không match
             res.render('vwAccount/changepassword', {
@@ -268,9 +278,17 @@ router.get('/profile/edit/email', restrict.forUserNotSignIn, (req, res) => {
 
 router.post('/profile/edit/email', restrict.forUserNotSignIn, async (req, res) => {
     //Kiểm tra các trường có trống hay không
-    if (req.body.email === '') {
+    if (req.body.email === '' || req.body.password === '') {
         return res.render('vwAccount/changeemail', {
             error: 'Please fill in all fields'
+        });
+    }
+    //Kiểm tra password có khớp hay không
+    const user1 = await userModel.singleByUsername(req.session.authUser.Username);
+    const rs = bcrypt.compareSync(req.body.password, user1.Password);
+    if (rs === false) {//Nếu không đúng password
+        return res.render('vwAccount/changeemail', {
+            error: 'Password incorrect'
         });
     }
     //Kiểm tra email nhập vào có đúng định dạng không
@@ -280,11 +298,12 @@ router.post('/profile/edit/email', restrict.forUserNotSignIn, async (req, res) =
         });
     }
     //So sánh có người dùng với email nhập vào hay không
-    const user = await userModel.singleByEmail(req.body.email);
+    const user = await userModel.singleByUsername(req.body.email);
     if (user === null) {//Nếu không có người dùng
+        delete req.body.password;
         const result = await userModel.patch(req.body, req.session.authUser.Username);
         req.session.authUser.Email = req.body.email;
-        req.flash('success_msg', 'Changing email success');
+        req.flash('success_msg', 'Change email success');
         res.redirect('/account/profile');
     } else {//Nếu email đã tồn tại
         res.render('vwAccount/changeemail', {
@@ -302,15 +321,24 @@ router.get('/profile/edit/firstname', restrict.forUserNotSignIn, (req, res) => {
 
 router.post('/profile/edit/firstname', restrict.forUserNotSignIn, async (req, res) => {
     //Kiểm tra các trường có trống hay không
-    if (req.body.firstname === '') {
+    if (req.body.firstname === '' || req.body.password === '') {
         return res.render('vwAccount/changefirstname', {
             error: 'Please fill in all fields'
         });
     }
+    //Kiểm tra password có khớp hay không
+    const user = await userModel.singleByUsername(req.session.authUser.Username);
+    const rs = bcrypt.compareSync(req.body.password, user.Password);
+    if (rs === false) {//Nếu không đúng password
+        return res.render('vwAccount/changefirstname', {
+            error: 'Password incorrect'
+        });
+    }
     //Nếu thỏa các đk trên
+    delete req.body.password;
     const result = await userModel.patch(req.body, req.session.authUser.Username);
     req.session.authUser.FirstName = req.body.firstname;
-    req.flash('success_msg', 'Changing firstname success');
+    req.flash('success_msg', 'Change firstname success');
     res.redirect('/account/profile');
 });
 
@@ -321,15 +349,24 @@ router.get('/profile/edit/lastname', restrict.forUserNotSignIn, (req, res) => {
 
 router.post('/profile/edit/lastname', restrict.forUserNotSignIn, async (req, res) => {
     //Kiểm tra các trường có trống hay không
-    if (req.body.lastname === '') {
+    if (req.body.lastname === '' || req.body.password === '') {
         return res.render('vwAccount/changelastname', {
             error: 'Please fill in all fields'
         });
     }
+    //Kiểm tra password có khớp hay không
+    const user = await userModel.singleByUsername(req.session.authUser.Username);
+    const rs = bcrypt.compareSync(req.body.password, user.Password);
+    if (rs === false) {//Nếu không đúng password
+        return res.render('vwAccount/changelastname', {
+            error: 'Password incorrect'
+        });
+    }
     //Nếu thỏa các đk trên
+    delete req.body.password;
     const result = await userModel.patch(req.body, req.session.authUser.Username);
     req.session.authUser.LastName = req.body.lastname;
-    req.flash('success_msg', 'Changing lastname success');
+    req.flash('success_msg', 'Change lastname success');
     res.redirect('/account/profile');
 });
 
@@ -340,18 +377,26 @@ router.get('/profile/edit/dob', restrict.forUserNotSignIn, (req, res) => {
 
 router.post('/profile/edit/dob', restrict.forUserNotSignIn, async (req, res) => {
     //Kiểm tra các trường có trống hay không
-    console.log(req.body.dob);
-    if (req.body.dob === '') {
+    if (req.body.dob === '' || req.body.password === '') {
         return res.render('vwAccount/changedob', {
             error: 'Please fill in all fields'
         });
     }
+    //Kiểm tra password có khớp hay không
+    const user = await userModel.singleByUsername(req.session.authUser.Username);
+    const rs = bcrypt.compareSync(req.body.password, user.Password);
+    if (rs === false) {//Nếu không đúng password
+        return res.render('vwAccount/changedob', {
+            error: 'Password incorrect'
+        });
+    }
     //Nếu thỏa các đk trên
+    delete req.body.password;
     const dob = moment(req.body.dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
     req.body.dob = dob;
     const result = await userModel.patch(req.body, req.session.authUser.Username);
     req.session.authUser.DOB = dob;
-    req.flash('success_msg', 'Changing dob success');
+    req.flash('success_msg', 'Change dob success');
     res.redirect('/account/profile');
 });
 
@@ -362,15 +407,24 @@ router.get('/profile/edit/cityprovince', restrict.forUserNotSignIn, (req, res) =
 
 router.post('/profile/edit/cityprovince', restrict.forUserNotSignIn, async (req, res) => {
     //Kiểm tra các trường có trống hay không
-    if (req.body.cityprovince === '') {
+    if (req.body.cityprovince === '' || req.body.password === '') {
         return res.render('vwAccount/cityprovince', {
             error: 'Please fill in all fields'
         });
     }
+    //Kiểm tra password có khớp hay không
+    const user = await userModel.singleByUsername(req.session.authUser.Username);
+    const rs = bcrypt.compareSync(req.body.password, user.Password);
+    if (rs === false) {//Nếu không đúng password
+        return res.render('vwAccount/changecityprovince', {
+            error: 'Password incorrect'
+        });
+    }
     //Nếu thỏa các đk trên
+    delete req.body.password;
     const result = await userModel.patch(req.body, req.session.authUser.Username);
     req.session.authUser.CityProvince = req.body.cityprovince;
-    req.flash('success_msg', 'Changing cityprovince success');
+    req.flash('success_msg', 'Change cityprovince success');
     res.redirect('/account/profile');
 });
 
@@ -381,15 +435,25 @@ router.get('/profile/edit/district', restrict.forUserNotSignIn, (req, res) => {
 
 router.post('/profile/edit/district', restrict.forUserNotSignIn, async (req, res) => {
     //Kiểm tra các trường có trống hay không
-    if (req.body.district === '') {
+    if (req.body.district === '' || req.body.password === '') {
         return res.render('vwAccount/changedistrict', {
             error: 'Please fill in all fields'
         });
     }
+
+    //Kiểm tra password có khớp hay không
+    const user = await userModel.singleByUsername(req.session.authUser.Username);
+    const rs = bcrypt.compareSync(req.body.password, user.Password);
+    if (rs === false) {//Nếu không đúng password
+        return res.render('vwAccount/changedistrict', {
+            error: 'Password incorrect'
+        });
+    }
     //Nếu thỏa các đk trên
+    delete req.body.password;
     const result = await userModel.patch(req.body, req.session.authUser.Username);
     req.session.authUser.District = req.body.district;
-    req.flash('success_msg', 'Changing district success');
+    req.flash('success_msg', 'Change district success');
     res.redirect('/account/profile');
 });
 
@@ -400,15 +464,24 @@ router.get('/profile/edit/ward', restrict.forUserNotSignIn, (req, res) => {
 
 router.post('/profile/edit/ward', restrict.forUserNotSignIn, async (req, res) => {
     //Kiểm tra các trường có trống hay không
-    if (req.body.ward === '') {
+    if (req.body.ward === '' || req.body.password === '') {
         return res.render('vwAccount/changeward', {
             error: 'Please fill in all fields'
         });
     }
+    //Kiểm tra password có khớp hay không
+    const user = await userModel.singleByUsername(req.session.authUser.Username);
+    const rs = bcrypt.compareSync(req.body.password, user.Password);
+    if (rs === false) {//Nếu không đúng password
+        return res.render('vwAccount/changeward', {
+            error: 'Password incorrect'
+        });
+    }
     //Nếu thỏa các đk trên
+    delete req.body.password;
     const result = await userModel.patch(req.body, req.session.authUser.Username);
     req.session.authUser.Ward = req.body.ward;
-    req.flash('success_msg', 'Changing ward success');
+    req.flash('success_msg', 'Change ward success');
     res.redirect('/account/profile');
 });
 
@@ -419,15 +492,24 @@ router.get('/profile/edit/street', restrict.forUserNotSignIn, (req, res) => {
 
 router.post('/profile/edit/street', restrict.forUserNotSignIn, async (req, res) => {
     //Kiểm tra các trường có trống hay không
-    if (req.body.street === '') {
+    if (req.body.street === '' || req.body.password === '') {
         return res.render('vwAccount/changestreet', {
             error: 'Please fill in all fields'
         });
     }
+    //Kiểm tra password có khớp hay không
+    const user = await userModel.singleByUsername(req.session.authUser.Username);
+    const rs = bcrypt.compareSync(req.body.password, user.Password);
+    if (rs === false) {//Nếu không đúng password
+        return res.render('vwAccount/changestreet', {
+            error: 'Password incorrect'
+        });
+    }
     //Nếu thỏa các đk trên
+    delete req.body.password;
     const result = await userModel.patch(req.body, req.session.authUser.Username);
     req.session.authUser.Street = req.body.street;
-    req.flash('success_msg', 'Changing street success');
+    req.flash('success_msg', 'Change street success');
     res.redirect('/account/profile');
 });
 
@@ -544,7 +626,7 @@ router.post('/forgotpassword/newpassword', async (req, res) => {
         //Xóa các session
         req.session.email = null;
         req.session.isTrueOTP = null;
-        req.flash('success_msg', 'Changing password success');
+        req.flash('success_msg', 'Change password success');
         res.redirect('/account/signin');
     } else {//Nếu không match
         res.render('vwAccount/newpassword', {

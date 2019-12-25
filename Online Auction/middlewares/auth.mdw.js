@@ -13,7 +13,7 @@ module.exports = {
         }
         next();
     },
-    forGuestNotEnterEmailRecovery: (req,res,next) =>{
+    forGuestNotEnterEmailRecovery: (req, res, next) => {
         //Nếu session email chưa có 
         //Redirect về trang nhập email recovery
         if (req.session.email === null || req.session.email === undefined) {
@@ -22,7 +22,7 @@ module.exports = {
         }
         next();
     },
-    forGuestNotEnterOTP: (req,res,next) =>{
+    forGuestNotEnterOTP: (req, res, next) => {
         //Nếu session isTrueOTP chưa có 
         //Redirect về trang nhập OTP
         if (req.session.isTrueOTP !== true) {
@@ -31,7 +31,7 @@ module.exports = {
         }
         next();
     },
-    forGuestNotEnterRegisterForm: (req,res,next) =>{
+    forGuestNotEnterRegisterForm: (req, res, next) => {
         //Nếu session OTP chưa có 
         //Redirect về trang nhập register form
         if (req.session.OTP === null || req.session.OTP === undefined) {
@@ -40,19 +40,18 @@ module.exports = {
         }
         next();
     },
-    forUserNotAdmin: (req,res,next) =>{
+    forUserNotAdmin: (req, res, next) => {
         //Nếu không là admin hoặc chưa đăng nhập
         if (req.session.isAuthenticated === false || req.session.authUser.Type !== 2) {
             return res.redirect('/');
         }
         next();
     },
-    forAdmin: (req,res,next) =>{
+    forAdmin: (req, res, next) => {
         //Nếu là admin
         if (req.session.authUser.Type === 2) {
             return res.redirect('/');
         }
         next();
     },
-
 }
