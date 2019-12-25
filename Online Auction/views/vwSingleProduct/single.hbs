@@ -20,7 +20,7 @@
 								<li><a href="categories.html"><i class="fa fa-angle-right"
 											aria-hidden="true"></i>{{CatName}}</a></li>
 								<li class="active"><a href="#"><i class="fa fa-angle-right"
-											aria-hidden="true"></i>{{ProName}}</a></li>
+											aria-hidden="true"></i>{{ProductName}}</a></li>
 							</ul>
 						</div>
 
@@ -35,21 +35,21 @@
 								<div class="col-lg-3 thumbnails_col order-lg-1 order-2">
 									<div class="single_product_thumbnails">
 										<ul>
-											<li><img src="/{{ProID}}/1_thumbs.png" alt="{{ProName}}"
-													title="{{ProName}}"></li>
-											<li class="active"><img src="/{{ProID}}/2_thumbs.png"
-													alt="{{ProName}}" title="{{ProName}}"></li>
-											<li><img src="/{{ProID}}/3_thumbs.png" alt="{{ProName}}"
-													title="{{ProName}}"></li>
+											<li><img src="/{{ProductID}}/1_thumbs.png" alt="{{ProductName}}"
+													title="{{ProductName}}"></li>
+											<li class="active"><img src="/{{ProductID}}/2_thumbs.png"
+													alt="{{ProductName}}" title="{{ProductName}}"></li>
+											<li><img src="/{{ProductID}}/3_thumbs.png" alt="{{ProductName}}"
+													title="{{ProductName}}"></li>
 										</ul>
 									</div>
 								</div>
 								<div class="col-lg-9 image_col order-lg-2 order-1">
 									<div class="single_product_image">
 										<div class="single_product_image_background">
-											{{!-- style="background-image:url(/{{ProID}}/main_thumbs.png" )"></div> --}}
-											<img src="/{{ProID}}/main_thumbs.png" alt="{{ProName}}"
-															title="{{ProName}}"></div>
+											{{!-- style="background-image:url(/{{ProductID}}/main_thumbs.png" )"></div> --}}
+											<img src="/{{ProductID}}/main_thumbs.png" alt="{{ProductName}}"
+															title="{{ProductName}}"></div>
 									</div>
 								</div>
 							</div>
@@ -59,16 +59,16 @@
 						<div class="product_details">
 
 							<div class="product_details_title">
-								<h2 id="main_product_name">{{ProName}}</h2>
-								<div id="timepostingproduct">Time post:<span>{{time_post}}</span></div>
+								<h2 id="main_product_name">{{ProductName}}</h2>
+								<div id="timepostingproduct">Time post:<span>{{TimePost}}</span></div>
 								<div id="countdowntimer">Time left:
-									<span class="product_expiration_date">{{time_exp}}</span></div>
+									<span class="product_expiration_date">{{TimeExp}}</span></div>
 							</div>
 							<div class="row">
 								<div class="col instance_purchase">Buy now:</div>
 							</div>
 							<div class="row">
-								<div class="col-lg-2 money_instance_purchase">{{price_purchase}}</div>
+								<div class="col-lg-2 money_instance_purchase">{{PricePurchase}}</div>
 								<div class="col-lg-10 money_instance_purchase">
 									<button type="button" class="btn btn-warning">Buy <span class="fa
 											fa-shopping-cart"></span></button>
@@ -82,7 +82,7 @@
 
 							<div class="row">
 								{{#each this.curWinnerInfo}}
-								<div class="col-lg-3 line_product_price1" id="product_price">{{CurBid}}$</div>
+								<div class="col-lg-3 line_product_price1" id="product_price">{{CurrentBid}}$</div>
 								<div class="col-lg-4 line_product_price">
 									<i class="fa fa-trophy" aria-hidden="true"></i>
 									<span id="current_winner">{{curWinnerName}}</span>
@@ -102,7 +102,7 @@
 								<div class="placebid_selector">
 									<span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
 									{{#each this.product}}
-									<span id="placebid_value">{{curBid}}</span>
+									<span id="placebid_value">{{CurrentBid}}</span>
 									{{/each}}
 									<span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
 								</div>
@@ -247,7 +247,7 @@
 												</ul>
 											</div>
 											<div class="review">
-												<div class="review_date">{{time_post}}</div>
+												<div class="review_date">{{TimePost}}</div>
 												<div class="user_name">{{name}}</div>
 												<p>{{comment}}</p>
 											</div>
@@ -301,24 +301,24 @@
 											<div class="product-item men">
 												<div class="product discount product_filter">
 													<div class="product_image">
-														<img src="/{{ProID}}/main_thumbs.png" alt="{{ProName}}"
-															title="{{ProName}}">
+														<img src="/{{ProductID}}/main_thumbs.png" alt="{{ProductName}}"
+															title="{{ProductName}}">
 													</div>
-													{{#if price_purchase}}
+													{{#if PricePurchase}}
 													<div class="product_bubble product_bubble_right product_bubble_red
-														d-flex flex-column align-items-center"><span>{{price_purchase}}</span></div>
+														d-flex flex-column align-items-center"><span>{{PricePurchase}}</span></div>
 													{{/if}}
 
 													<div class="favorite favorite_left"></div>
 													<div class="product_info">
-														<h6 class="product_name"><a href="/product/id={{ProID}}">{{ProName}}</a></h6>
-														<div class="line_product_price price_custom">{{curBid}}</div>
-														<div class="product_expiration_date">{{time_exp}}</div>
+														<h6 class="product_name"><a href="/product/id={{ProductID}}">{{ProductName}}</a></h6>
+														<div class="line_product_price price_custom">{{CurrentBid}}</div>
+														<div class="product_expiration_date timer_num time_custom_number">{{TimeExp}}</div>
 													</div>
 												</div>
 												<div class="mt-3 ml-3">Current Winer: {{curWinner}}</div>
 												<div class="d-flex flex-row justify-content-between mr-3">
-													<div class="ml-3 date_post">{{time_post}}</div>
+													<div class="ml-3 date_post">{{TimePost}}</div>
 													<div>{{CountBid}}&nbsp<i class="fa fa-gavel" aria-hidden="true"></i></div>
 												</div>
 											</div>

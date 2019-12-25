@@ -36,8 +36,10 @@ router.post('/id=:id',async (req, res) => {
   entity.time_post=date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
     date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
   console.log(entity);
-   const result=await productModel.addBid(entity);
-  res.redirect("/action");
+  alert("This is alert box!");
+   const result=await productModel.addReview(entity);
+   console.log(request.body.comment);
+   res.render('vwSingleProduct/single');
 })
 
 module.exports = router;
