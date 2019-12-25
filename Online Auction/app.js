@@ -44,13 +44,11 @@ app.set('view engine', 'hbs');
 require('./middlewares/locals.mdw')(app);
 require('./middlewares/routes.mdw')(app);
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
 
-app.use((req, res, next) => {
-  res.send('You\'re lost');
-})
+//comment lai de xem loi tren browser
+// app.use((req, res, next) => {
+//   res.send('You\'re lost');
+// })
 
 // app.use((err, req, res, next) => {
 //   console.error(err.stack);

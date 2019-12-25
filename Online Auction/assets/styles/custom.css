@@ -49,6 +49,7 @@
 
 .dropdown-submenu:hover>.dropdown-menu {
   display: block;
+
 }
 
 .dropdown-submenu>a:after {
