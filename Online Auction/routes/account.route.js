@@ -79,6 +79,7 @@ router.post('/register', async (req, res) => {
                 req.session.info = req.body;
                 req.session.OTP = otp;
                 req.flash('success_msg', 'Please check your email and verify by OTP');
+                // req.flash('otp', otp);
                 return res.redirect('/account/verify');
             }
         });
@@ -98,15 +99,14 @@ router.post('/verify', async (req, res) => {
         const dob = moment(info.user_dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
 
         //Thiết lập các trường cần thiết
-        info.username = info.user_name;
-        info.password = hash;
-        info.firstname = info.first_name;
-        info.lastname = info.last_name;
-        info.email = info.user_email;
-        info.dob = dob;
-        info.type = 0;
-        info.isUpgrade = 0;
-
+        info.Username = info.user_name;
+        info.Password = hash;
+        info.FirstName = info.first_name;
+        info.LastName = info.last_name;
+        info.Email = info.user_email;
+        info.DOB = dob;
+        info.Type = 0;
+        info.IsUpgrade = 0;
         //Xóa những trường không cần thiết
         delete info.user_name;
         delete info.confirm_password;
@@ -146,7 +146,7 @@ router.post('/signin', async (req, res) => {
     }
     //Nếu có người dùng
     //So sánh có đúng password hay không
-    const rs = bcrypt.compareSync(req.body.password, user.password);
+    const rs = bcrypt.compareSync(req.body.password, user.Password);
     if (rs === false) {//Nếu không đúng password
         return res.render('vwAccount/signin', {
             err_message: 'Password incorrect',
@@ -154,7 +154,7 @@ router.post('/signin', async (req, res) => {
         })
     }
     //Nếu đúng password render màn hình home
-    delete user.password;
+    delete user.Password;
     req.session.isAuthenticated = true;
     req.session.authUser = user;
     const url = req.query.retUrl || '/';
@@ -195,9 +195,9 @@ router.post('/profile/edit/username', restrict.forUserNotSignIn, async (req, res
     //So sánh có người dùng với username nhập vào hay không
     const user = await userModel.singleByUsername(req.body.username);
     if (user === null) {//Nếu không có người dùng
-        const result = await userModel.patch(req.body, req.session.authUser.username);
-        req.session.authUser.username = req.body.username;
-        req.flash('success_msg', 'Changing username complete');
+        const result = await userModel.patch(req.body, req.session.authUser.Username);
+        req.session.authUser.Username = req.body.username;
+        req.flash('success_msg', 'Changing username success');
         res.redirect('/account/profile');
     } else {
         // console.log(user === null);
@@ -234,9 +234,9 @@ router.post('/profile/edit/password', restrict.forUserNotSignIn, async (req, res
     }
     //Nếu thỏa đk trên
     //Lấy ra người dùng
-    const user = await userModel.singleByEmail(req.session.authUser.email);
+    const user = await userModel.singleByEmail(req.session.authUser.Email);
     //So sánh oldpassword có đúng hay không
-    const rs = bcrypt.compareSync(req.body.oldpassword, user.password);
+    const rs = bcrypt.compareSync(req.body.oldpassword, user.Password);
     if (rs === false) {//Nếu không đúng password
         return res.render('vwAccount/changepassword', {
             error: 'OldPassword incorrect'
@@ -250,8 +250,8 @@ router.post('/profile/edit/password', restrict.forUserNotSignIn, async (req, res
             delete req.body.oldpassword;
             delete req.body.newpassword;
             delete req.body.confirmpassword;
-            const result = await userModel.patch(req.body, req.session.authUser.username);
-            req.flash('success_msg', 'Changing password complete');
+            const result = await userModel.patch(req.body, req.session.authUser.Username);
+            req.flash('success_msg', 'Changing password success');
             res.redirect('/account/profile');
         } else {//Nếu không match
             res.render('vwAccount/changepassword', {
@@ -282,9 +282,9 @@ router.post('/profile/edit/email', restrict.forUserNotSignIn, async (req, res) =
     //So sánh có người dùng với email nhập vào hay không
     const user = await userModel.singleByEmail(req.body.email);
     if (user === null) {//Nếu không có người dùng
-        const result = await userModel.patch(req.body, req.session.authUser.username);
-        req.session.authUser.email = req.body.email;
-        req.flash('success_msg', 'Changing email complete');
+        const result = await userModel.patch(req.body, req.session.authUser.Username);
+        req.session.authUser.Email = req.body.email;
+        req.flash('success_msg', 'Changing email success');
         res.redirect('/account/profile');
     } else {//Nếu email đã tồn tại
         res.render('vwAccount/changeemail', {
@@ -308,9 +308,9 @@ router.post('/profile/edit/firstname', restrict.forUserNotSignIn, async (req, re
         });
     }
     //Nếu thỏa các đk trên
-    const result = await userModel.patch(req.body, req.session.authUser.username);
-    req.session.authUser.firstname = req.body.firstname;
-    req.flash('success_msg', 'Changing firstname complete');
+    const result = await userModel.patch(req.body, req.session.authUser.Username);
+    req.session.authUser.FirstName = req.body.firstname;
+    req.flash('success_msg', 'Changing firstname success');
     res.redirect('/account/profile');
 });
 
@@ -327,9 +327,9 @@ router.post('/profile/edit/lastname', restrict.forUserNotSignIn, async (req, res
         });
     }
     //Nếu thỏa các đk trên
-    const result = await userModel.patch(req.body, req.session.authUser.username);
-    req.session.authUser.lastname = req.body.lastname;
-    req.flash('success_msg', 'Changing lastname complete');
+    const result = await userModel.patch(req.body, req.session.authUser.Username);
+    req.session.authUser.LastName = req.body.lastname;
+    req.flash('success_msg', 'Changing lastname success');
     res.redirect('/account/profile');
 });
 
@@ -349,9 +349,9 @@ router.post('/profile/edit/dob', restrict.forUserNotSignIn, async (req, res) => 
     //Nếu thỏa các đk trên
     const dob = moment(req.body.dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
     req.body.dob = dob;
-    const result = await userModel.patch(req.body, req.session.authUser.username);
-    req.session.authUser.dob = dob;
-    req.flash('success_msg', 'Changing dob complete');
+    const result = await userModel.patch(req.body, req.session.authUser.Username);
+    req.session.authUser.DOB = dob;
+    req.flash('success_msg', 'Changing dob success');
     res.redirect('/account/profile');
 });
 
@@ -368,9 +368,9 @@ router.post('/profile/edit/cityprovince', restrict.forUserNotSignIn, async (req,
         });
     }
     //Nếu thỏa các đk trên
-    const result = await userModel.patch(req.body, req.session.authUser.username);
-    req.session.authUser.cityprovince = req.body.cityprovince;
-    req.flash('success_msg', 'Changing cityprovince complete');
+    const result = await userModel.patch(req.body, req.session.authUser.Username);
+    req.session.authUser.CityProvince = req.body.cityprovince;
+    req.flash('success_msg', 'Changing cityprovince success');
     res.redirect('/account/profile');
 });
 
@@ -387,9 +387,9 @@ router.post('/profile/edit/district', restrict.forUserNotSignIn, async (req, res
         });
     }
     //Nếu thỏa các đk trên
-    const result = await userModel.patch(req.body, req.session.authUser.username);
-    req.session.authUser.district = req.body.district;
-    req.flash('success_msg', 'Changing district complete');
+    const result = await userModel.patch(req.body, req.session.authUser.Username);
+    req.session.authUser.District = req.body.district;
+    req.flash('success_msg', 'Changing district success');
     res.redirect('/account/profile');
 });
 
@@ -406,9 +406,9 @@ router.post('/profile/edit/ward', restrict.forUserNotSignIn, async (req, res) =>
         });
     }
     //Nếu thỏa các đk trên
-    const result = await userModel.patch(req.body, req.session.authUser.username);
-    req.session.authUser.ward = req.body.ward;
-    req.flash('success_msg', 'Changing ward complete');
+    const result = await userModel.patch(req.body, req.session.authUser.Username);
+    req.session.authUser.Ward = req.body.ward;
+    req.flash('success_msg', 'Changing ward success');
     res.redirect('/account/profile');
 });
 
@@ -425,9 +425,9 @@ router.post('/profile/edit/street', restrict.forUserNotSignIn, async (req, res) 
         });
     }
     //Nếu thỏa các đk trên
-    const result = await userModel.patch(req.body, req.session.authUser.username);
-    req.session.authUser.street = req.body.street;
-    req.flash('success_msg', 'Changing street complete');
+    const result = await userModel.patch(req.body, req.session.authUser.Username);
+    req.session.authUser.Street = req.body.street;
+    req.flash('success_msg', 'Changing street success');
     res.redirect('/account/profile');
 });
 
@@ -540,11 +540,11 @@ router.post('/forgotpassword/newpassword', async (req, res) => {
         delete req.body.newpassword;
         delete req.body.confirmpassword;
         const user = await userModel.singleByEmail(req.session.email);
-        const result = await userModel.patch(req.body, user.username);
+        const result = await userModel.patch(req.body, user.Username);
         //Xóa các session
         req.session.email = null;
         req.session.isTrueOTP = null;
-        req.flash('success_msg', 'Changing password complete');
+        req.flash('success_msg', 'Changing password success');
         res.redirect('/account/signin');
     } else {//Nếu không match
         res.render('vwAccount/newpassword', {
@@ -557,10 +557,10 @@ router.post('/forgotpassword/newpassword', async (req, res) => {
 //Upgrade to seller
 router.post('/profile/upgrade', async (req, res) => {
     //Set thông tin của user là muốn upgrade lên thành seller
-    req.session.authUser.isUpgrade = 1;
+    req.session.authUser.IsUpgrade = 1;
     //Ghi thông tin vào database
-    const isupgrade = { isUpgrade: req.session.authUser.isUpgrade };
-    const result = await userModel.patch(isupgrade, req.session.authUser.username);
+    const IsUpgrade = { IsUpgrade: req.session.authUser.IsUpgrade };
+    const result = await userModel.patch(IsUpgrade, req.session.authUser.Username);
     req.flash('success_msg', 'Your request has been sent');
     res.redirect('/account/profile');
 })

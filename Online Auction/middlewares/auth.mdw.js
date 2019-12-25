@@ -42,14 +42,14 @@ module.exports = {
     },
     forUserNotAdmin: (req,res,next) =>{
         //Nếu không là admin hoặc chưa đăng nhập
-        if (req.session.isAuthenticated === false || req.session.authUser.type !== 2) {
+        if (req.session.isAuthenticated === false || req.session.authUser.Type !== 2) {
             return res.redirect('/');
         }
         next();
     },
     forAdmin: (req,res,next) =>{
         //Nếu là admin
-        if (req.session.authUser.type === 2) {
+        if (req.session.authUser.Type === 2) {
             return res.redirect('/');
         }
         next();

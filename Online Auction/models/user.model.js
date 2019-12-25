@@ -9,45 +9,39 @@ module.exports = {
   },
   ///Chọn ra tất cả users không là admin
   allWithCondition2: () => {
-    const sql = `select * from Users where type != 2`;
+    const sql = `select * from Users where Type != 2`;
     return db.load(sql);
   },
 
   single: id => db.load(`select * from Users where UserID = ${id}`),
+
   singleByUsername: async name => {
-    const user = await db.load1(`Users`, { username: name })
+    const user = await db.load1(`Users`, { Username: name })
     if (user.length === 0)
       return null;
     return user[0];
   },
   singleByEmail: async email1 => {
-    const user = await db.load1(`Users`, { email: email1 })
+    const user = await db.load1(`Users`, { Email: email1 })
     if (user.length === 0)
       return null;
     return user[0];
   },
 
   singleByUserID: async id => {
-    const user = await db.load1(`Users`, { userID: id })
+    const user = await db.load1(`Users`, { UserID: id })
     if (user.length === 0)
       return null;
     return user[0];
-  }, 
+  },
   add: entity => db.add('Users', entity),
 
   patch: (entity, username) => {
-    const condition = { username: username };
-    console.log(condition);
+    const condition = { Username: username };
     return db.patch('Users', entity, condition);
   },
-  // patchPassword: (entity,username) => {
-  //   const condition = { username: username };
-  //   entity.password = entity.newpassword;
-  //   delete entity.oldpassword;
-  //   delete entity.newpassword;
-  //   delete entity.confirmpassword;
-  //   return db.patch('user', entity, condition);
-  // },
-  del: id => db.del('Users', { userID: id }),
-  delByName: name => db.del('Users',{username: name}),
+
+  del: id => db.del('Users', { UserID: id }),
+
+  delByName: name => db.del('Users', { Username: name }),
 };

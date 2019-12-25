@@ -18,7 +18,7 @@
                     Username
                 </div>
                 <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.username}}
+                    {{authUser.Username}}
                 </div>
                 <div class="col-lg-4">
                     <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/username" role="button">
@@ -50,7 +50,7 @@
                     Email
                 </div>
                 <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.email}}
+                    {{authUser.Email}}
                 </div>
                 <div class="col-lg-4">
                     <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/email" role="button">
@@ -66,7 +66,7 @@
                     First name
                 </div>
                 <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.firstname}}
+                    {{authUser.FirstName}}
                 </div>
                 <div class="col-lg-4">
                     <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/firstname" role="button">
@@ -82,7 +82,7 @@
                     Last name
                 </div>
                 <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.lastname}}
+                    {{authUser.LastName}}
                 </div>
                 <div class="col-lg-4">
                     <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/lastname" role="button">
@@ -98,7 +98,7 @@
                     Day of birth
                 </div>
                 <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.dob}}
+                    {{authUser.DOB}}
                 </div>
                 <div class="col-lg-4">
                     <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/dob" role="button">
@@ -114,7 +114,7 @@
                     City/Province
                 </div>
                 <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.cityprovince}}
+                    {{authUser.CityProvince}}
                 </div>
                 <div class="col-lg-4">
                     <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/cityprovince" role="button">
@@ -130,7 +130,7 @@
                     District
                 </div>
                 <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.district}}
+                    {{authUser.District}}
                 </div>
                 <div class="col-lg-4">
                     <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/district" role="button">
@@ -146,7 +146,7 @@
                     Ward
                 </div>
                 <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.ward}}
+                    {{authUser.Ward}}
                 </div>
                 <div class="col-lg-4">
                     <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/ward" role="button">
@@ -162,7 +162,7 @@
                     Street
                 </div>
                 <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.street}}
+                    {{authUser.Street}}
                 </div>
                 <div class="col-lg-4">
                     <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/street" role="button">
@@ -174,7 +174,7 @@
                 
                 
             <form method="POST">
-                <button type="submit" class="btn btn-primary float-right mt-2" formaction="/account/profile/upgrade" {{#if authUser.isUpgrade}} disabled {{/if}}>
+                <button type="submit" class="btn btn-primary float-right mt-2" formaction="/account/profile/upgrade" {{#if authUser.IsUpgrade}} disabled {{/if}}>
                     <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
                     Upgrade to seller
                 </button>
