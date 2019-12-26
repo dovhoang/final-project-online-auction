@@ -1,44 +1,73 @@
+{{#section 'css'}}
+<style>
+  .eye {
+    cursor: pointer;
+  }
+</style>
+{{/section}}
+
+{{#section 'js'}}
+<script>
+  var check = true;
+  function showHiddenPassword() {
+    if (check) {
+      $('#txtPassword').attr("type", "text");
+      $('#eye1').attr('class', 'fa fa-2x fa-eye float-right eye');
+      check = false;
+    } else {
+      $('#txtPassword').attr('type', 'password');
+      $('#eye1').attr('class', 'fa fa-2x fa-eye-slash float-right eye');
+      check = true;
+    }
+  }
+</script>
+{{/section}}
 <div class="container">
-    <div class="card shadow mb-4" id="register">
-        <h3 class="card-header text-danger">
-            <i class="fa fa-edit"></i> Ward
-        </h3>
-        <div class="card-body">
-            <form method="POST" id="frmWard" name="frmWard">
-                {{#if error}}
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>{{error}}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                {{/if}}
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="txtPassword"><i class="fa fa-lock"></i> Confirm Password <i
-                                    class="fa fa-star text-danger"></i></label>
-                            <input type="password" class="form-control" id="txtPassword" name="password" autofocus>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="txtWard"><i class="fa fa-home"></i> City/Province <i
-                                    class="fa fa-star text-danger"></i></label>
-                            <input type="text" class="form-control" id="txtWard" name="ward" autofocus>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-outline-success">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    Change
-                </button>
-            </form>
+  <div class="card shadow mb-4" id="register">
+    <h3 class="card-header text-danger">
+      <i class="fa fa-edit"></i> Ward
+    </h3>
+    <div class="card-body">
+      <form method="POST" id="frmWard" name="frmWard">
+        {{#if error}}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{error}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="card-footer text-muted">
-            Footer
+        {{/if}}
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="txtPassword"><i class="fa fa-lock"></i> Confirm Password <i
+                  class="fa fa-star text-danger"></i></label>
+              <span class="fa fa-2x fa-eye-slash float-right eye" id="eye1" onclick="showHiddenPassword()"></span>
+              <input type="password" class="form-control" id="txtPassword" name="password" autofocus>
+            </div>
+          </div>
         </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="txtWard"><i class="fa fa-home"></i> City/Province <i
+                  class="fa fa-star text-danger"></i></label>
+              <input type="text" class="form-control" id="txtWard" name="ward" autofocus>
+            </div>
+          </div>
+        </div>
+        <a class="btn btn-info" href="/account/profile" role="button">
+          <i class="fa fa-backward" aria-hidden="true"></i>
+          Profile
+        </a>
+        <button type="submit" class="btn btn-success">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Change
+        </button>
+      </form>
     </div>
+    <div class="card-footer text-muted">
+      Footer
+    </div>
+  </div>
 </div>

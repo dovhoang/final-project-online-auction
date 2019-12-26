@@ -1,7 +1,11 @@
 {{#section 'css'}}
 <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
-
+<style>
+    .eye {
+        cursor: pointer;
+    }
+</style>
 {{/section}}
 
 {{#section 'js'}}
@@ -14,6 +18,18 @@
         timepicker: false,
         mask: true,
     });
+    var check = true;
+    function showHiddenPassword() {
+        if (check) {
+            $('#txtPassword').attr("type", "text");
+            $('#eye1').attr('class', 'fa fa-2x fa-eye float-right eye');
+            check = false;
+        } else {
+            $('#txtPassword').attr('type', 'password');
+            $('#eye1').attr('class', 'fa fa-2x fa-eye-slash float-right eye');
+            check = true;
+        }
+    }
 </script>
 {{/section}}
 
@@ -38,6 +54,8 @@
                         <div class="form-group">
                             <label for="txtPassword"><i class="fa fa-lock"></i> Confirm Password <i
                                     class="fa fa-star text-danger"></i></label>
+                            <span class="fa fa-2x fa-eye-slash float-right eye" id="eye1"
+                                onclick="showHiddenPassword()"></span>
                             <input type="password" class="form-control" id="txtPassword" name="password" autofocus>
                         </div>
                     </div>
@@ -51,7 +69,11 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-outline-success">
+                <a class="btn btn-info" href="/account/profile" role="button">
+                    <i class="fa fa-backward" aria-hidden="true"></i>
+                    Profile
+                </a>
+                <button type="submit" class="btn btn-success">
                     <i class="fa fa-check" aria-hidden="true"></i>
                     Change
                 </button>

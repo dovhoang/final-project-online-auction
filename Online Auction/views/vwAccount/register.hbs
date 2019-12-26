@@ -1,7 +1,11 @@
 {{#section 'css'}}
 <link rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
-
+<style>
+  .eye {
+    cursor: pointer;
+  }
+</style>
 {{/section}}
 
 {{#section 'js'}}
@@ -14,6 +18,32 @@
     timepicker: false,
     mask: true,
   });
+  var check = true;
+  function showHiddenPassword() {
+    if (check) {
+      $('#txtPassword').attr("type", "text");
+      $('#eye1').attr('class', 'fa fa-2x fa-eye float-right eye');
+      check = false;
+    } else {
+      $('#txtPassword').attr('type', 'password');
+      $('#eye1').attr('class', 'fa fa-2x fa-eye-slash float-right eye');
+      check = true;
+    }
+  }
+  var check1 = true;
+  function showHiddenConfirm() {
+
+    if (check1) {
+      $('#txtConfirm').attr('type', 'text');
+      $('#eye2').attr('class', 'fa fa-2x fa-eye float-right eye');
+      check1 = false;
+    } else {
+      $('#txtConfirm').attr('type', 'password');
+      $('#eye2').attr('class', 'fa fa-2x fa-eye-slash float-right eye');
+      check1 = true;
+    }
+  }
+
 </script>
 {{/section}}
 
@@ -48,6 +78,7 @@
                   class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtUserName" name="user_name" placeholder="Hienhhcc"
                 value="{{fields.user_name}}" autofocus>
+
             </div>
           </div>
           <div class="col-lg-6">
@@ -64,14 +95,18 @@
             <div class="form-group">
               <label for="txtPassWord"><i class="fa fa-lock"></i> PassWord <i
                   class="fa fa-star text-danger"></i></label>
+              <span class="fa fa-2x fa-eye-slash float-right eye" id="eye1" onclick="showHiddenPassword()"></span>
               <input type="password" class="form-control" id="txtPassword" name="raw_password">
+
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
               <label for="txtConfirm"><i class="fa fa-unlock-alt"></i> Confirm Password <i
                   class="fa fa-star text-danger"></i></label>
+              <span class="fa fa-2x fa-eye-slash float-right eye" id="eye2" onclick="showHiddenConfirm()"></span>
               <input type="password" class="form-control" id="txtConfirm" name="confirm_password">
+
             </div>
           </div>
         </div>
@@ -138,7 +173,7 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-outline-success">
+        <button type="submit" class="btn btn-success">
           <i class="fa fa-check" aria-hidden="true"></i>
           Register
         </button>
