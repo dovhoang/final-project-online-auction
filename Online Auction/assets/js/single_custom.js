@@ -177,8 +177,8 @@ jQuery(document).ready(function ($) {
 
 	function initQuantity() {
 		if ($('.plus').length && $('.minus').length) {
-			var k=$('#priceStep').val();
-			k=parseInt(k);
+			var k = $('#priceStep').val();
+			k = parseInt(k);
 			var plus = $('.plus');
 			var minus = $('.minus');
 			var value = $('#placebid_value');
@@ -284,17 +284,25 @@ $("#review_form").submit(function () {
 	return true;
 });
 
-	// $("#review_form").submit(function () {
-	//   $("#review_message").val('');
-	//   var stars = $('.user_star_rating ul li');
-	// 	stars.each(function () {
-	// 		stars.find('i').each(function () {
-	// 			$(this).removeClass('fa-star');
-	// 			$(this).addClass('fa-star-o');
-	// 		});
-	// 	});
-	// 	return true;
-	// });
-	$("#bid_form").submit(function () {
+// $("#review_form").submit(function () {
+//   $("#review_message").val('');
+//   var stars = $('.user_star_rating ul li');
+// 	stars.each(function () {
+// 		stars.find('i').each(function () {
+// 			$(this).removeClass('fa-star');
+// 			$(this).addClass('fa-star-o');
+// 		});
+// 	});
+// 	return true;
+// });
+$("#bid_form").submit(function (e) {
+	e.preventDefault();
+	if ( $('#placebid_value').text()<$('#product_price').text()) {
+		alert("Please bid again");
+	}
+	else {
 		$('#price').val($('#placebid_value').text());
-	});
+		this.submit();
+	}
+});
+
