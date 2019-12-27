@@ -84,7 +84,7 @@
 								<div class="col-lg-3 current_bid">Current bid:</div>
 								<div class="col-lg-9 current_bid">Current winner:</div>
 							</div>
-
+<div>{{this.status}}</div>
 							<div class="row">
 								{{#each this.curWinnerInfo}}
 								<div class="col-lg-3 line_product_price1" id="product_price">{{CurrentBid}}$</div>
@@ -116,12 +116,11 @@
 									<span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
 								</div>
 									{{#each this.product}}
-								<button 	disabled id="priceStep" type="button" class="btn btn-success" value="{{PriceStep}}">{{PriceStep}}</button>
+								<button disabled id="priceStep" type="button" class="btn btn-success" value="{{PriceStep}}">{{PriceStep}}</button>
 									{{/each}}	
 									<form id="bid_form" method="post">
 										<input type="hidden" class="key" value="bid" name="key">
 										<input type="hidden" id="prdID" value="{{this.Productid}}" name="ProductId">
-										<input type="hidden"  id="userid" value="{{authUser.UserID}}" name="UserID">
 										<input type="hidden"  id="price" value="0" name="Price">
 								{{#if authUser.UserID}}
 								<button id="bidButton" type="submit" class="btn btn-danger m-1" >
@@ -194,7 +193,7 @@
 											Information</span></li>
 									<li class="tab" data-active-tab="tab_2"><span>Seller Information</span></li>
 									<li class="tab" data-active-tab="tab_3"><span>Reviews
-											({{reviewLength}})</span></li>
+											(<span id="countRev0">{{reviewLength}}</span>)</span></li>
 								</ul>
 							</div>
 						</div>
@@ -253,20 +252,19 @@
 
 							<div id="tab_3" class="tab_container">
 								<div class="row">
-
 									<!-- User Reviews -->
-
 									<div class="col-lg-6 reviews_col">
 										<div class="tab_title reviews_title">
-											<h4>Reviews ({{reviewLength}})</h4>
+											<h4> Reviews (<span id="countRev">{{reviewLength}}</span>)</h4>
 										</div>
+										<span id="insert"></span>
 										<!-- User Review -->
-										{{#each this.review}}
+										{{#each this.review}}										
 										<div class="user_review_container d-flex flex-column flex-sm-row">
 											<div class="user">
 												<div class="user_pic">
-													<img src="/users/{{userID}}/avatar.jpg" alt="{{name}}"
-														title="{{name}}">
+													<img src="/users/default/person_default_image.png" alt="{{name}}"
+														title="{{name}}"/>
 												</div>
 												<ul class="star_rating1">
 													<span class="stars">{{rateStar}} </span>
@@ -279,20 +277,18 @@
 											</div>
 										</div>
 										{{/each}}
-										{{!-- {{#if reviewLength>3}} --}}
-										<button>more</button>
-										{{!-- {{/if}} --}}
+
 									</div>
 
 									<!-- Add Review -->
 									{{#if authUser.UserID}}
 									<div class="col-lg-6 add_review_col">
 										<div class="add_review">
-											<form id="review_form" method="post" target="uploader_iframe">
-													<input type="hidden" class="key" value="review" name="key">
+												{{!-- <form id="review_form" method="post" target="uploader_iframe"></form> --}}
+											<form id="review_form">
+												<input type="hidden" class="key" value="review" name="key">
 												<input type="hidden" id="prdID" value="{{this.Productid}}" name="ProductId">
 												<input type="hidden"  id="rate2" value="0" name="Rating">
-												<input type="hidden"  id="userid" value="{{authUser.UserID}}" name="UserID">
 												<div>
 													<h1>Your Rating:</h1>
 													<div  class="user_star_rating">
@@ -301,8 +297,7 @@
 														<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
 														<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
 														<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-														<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-														
+														<li><i class="fa fa-star-o" aria-hidden="true"></i></li>		
 													</ul>
 													</div>
 													<textarea id="review_message" class="input_review" name="Comment"
@@ -310,14 +305,12 @@
 														leave us a review."></textarea>
 												</div>
 												<div class="text-left text-sm-right">
-													{{!-- <form action="/send" method="POST"></form> --}}
 													<button id="review_submit" type="submit"
 														class="red_button
 														review_submit_btn trans_300">submit</button>
 												</div>
 											</form>
-											<iframe id="uploader_iframe" name="uploader_iframe" style="display: none;"></iframe>
-											<div id="notify"> </div>
+											<div id="notify"></div>
 										</div>
 									</div> 
 									{{/if}}

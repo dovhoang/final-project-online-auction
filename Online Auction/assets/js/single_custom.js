@@ -58,7 +58,7 @@ jQuery(document).ready(function ($) {
 	2. Set Header
 
 	*/
-
+	
 	function setHeader() {
 		if (window.innerWidth < 992) {
 			if ($(window).scrollTop() > 100) {
@@ -270,39 +270,89 @@ jQuery(document).ready(function ($) {
 		}
 	}
 });
-// $("#review_form").submit( function() {
-// 	$("<input >").attr("type", "text")
-// 		.attr('ReviewID', 'null')
-// 		.attr('ProductID', '2')
-// 		.attr('Rating', '1'+tmp)
-// 		.appendTo("#review_form");
-// 	return true;
-// });
 
-$("#review_form").submit(function () {
-	alert("thank you for rating!!");
-	return true;
-});
-
-// $("#review_form").submit(function () {
-//   $("#review_message").val('');
-//   var stars = $('.user_star_rating ul li');
-// 	stars.each(function () {
-// 		stars.find('i').each(function () {
-// 			$(this).removeClass('fa-star');
-// 			$(this).addClass('fa-star-o');
-// 		});
-// 	});
-// 	return true;
-// });
 $("#bid_form").submit(function (e) {
 	e.preventDefault();
-	if ( $('#placebid_value').text()<$('#product_price').text()) {
-		alert("Please bid again");
+	if ($('#placebid_value').text() < $('#product_price').text()
+		|| {{authUser.UserID}} === "") {
+		alert("Please bid again\n");
 	}
 	else {
 		$('#price').val($('#placebid_value').text());
 		this.submit();
 	}
 });
+
+
+
+  $('#review_form').on('submit', function (event) {
+	event.preventDefault(); // Stop the form from causing a page refresh.
+	$('#review_submit').attr("disabled", true);
+
+    var data = {
+      key: $('#key').val(),
+	  ProductId: $('#prdID').val(),
+	  Rating:  $('#rate2').val(),
+	  Comment: $('#review_message').val()
+	};
+	$('#notify').append('Uploading...');
+    $.ajax({
+      url: 'http://localhost:3000/product/id='+$('#prdID').val(),
+      data: data,
+      method: 'POST'
+    }).then(function (response) {
+		const data=response;
+		$('#notify').empty();	
+
+		/*ve rate*/
+		var strTmp='';
+		var n=data.rateStar
+		for ( i = 0; i < 2 * n-1; i+=2){
+			strTmp+='<li><i class="fa fa-star" aria-hidden="true"></i></li>';
+		}
+		if ((n*2-1)%2==0) 
+		{strTmp+='<li><i class="fa fa-star-half" aria-hidden="true"></i></li>';
+		k=2} else k=0;
+		for ( i =n*2 ; i <10-k; i+=2){
+			strTmp+=' <li><i class="fa fa-star-o" aria-hidden="true"></i></li>';
+		}
+
+		//hien thi thong tin vua review
+	$('#insert').prepend( ' <div class="user_review_container d-flex flex-column flex-sm-row">'+
+										'	<div class="user">'+
+												'<div class="user_pic">'+
+													'<img src="/users/default/person_default_image.png" alt="'+data.name+'"'+
+														'/>'+
+												'</div>'+
+												'<ul class="star_rating1">'+
+													'<span class="stars">'+strTmp+' </span>'+
+											'	</ul>'+
+											'</div>'+
+										'	<div class="review">'+
+												'<div class="review_date">'+data.TimePost+'</div>'+
+												'<div class="user_name">'+data.name+'</div>'+
+												'<p>'+data.comment+'</p>'+
+										'	</div>'+
+									'</div>');
+		//tang so dem review len
+		var counttmp=parseInt($('#countRev').text())+1;
+			$('#countRev').html(counttmp);
+			$('#countRev0').html(counttmp);
+		//format form
+		$("#review_message").val('');
+		var stars = $('.user_star_rating ul li');
+		stars.each(function () {
+		 stars.find('i').each(function () {
+							$(this).removeClass('fa-star');
+							$(this).addClass('fa-star-o');
+						});
+				});
+		//kich hoat lai nut submit
+		$('#review_submit').attr("disabled", false);
+
+    }).catch(function (err) {
+	   console.error(err);
+	   $('#notify').append("falied");
+    });
+  });
 
