@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const userModel = require('../models/user.model');
+const requestUpdateModel = require('../models/requestupdate.model');
 const restrict = require('../middlewares/auth.mdw');
 const nodemailer = require('nodemailer');
 
@@ -75,7 +76,6 @@ router.post('/register', async (req, res) => {
                 console.log(err);
                 return res.render('vwAccount/register');
             } else {
-                console.log('Message sent: ' + info.response);
                 req.session.info = req.body;
                 req.session.OTP = otp;
                 req.flash('success_msg', 'Please check your email and verify by OTP');
@@ -92,6 +92,12 @@ router.get('/verify', restrict.forUserSignIn, restrict.forGuestNotEnterRegisterF
 })
 
 router.post('/verify', async (req, res) => {
+    //Kiểm tra các trường có trống hay không
+    if (req.body.OTP === '') {
+        return res.render('vwAccount/verify', {
+            error: 'Please fill in all fields'
+        });
+    }
     const info = req.session.info;
     if (+req.body.OTP === +req.session.OTP) {
         const N = bcrypt.genSaltSync(10);
@@ -106,7 +112,7 @@ router.post('/verify', async (req, res) => {
         info.Email = info.user_email;
         info.DOB = dob;
         info.Type = 0;
-        info.IsUpgrade = 0;
+
         //Xóa những trường không cần thiết
         delete info.user_name;
         delete info.confirm_password;
@@ -136,27 +142,54 @@ router.get('/signin', restrict.forUserSignIn, async (req, res) => {
 })
 
 router.post('/signin', async (req, res) => {
+    //Kiểm tra các trường có trống hay không
+    if (req.body.username === '' || req.body.password === '') {
+        return res.render('vwAccount/signin', {
+            error: 'Please fill in all fields'
+        });
+    }
+
+    const [user1, user2] = await Promise.all([
+        userModel.singleByUsername(req.body.username),
+        requestUpdateModel.singleWithCondition(req.body.username),
+    ]);
     //So sánh có người dùng hay không
-    const user = await userModel.singleByUsername(req.body.user_name);
-    if (user === null) {//Nếu không có người dùng
+    if (user1 === null) {//Nếu không có người dùng
         return res.render('vwAccount/signin', {
             err_message: 'That username is not registered',
-            username: req.body.user_name
+            username: req.body.username
         });
     }
     //Nếu có người dùng
     //So sánh có đúng password hay không
-    const rs = bcrypt.compareSync(req.body.password, user.Password);
+    const rs = bcrypt.compareSync(req.body.password, user1.Password);
     if (rs === false) {//Nếu không đúng password
         return res.render('vwAccount/signin', {
             err_message: 'Password incorrect',
-            username: req.body.user_name
+            username: req.body.username
         })
     }
     //Nếu đúng password render màn hình home
-    delete user.Password;
+    delete user1.Password;
     req.session.isAuthenticated = true;
-    req.session.authUser = user;
+    req.session.authUser = user1;
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    console.log(user2);
+    if (user2 === null)
+        req.session.authUser.IsUpgrade = 0;
+    else req.session.authUser.IsUpgrade = 1;
     const url = req.query.retUrl || '/';
     res.redirect(url);
 });
@@ -171,6 +204,27 @@ router.post('/signout', (req, res) => {
 
 //View profile
 router.get('/profile', restrict.forUserNotSignIn, restrict.forAdmin, (req, res) => {
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+    console.log(req.session.authUser.IsUpgrade);
+
     res.render('vwAccount/profile');
 })
 
@@ -638,11 +692,13 @@ router.post('/forgotpassword/newpassword', async (req, res) => {
 
 //Upgrade to seller
 router.post('/profile/upgrade', async (req, res) => {
-    //Set thông tin của user là muốn upgrade lên thành seller
+    var info = { Username: "", UserID: "", IsRefuse: "" };
+    info.Username = req.session.authUser.Username;
+    info.UserID = req.session.authUser.UserID;
+    info.IsRefuse = -1;
+    //Ghi thông tin user vào bảng RequestUpdate
+    const result = await requestUpdateModel.add(info);
     req.session.authUser.IsUpgrade = 1;
-    //Ghi thông tin vào database
-    const IsUpgrade = { IsUpgrade: req.session.authUser.IsUpgrade };
-    const result = await userModel.patch(IsUpgrade, req.session.authUser.Username);
     req.flash('success_msg', 'Your request has been sent');
     res.redirect('/account/profile');
 })

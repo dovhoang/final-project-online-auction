@@ -32,7 +32,6 @@
   }
   var check1 = true;
   function showHiddenConfirm() {
-
     if (check1) {
       $('#txtConfirm').attr('type', 'text');
       $('#eye2').attr('class', 'fa fa-2x fa-eye float-right eye');
@@ -43,7 +42,6 @@
       check1 = true;
     }
   }
-
 </script>
 {{/section}}
 
@@ -70,11 +68,13 @@
           </button>
         </div>
         {{/if}}
-        <h4 class="mb-3">Account</h4>
+        <h4 class="mb-3">
+          <i class="fa fa-user-circle"></i> Account
+        </h4>
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="txtUserName"><i class="fa fa-user"></i> UserName <i
+              <label for="txtUserName" class="chulon"><i class="fa fa-user"></i> UserName <i
                   class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtUserName" name="user_name" placeholder="Hienhhcc"
                 value="{{fields.user_name}}" autofocus>
@@ -83,7 +83,8 @@
           </div>
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="txtEmail"><i class="fa fa-envelope"></i> Email <i class="fa fa-star text-danger"></i></label>
+              <label for="txtEmail" class="chulon"><i class="fa fa-envelope"></i> Email <i
+                  class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtEmail" name="user_email" placeholder="abc@gmail.com"
                 value="{{fields.user_email}}">
             </div>
@@ -93,7 +94,7 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="txtPassWord"><i class="fa fa-lock"></i> PassWord <i
+              <label for="txtPassWord" class="chulon"><i class="fa fa-lock"></i> PassWord <i
                   class="fa fa-star text-danger"></i></label>
               <span class="fa fa-2x fa-eye-slash float-right eye" id="eye1" onclick="showHiddenPassword()"></span>
               <input type="password" class="form-control" id="txtPassword" name="raw_password">
@@ -102,7 +103,7 @@
           </div>
           <div class="col-lg-6">
             <div class="form-group">
-              <label for="txtConfirm"><i class="fa fa-unlock-alt"></i> Confirm Password <i
+              <label for="txtConfirm" class="chulon"><i class="fa fa-unlock-alt"></i> Confirm Password <i
                   class="fa fa-star text-danger"></i></label>
               <span class="fa fa-2x fa-eye-slash float-right eye" id="eye2" onclick="showHiddenConfirm()"></span>
               <input type="password" class="form-control" id="txtConfirm" name="confirm_password">
@@ -112,12 +113,14 @@
         </div>
 
         <hr class="mb-4">
-        <h4 class="mb-3">Information</h4>
+        <h4 class="mb-3">
+          <i class="fa fa-info-circle"></i> Information
+        </h4>
 
         <div class="row">
           <div class="col-lg-4">
             <div class="form-group">
-              <label for="txtFirstName"><i class="fa fa-user"></i> First name <i
+              <label for="txtFirstName" class="chulon"><i class="fa fa-user"></i> First name <i
                   class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtFirstName" name="first_name" placeholder="Vu Vinh"
                 value="{{fields.first_name}}">
@@ -125,7 +128,7 @@
           </div>
           <div class="col-lg-4">
             <div class="form-group">
-              <label for="txtLastName"><i class="fa fa-user"></i> Last name <i
+              <label for="txtLastName" class="chulon"><i class="fa fa-user"></i> Last name <i
                   class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtLastName" name="last_name" placeholder="Hien"
                 value="{{fields.last_name}}">
@@ -133,7 +136,7 @@
           </div>
           <div class="col-lg-4">
             <div class="form-group">
-              <label for="txtDOB"><i class="fa fa-birthday-cake"></i> Day of birth <i
+              <label for="txtDOB" class="chulon"><i class="fa fa-birthday-cake"></i> Day of birth <i
                   class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtDOB" name="user_dob" value="{{fields.user_dob}}">
             </div>
@@ -143,7 +146,7 @@
         <div class="row">
           <div class="col-lg-3">
             <div class="form-group">
-              <label for="txtCityProvince"><i class="fa fa-building"></i> City/Province <i
+              <label for="txtCityProvince" class="chulon"><i class="fa fa-building"></i> City/Province <i
                   class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtCityProvince" name="cityprovince"
                 placeholder="TP Hồ Chí Minh" value="{{fields.cityprovince}}">
@@ -151,7 +154,7 @@
           </div>
           <div class="col-lg-3">
             <div class="form-group">
-              <label for="txtDistrict"><i class="fa fa-home"></i> District <i
+              <label for="txtDistrict" class="chulon"><i class="fa fa-home"></i> District <i
                   class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtDistrict" name="district" placeholder="7"
                 value="{{fields.district}}">
@@ -159,14 +162,16 @@
           </div>
           <div class="col-lg-3">
             <div class="form-group">
-              <label for="txtWard"><i class="fa fa-home"></i> Ward <i class="fa fa-star text-danger"></i></label>
+              <label for="txtWard" class="chulon"><i class="fa fa-home"></i> Ward <i
+                  class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtWard" name="ward" placeholder="Tân Hưng"
                 value="{{fields.ward}}">
             </div>
           </div>
           <div class="col-lg-3">
             <div class="form-group">
-              <label for="txtStreet"><i class="fa fa-road"></i> Street <i class="fa fa-star text-danger"></i></label>
+              <label for="txtStreet" class="chulon"><i class="fa fa-road"></i> Street <i
+                  class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtStreet" name="street" placeholder="1041 Trần Xuân Soạn"
                 value="{{fields.street}}">
             </div>

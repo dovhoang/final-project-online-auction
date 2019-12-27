@@ -7,7 +7,7 @@ module.exports = app => {
     res.locals.error_msg = req.flash('error_msg');
 
     const all = await userModel.countAll();
-    res.locals.countAll = all[0].total;
+    res.locals.countAll = all;
 
     const allBidder = await userModel.countBidderWantToBeSeller();
     res.locals.countAllBidder = allBidder[0].totalBidder;
