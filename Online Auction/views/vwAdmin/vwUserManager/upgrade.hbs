@@ -7,8 +7,7 @@
                     Views
                 </h4>
                 <div class="list-group list-group-flush">
-                    <a href="/admin/user/updowngrade"
-                        class="list-group-item list-group-item-action indam hover">
+                    <a href="/admin/user/updowngrade" class="list-group-item list-group-item-action indam hover">
                         <i class="fa fa-arrow-circle-up"></i>
                         Upgrade -
                         <i class="fa fa-arrow-circle-down"></i>
@@ -18,8 +17,7 @@
                         {{/if}}
                     </a>
 
-                    <a href="/admin/user/upgrade"
-                        class="list-group-item list-group-item-action indam active hover">
+                    <a href="/admin/user/upgrade" class="list-group-item list-group-item-action indam active hover">
                         <i class="fa fa-arrow-circle-up"></i>
                         Upgrade
                         {{#if countAllBidder}}
@@ -27,8 +25,7 @@
                         {{/if}}
                     </a>
 
-                    <a href="/admin/user/downgrade"
-                        class="list-group-item list-group-item-action indam hover">
+                    <a href="/admin/user/downgrade" class="list-group-item list-group-item-action indam hover">
                         <i class="fa fa-arrow-circle-down"></i>
                         Downgrade
                         {{#if countAllSeller}}
@@ -68,35 +65,102 @@
                     </div>
                     {{#each users}}
 
-                    <form method="POST" id="frmUpDownGrade">
-                        <div class="row profile_line">
-                            <div class="col-lg-2 mt-1 mb-1">
-                                {{UserID}}
-                            </div>
-                            <div class="col-lg-4 mt-1 mb-1 indam">
-                                {{Username}}
-                            </div>
-                            <div class="col-lg-3 mt-1 mb-1 text-warning">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o"></i>
-                            </div>
-                            <div class="col-lg-3">
-                                <button type="submit" class="btn btn-danger float-right mt-1 mb-1"
-                                    formaction="/admin/user/updowngrade/{{UserID}}/reject">
-                                    <i class="fa fa-ban" aria-hidden="true"></i>
-                                    Reject
-                                </button>
-                                <button type="submit" class="btn btn-primary float-right mr-1 mt-1 mb-1"
-                                    formaction="/admin/user/updowngrade/{{UserID}}/up">
-                                    <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
-                                    Seller
-                                </button>
+                    <div class="row profile_line">
+                        <div class="col-lg-2 mt-1 mb-1">
+                            {{UserID}}
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam">
+                            {{Username}}
+                        </div>
+                        <div class="col-lg-3 mt-1 mb-1 text-warning">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                        </div>
+                        <div class="col-lg-3">
+                            <button type="submit" class="btn btn-danger float-right mt-1 mb-1" data-toggle="modal"
+                                data-target='#exampleModalCenter{{UserID}}'>
+                                <i class="fa fa-ban" aria-hidden="true"></i>
+                                Reject
+                            </button>
+
+                            <button type="submit" class="btn btn-primary float-right mr-1 mt-1 mb-1" data-toggle="modal"
+                                data-target='#exampleModalCenter1{{UserID}}'>
+                                <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                                Seller
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Modal Reject -->
+                    <div class="modal fade" id="exampleModalCenter{{UserID}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-danger" id="exampleModalCenterTitle">
+                                        <i class="fa fa-trash-o"></i>
+                                        Confirm Reject
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body indam">
+                                    Proceed reject upgrade request from {{Username}}?
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="POST" id="frmUpDownGrade">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                            No
+                                        </button>
+                                        <button type="submit" class="btn btn-primary"
+                                            formaction="/admin/user/updowngrade/{{UserID}}/reject">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            Yes
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+
+                    <!-- Modal Upgrade Seller -->
+                    <div class="modal fade" id="exampleModalCenter1{{UserID}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title text-danger" id="exampleModalCenterTitle">
+                                        <i class="fa fa-arrow-circle-up"></i>
+                                        Confirm Upgrade
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body indam">
+                                    Proceed upgrade {{Username}} to seller?
+                                </div>
+                                <div class="modal-footer">
+                                    <form method="POST" id="frmUpDownGrade">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                            No
+                                        </button>
+                                        <button type="submit" class="btn btn-primary"
+                                            formaction="/admin/user/updowngrade/{{UserID}}/up">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            Yes
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {{/each}}
                 </div>
                 <div class="card-footer text-muted">

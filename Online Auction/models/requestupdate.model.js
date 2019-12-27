@@ -31,6 +31,15 @@ module.exports = {
         else return null;
 
     },
+    singleWithCondition2: async name => {
+        const user = await db.load1(`RequestUpdate`, { Username: name })
+        if (user.length === 0)
+            return null;
+        if (user[0].IsRefuse !== -1)
+            return user[0];
+        else return null;
+
+    },
 
 
     add: entity => db.add('RequestUpdate', entity),

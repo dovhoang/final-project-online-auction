@@ -149,9 +149,10 @@ router.post('/signin', async (req, res) => {
         });
     }
 
-    const [user1, user2] = await Promise.all([
+    const [user1, user2, user3] = await Promise.all([
         userModel.singleByUsername(req.body.username),
         requestUpdateModel.singleWithCondition(req.body.username),
+        requestUpdateModel.singleWithCondition2(req.body.username),
     ]);
     //So sánh có người dùng hay không
     if (user1 === null) {//Nếu không có người dùng
@@ -173,25 +174,16 @@ router.post('/signin', async (req, res) => {
     delete user1.Password;
     req.session.isAuthenticated = true;
     req.session.authUser = user1;
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
-    console.log(user2);
     if (user2 === null)
         req.session.authUser.IsUpgrade = 0;
     else req.session.authUser.IsUpgrade = 1;
-    const url = req.query.retUrl || '/';
-    res.redirect(url);
+    if (user3 !== null) {
+        res.redirect('/');
+    } else {
+        const url = req.query.retUrl || '/';
+        res.redirect(url);
+    }
+
 });
 
 //Sign out
@@ -204,27 +196,6 @@ router.post('/signout', (req, res) => {
 
 //View profile
 router.get('/profile', restrict.forUserNotSignIn, restrict.forAdmin, (req, res) => {
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-    console.log(req.session.authUser.IsUpgrade);
-
     res.render('vwAccount/profile');
 })
 
