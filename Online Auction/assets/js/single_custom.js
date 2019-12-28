@@ -274,7 +274,7 @@ jQuery(document).ready(function ($) {
 $("#bid_form").submit(function (e) {
 	e.preventDefault();
 	if ($('#placebid_value').text() < $('#product_price').text()
-		|| {{authUser.UserID}} === "") {
+		|| $('#userid').val() === "") {
 		alert("Please bid again\n");
 	}
 	else {
@@ -283,6 +283,35 @@ $("#bid_form").submit(function (e) {
 	}
 });
 
+
+$('#favoritePrd').on('submit', function (event) {
+	event.preventDefault(); // Stop the form from causing a page refresh.
+	if ($('#favoriteBtn').val()==1){
+		alert("This product already exists in your favorite products list")
+	}
+	else{
+	$('#favoriteBtn').attr("disabled", true);
+	var data = {
+		key: 'favorite',
+		ProductID: $('#prdID1').val()
+	  };
+	  $.ajax({
+		url: 'http://localhost:3000/product/id='+$('#prdID').val(),
+		data: data,
+		method: 'POST'
+	  }).then(function(response) { 
+		  if (response==1)  {
+		  alert("Added to favorite products list");
+		  $( "#favoriteBtn" ).removeClass("btn btn-light").addClass("btn btn-danger");
+		  $('#favoriteBtn').val(1);
+		}
+		$('#favoriteBtn').attr("disabled", false);
+	}).catch(function(err) {
+		$('#favoriteBtn').attr("disabled", false);
+		console.error(err);
+	 });
+	}
+});
 
 
   $('#review_form').on('submit', function (event) {
@@ -352,6 +381,7 @@ $("#bid_form").submit(function (e) {
 
     }).catch(function (err) {
 	   console.error(err);
+	   $('#review_submit').attr("disabled", false);
 	   $('#notify').append("falied");
     });
   });

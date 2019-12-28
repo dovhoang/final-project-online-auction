@@ -6,7 +6,7 @@ const userModel = require('../models/user.model');
 const requestUpdateModel = require('../models/requestupdate.model');
 const restrict = require('../middlewares/auth.mdw');
 const nodemailer = require('nodemailer');
-
+const productModel = require('../models/product.model');
 //Register
 router.get('/register', restrict.forUserSignIn, async (req, res) => {
     res.render('vwAccount/register');
@@ -198,6 +198,19 @@ router.post('/signout', (req, res) => {
 router.get('/profile', restrict.forUserNotSignIn, restrict.forAdmin, (req, res) => {
     res.render('vwAccount/profile');
 })
+
+//View favorite
+router.get('/favorite', restrict.forUserNotSignIn, restrict.forAdmin,async (req, res) => {
+     const list=await productModel.getFavoriteProduct(req.session.authUser.UserID);
+    console.log(list[0]);
+    res.render('vwAccount/favorite', {
+      list: list[0],
+    });
+  });
+router.post('/favorite', restrict.forUserNotSignIn, async (req, res) => {
+    await productModel.delInFav(req.body.ProductID,req.session.authUser.UserID);
+    res.redirect('back');
+    });
 
 router.get('/profile/edit/username', restrict.forUserNotSignIn, (req, res) => {
     res.render('vwAccount/changeusername')

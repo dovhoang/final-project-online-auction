@@ -120,13 +120,14 @@
 									{{/each}}	
 									<form id="bid_form" method="post">
 										<input type="hidden" class="key" value="bid" name="key">
-										<input type="hidden" id="prdID" value="{{this.Productid}}" name="ProductId">
+										<input type="hidden" id="prdID1" value="{{this.Productid}}" name="ProductId">
 										<input type="hidden"  id="price" value="0" name="Price">
 								{{#if authUser.UserID}}
 								<button id="bidButton" type="submit" class="btn btn-danger m-1" >
 									Place bid <span
 										class="fas fa-hammer"></span>
 								</button>
+								
 								{{else}}
 								<button disabled id="bid" type="submit" class="btn btn-danger m-1">Place
 									bid <span
@@ -134,6 +135,25 @@
 								</button>
 								{{/if}}
 								</form>
+								{{#if authUser.UserID}}
+									{{#if favorite}}
+									<form id="favoritePrd">
+									<input type="hidden" id="prdID" value="{{this.Productid}}" name="ProductId">
+									<button id="favoriteBtn" class="btn btn-danger" value="1">
+										<span class="fa fa-heart"></span>
+									</button>
+									<span id="ntf"></span>
+									</form>
+									{{else}}
+									<form id="favoritePrd">
+									<input type="hidden" id="prdID" value="{{this.Productid}}" name="ProductId">
+									<button id="favoriteBtn" class="btn btn-light" value="0">
+										<span class="fa fa-heart"></span>
+									</button>
+									<span id="ntf"></span>
+									</form>
+									{{/if}}
+								{{/if}}
 								{{!-- <button type="button" class="btn btn-danger button_favorite"><span
 										class="fa fa-heart"></span></button> --}}
 									
