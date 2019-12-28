@@ -99,3 +99,16 @@
   float: none;
   width: 50%;
 }
+
+.card_winner i{
+ margin-left: 10px;
+ color: rgb(223, 145, 0);
+}
+
+.card_hammer{
+  margin-right: 10px;
+}
+.card_hammer i{
+  margin-right: 5px;
+  color: blue;
+}

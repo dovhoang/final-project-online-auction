@@ -1,7 +1,7 @@
 
 //count down
 var i = 0
-var length = 12
+var length = 1000
 var days,hours,minutes,seconds 
 var distance
 var countDownDate=new  Array(length)
