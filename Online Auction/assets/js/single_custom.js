@@ -273,8 +273,8 @@ jQuery(document).ready(function ($) {
 
 $("#bid_form").submit(function (e) {
 	e.preventDefault();
-	if ($('#placebid_value').text() < $('#product_price').text()
-		|| $('#userid').val() === "") {
+	if ($('#cdTimeExp').text()=='ENDING') alert("Time out\n");
+	if ($('#placebid_value').text() < $('#product_price').text() ||  $('#userid').val() === "") {
 		alert("Please bid again\n");
 	}
 	else {
