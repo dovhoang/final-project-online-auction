@@ -1,3 +1,8 @@
+{{#if isWinner}}
+<script>
+	alert("You are the highest bidder!!!");
+	</script>
+{{/if}}
 <div class="container">
 	<div style="margin-top: 150px;">
 		{{#if this.PrdEmpty}}
@@ -62,7 +67,7 @@
 								<h2 id="main_product_name">{{ProductName}}</h2>
 								<div id="timepostingproduct">Time post:<span>{{TimePost}}</span></div>
 								<div id="countdowntimer">Time left:
-									<span class="product_expiration_date">{{TimeExp}}</span></div>
+									<span class="product_expiration_date" id="cdTimeExp">{{TimeExp}}</span></div>
 							</div>
 								{{#if PricePurchase}}
 							<div class="row">
@@ -84,7 +89,7 @@
 								<div class="col-lg-3 current_bid">Current bid:</div>
 								<div class="col-lg-9 current_bid">Current winner:</div>
 							</div>
-<div>{{this.status}}</div>
+		<div>{{this.status}}</div>
 							<div class="row">
 								{{#each this.curWinnerInfo}}
 								<div class="col-lg-3 line_product_price1" id="product_price">{{CurrentBid}}$</div>

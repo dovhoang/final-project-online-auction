@@ -15,7 +15,7 @@
                     </a>
 
                     <a href="/account/auctionproduct" class="list-group-item
-                        list-group-item-action indam hover"
+                        list-group-item-action indam active hover"
                         style="font-size: 18px;">
                         <i class="fa fa-gavel text-success" aria-hidden="true"></i>
                         Products you auction
@@ -29,7 +29,7 @@
                     </a>
 
                     <a href="/account/favorite" class="list-group-item
-                        list-group-item-action indam active hover"
+                        list-group-item-action indam hover"
                         style="font-size: 18px;">
                         <i class="fa fa-heart text-danger" aria-hidden="true"></i>
                         Favorite products
@@ -55,62 +55,68 @@
         </div>
         <div class="col-lg-9">
             <div class="card shadow mb-4" id="register">
-                <h3 class="card-header text-danger">
-                    <i class="fa fa-heart"></i> FAVORITE PRODUCTS
+                <h3 class="card-header text-success">
+                    <i class="fa fa-gavel"></i> PRODUCTS YOU AUCTION
                 </h3>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-4 indam text-light mt-1 mb-1 bg-dark
-                            chulon" style="padding-top:10px;padding-bottom:10px">
+                            chulon"
+                            style="padding-top:10px;padding-bottom:10px">
                             Product Name
                         </div>
-                        <div class="col-lg-2 indam text-light mt-1 mb-1  bg-dark
-                            chulon" style="padding-top:10px;padding-bottom:10px">
+                        <div class="col-lg-2 indam text-light mt-1 mb-1 bg-dark
+                            chulon"
+                            style="padding-top:10px;padding-bottom:10px">
                             Current Price
                         </div>
-                        <div class="col-lg-4 indam text-light mt-1 mb-1  bg-dark
-                            chulon" style="padding-top:10px;padding-bottom:10px">
+                        <div class="col-lg-3 indam text-light mt-1 mb-1 bg-dark
+                            chulon"
+                            style="padding-top:10px;padding-bottom:10px">
                             Expired Time
-                        </div>  
-                        <div class="col-lg-2 indam text-light mt-1 mb-1  bg-dark" 
-                        style="padding-top:10px">
+                        </div>
+                        <div class="col-lg-2 indam text-light mt-1 mb-1 bg-dark
+                            chulon"
+                            style="padding-top:10px;padding-bottom:10px">
+                            Name Winner
+                        </div>
+                        <div class="col-lg-1 indam text-light mt-1 mb-1 bg-dark"
+                            style="padding-top:10px;padding-bottom:10px">
 
                         </div>
                     </div>
 
                     {{#each this.list}}
-                    <form class="removeFvrPrd" method="POST">
-                        <div id="wrapper{{ProductID}}">
-                            <div class="row profile_line">
-                                <div class="col-lg-4 indam text-dark mt-1 mb-1">
-                                    {{ProductName}}
-                                </div>
-                                <div class="col-lg-2 indam text-dark mt-1 mb-1">
-                                    {{CurrentBid}}
-                                </div>
-                                <div class="col-lg-4 indam text-dark mt-1 mb-1">
-                                    {{TimeExp}}
-                                </div>
-                                <div class="col-lg-1">
-                                    <a class="btn btn-primary float-right mt-1
-                                        mb-1"href="/product/id={{ProductID}}"
-                                        role="button">
-                                        <i class="fa fa-gavel"
-                                            aria-hidden="true"></i>
-                                    </a>
-                                </div>
-
-                                <div class="col-lg-1">
-                                 <input type="hidden" value="{{ProductID}}" name="ProductID">
-                                    <button class="btn btn-danger float-right mt-1 mb-1 btnRemoveFavPrd">
-                                        <i class="fa fa-remove"
-                                            aria-hidden="true"></i>
-                                    </button>
-
-                                </div>
-                            </div>
+                    <div class="row profile_line">
+                        <div class="col-lg-4 indam text-dark mt-1 mb-1">
+                            {{ProductName}}
                         </div>
-                    </form>
+                        <div class="col-lg-2 indam text-dark mt-1 mb-1">
+                            {{CurrentBid}}
+                        </div>
+                        <div class="col-lg-3 indam text-dark mt-1 mb-1">
+                            {{Time}}
+                        </div>
+                        {{#if isWinner}}
+                         <div class="col-lg-2 indam text-danger mt-1 mb-1">
+                            {{NameWinner}}
+                        </div>
+                        {{else}}
+                        <div class="col-lg-2 indam text-dark mt-1 mb-1">
+                            {{NameWinner}}
+                        </div>
+{{/if}}
+                        <div class="col-lg-1">
+                            <a class="btn btn-primary float-right mt-1
+                                mb-1" href="/product/id={{ProductID}}"
+                                role="button">
+                                <i class="fa fa-gavel"
+                                    aria-hidden="true"></i>
+                            </a>
+                        </div>
+
+    
+                    </div>
                     {{/each}}
 
                 </div>

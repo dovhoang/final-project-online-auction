@@ -212,6 +212,23 @@ router.post('/favorite', restrict.forUserNotSignIn, async (req, res) => {
     res.redirect('back');
     });
 
+   //View won product
+router.get('/wonproduct', restrict.forUserNotSignIn, restrict.forAdmin,async (req, res) => {
+    const list=await productModel.getWonProduct(req.session.authUser.UserID);
+   res.render('vwAccount/wonproduct', {
+     list: list[0],
+   });
+ });
+
+      //View auction product'
+router.get('/auctionproduct', restrict.forUserNotSignIn, restrict.forAdmin,async (req, res) => {
+    const list=await productModel.getProductRecently(req.session.authUser.UserID);
+   res.render('vwAccount/auctionproduct', {
+     list: list[0],
+   });
+ });
+
+
 router.get('/profile/edit/username', restrict.forUserNotSignIn, (req, res) => {
     res.render('vwAccount/changeusername')
 })

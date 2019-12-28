@@ -31,6 +31,8 @@ module.exports = {
   getTop5PopularBid: _ => db.load(`CALL getTop5PopularBid()`),
   getTop5Price: _ => db.load(`CALL getTop5Price()`),
   getFavoriteProduct: userID=> db.load(`CALL getFavoriteProduct(${userID})`),
+  getWonProduct: userID=> db.load(`CALL getWonProduct(${userID})`),
+  getProductRecently:userID=> db.load(`CALL getProductRecently(${userID})`),
   fvr: (id,userID) => db.load(`Select * from Favorite where ProductID=${id} and UserID=${userID}`),
   fAuction: (proID,userID,price)=>db.load(` SELECT fAuction(${proID}, ${userID}, ${price}) AS Auction`),
   fInsertFavorite: (proID,userID)=>db.load(` SELECT fInsertFavorite(${proID}, ${userID}) AS result`),

@@ -4,21 +4,23 @@ const router = express.Router();
 
 
 router.get('/id=:id', async (req, res) => {
-  var userTmp=req.session.authUser;
-  if (req.session.isAuthenticated) userTmp=req.session.authUser.UserID;
-  else userTmp=null;
-  console.log("asdasd"+userTmp);
+  var userTmp = null;
+  if (req.session.isAuthenticated) userTmp = req.session.authUser.UserID;
+  else userTmp = null;
   const proid = req.params.id;
-  const [prd, sli, cwi, g4, review, relatedPrd,fvr] = await Promise.all([
+  const [prd, sli, cwi, g4, review, relatedPrd, fvr] = await Promise.all([
     productModel.single(proid),
     productModel.getSellerInfo(proid),
     productModel.getCurrentWinner(proid),
     productModel.get3TimesLatestPrice(proid),
     productModel.getReview(proid),
     productModel.get5RelatedProduct(proid),
-    productModel.fvr(proid,userTmp)
+    productModel.fvr(proid, userTmp)
   ]);
-  var reviewLength = 0;
+  var reviewLength = 0, isWinner = false;
+  if (req.session.isAuthenticated && cwi[0][0].length!=0) {
+    isWinner= (cwi[0][0].userID === req.session.authUser.UserID);
+  }
   if (review[0].length != 0) reviewLength = review[0][0].CountRevByID;
   res.render('vwSingleProduct/single', {
     Productid: proid,
@@ -30,15 +32,16 @@ router.get('/id=:id', async (req, res) => {
     review: review[0],
     reviewLength: reviewLength,
     relatedPrd: relatedPrd[0],
-    favorite:fvr
+    favorite: fvr,
+    isWinner: isWinner
   });
 
 });
 router.post('/id=:id', async (req, res) => {
   if (req.body.key === 'bid') {
     delete req.body.key;
-    if (req.session.isAuthenticated)   {
-    const status = await productModel.fAuction(req.body.ProductId, req.session.authUser.UserID, req.body.Price);
+    if (req.session.isAuthenticated) {
+      const status = await productModel.fAuction(req.body.ProductId, req.session.authUser.UserID, req.body.Price);
     }
     return res.redirect('back');
   }
@@ -53,15 +56,15 @@ router.post('/id=:id', async (req, res) => {
     console.log(entity);
     await productModel.addReview(entity);
     const tmp = await productModel.getReview(req.body.ProductId, 1);
-    res.json(tmp[0][0]);
+    return res.json(tmp[0][0]);
   }
   if (req.body.key === 'favorite') {
     delete req.body.key;
     if (req.session.isAuthenticated) {
-    const tmpx=await productModel.fInsertFavorite(req.body.ProductID, req.session.authUser.UserID);
-    return res.json(tmpx[0].result);
+      const tmpx = await productModel.fInsertFavorite(req.body.ProductID, req.session.authUser.UserID);
+      return res.json(tmpx[0].result);
     }
-   return  res.json(0);
+    return res.json(0);
   }
 })
 
