@@ -78,7 +78,6 @@
 			</div>
 
 			<!-- Main Navigation -->
-
 			<div class="main_nav_container">
 				<div class="container">
 					<div class="row">
@@ -121,46 +120,106 @@
 								</ul>
 								<ul class="navbar_user">
 									{{#if isAuthenticated}}
+									{{!-- Phân hệ admin --}}
 									{{#if_eq authUser.Type 2}}
 									<div class="btn-group">
 										<button type="button" class="btn btn-success dropdown-toggle"
 											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											<i class="fa fa-cogs" aria-hidden="true"></i>
+											<i class="fa fa-cogs text-dark" aria-hidden="true"></i>
 											{{authUser.Username}}
 										</button>
 										<div class="dropdown-menu dropdown-menu-right">
 											<a class="dropdown-item hover" href="/admin/user/manage"><i
-													class="fa fa-users" aria-hidden="true"></i> Manage users</a>
+													class="fa fa-users text-info" aria-hidden="true"></i> Manage users</a>
 											<a class="dropdown-item hover" href="/admin/user/updowngrade">
-												<i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+												<i class="fa fa-arrow-circle-up text-success" aria-hidden="true"></i>
 												Upgrade -
-												<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+												<i class="fa fa-arrow-circle-down text-danger" aria-hidden="true"></i>
 												Downgrade</a>
 											<a class="dropdown-item hover" href="#">Something else here</a>
 											<div class="dropdown-divider"></div>
 											<a class="dropdown-item hover" href="#">Separated link</a>
 										</div>
 									</div>
-									{{else}}
-									<li>
-										<a href="/account/profile">
-											<i class="fa fa-2x fa-user" aria-hidden="true"></i>
+
+									{{/if_eq}}
+									{{!-- Phân hệ bidder --}}
+									{{#if_eq authUser.Type 0}}
+									<div class="btn-group">
+										<button type="button" class="btn btn-info dropdown-toggle"
+											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fa fa-user-circle-o text-dark" aria-hidden="true"></i>
 											{{authUser.Username}}
-										</a>
-									</li>
+										</button>
+										<div class="dropdown-menu dropdown-menu-right">
+											{{!-- Profile --}}
+											<a class="dropdown-item hover" href="/account/profile">
+												<i class="fa fa-id-card text-info" aria-hidden="true"></i>
+												Profile
+											</a>
+											{{!-- Sản phẩm mình đang tham gia đấu giá --}}
+											<a class="dropdown-item hover" href="/account/auctionproduct">
+												<i class="fa fa-gavel text-success" aria-hidden="true"></i>
+												Products you auction
+											</a>
+											{{!-- Sản phẩm mình đã thắng --}}
+											<a class="dropdown-item hover" href="/account/wonproduct">
+												<i class="fa fa-trophy text-warning" aria-hidden="true"></i>
+												Products you won
+
+											</a>
+										</div>
+									</div>
 									<li class="checkout ml-3 mr-3">
-										<a href="#">
-											<i class="fa fa-2x fa-heart text-danger" aria-hidden="true"></i>
+										<a href="/account/favoriteproduct">
+											<i class="fa fa-heart text-danger" aria-hidden="true"></i>
 											<span id="checkout_items" class="checkout_items">2</span>
 										</a>
 									</li>
-									{{!-- {{#if_eq authUser.Type 1}}
-									<li>
-										<i class="fa fa-2x fa-money" aria-hidden="true"></i>
-										Seller
+									{{/if_eq}}
+									{{!-- Phân hệ seller --}}
+									{{#if_eq authUser.Type 1}}
+									<div class="btn-group">
+										<button type="button" class="btn btn-info dropdown-toggle"
+											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fa fa-user-circle-o text-dark" aria-hidden="true"></i>
+											{{authUser.Username}}
+										</button>
+										<div class="dropdown-menu dropdown-menu-right">
+											{{!-- Profile --}}
+											<a class="dropdown-item hover" href="/account/profile">
+												<i class="fa fa-id-card text-info" aria-hidden="true"></i>
+												Profile
+											</a>
+											{{!-- Sản phẩm mình đang tham gia đấu giá --}}
+											<a class="dropdown-item hover" href="/account/auctionproduct">
+												<i class="fa fa-gavel text-success" aria-hidden="true"></i>
+												Products you auction
+											</a>
+											{{!-- Sản phẩm mình đã thắng --}}
+											<a class="dropdown-item hover" href="/account/wonproduct">
+												<i class="fa fa-trophy text-warning" aria-hidden="true"></i>
+												Products you won
+											</a>
+											<div class="dropdown-divider"></div>
+											{{!-- Sản phẩm mình đăng đấu giá --}}
+											<a class="dropdown-item hover" href="/account/postproduct">
+												<i class="fa fa-plus-square text-danger" aria-hidden="true"></i>
+												Products you post
+											</a>
+											{{!-- Sản phẩm mình đăng đấu giá có người thắng --}}
+											<a class="dropdown-item hover" href="/account/postwonproduct">
+												<i class="fa fa-trophy text-warning" aria-hidden="true"></i>
+												Products you post have a winner
+											</a>
+										</div>
+									</div>
+									<li class="checkout ml-3 mr-3">
+										<a href="/account/favoriteproduct">
+											<i class="fa fa-heart text-danger" aria-hidden="true"></i>
+											<span id="checkout_items" class="checkout_items">2</span>
+										</a>
 									</li>
-									{{else}} --}}
-									{{!-- {{/if_eq}} --}}
 									{{/if_eq}}
 									{{/if}}
 								</ul>
@@ -194,40 +253,6 @@
 				</ul>
 			</div>
 		</div>
-
-
-		{{!-- <div id="mydialog">
-			abcde
-		</div> --}}
-		{{!-- {{#if_eq authUser.Type 2}} --}}
-		<!-- Modal -->
-		{{!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						...
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-				</div>
-			</div>
-		</div> --}}
-
-		{{!-- {{/if_eq}} --}}
-
-
-
-
-
 
 		{{{body}}}
 
@@ -268,12 +293,6 @@
 	<script src="/js/index.js"></script>
 	<script src="/js/single_custom.js"></script>
 	{{{_sections.js}}}
-
-	{{!-- {{#if_eq authUser.Type 2}} --}}
-	{{!-- <script>
-		$('#exampleModalCenter').modal('show');
-	</script> --}}
-	{{!-- {{/if_eq}} --}}
 </body>
 
 </html>

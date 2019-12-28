@@ -50,15 +50,15 @@
                     </div>
                     {{/if}}
                     <div class="row profile_line1">
-                        <div class="col-lg-2 indam text-danger">
+                        <div class="col-lg-2 indam text-danger chulon">
                             <i class="fa fa-sort-numeric-down"></i>
                             #
                         </div>
-                        <div class="col-lg-4 indam text-danger">
+                        <div class="col-lg-4 indam text-danger chulon">
                             <i class="fa fa-user"></i>
                             Username
                         </div>
-                        <div class="col-lg-3 indam text-danger">
+                        <div class="col-lg-3 indam text-danger chulon">
                             <i class="fa fa-star"></i>
                             Rating
                         </div>
@@ -66,13 +66,13 @@
                     {{#each users}}
 
                     <div class="row profile_line">
-                        <div class="col-lg-2 mt-1 mb-1">
+                        <div class="col-lg-2 mt-1 mb-1 style="font-size: 16px;"">
                             {{UserID}}
                         </div>
-                        <div class="col-lg-4 mt-1 mb-1 indam">
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
                             {{Username}}
                         </div>
-                        <div class="col-lg-3 mt-1 mb-1 text-warning">
+                        <div class="col-lg-3 mt-1 mb-1 text-warning" style="font-size: 16px;">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -80,13 +80,13 @@
                             <i class="fa fa-star-o"></i>
                         </div>
                         <div class="col-lg-3">
-                            <button type="submit" class="btn btn-danger float-right mt-1 mb-1" data-toggle="modal"
+                            <button type="submit" class="btn btn-danger float-right mt-1 mb-1 indam" data-toggle="modal"
                                 data-target='#exampleModalCenter{{UserID}}'>
                                 <i class="fa fa-ban" aria-hidden="true"></i>
                                 Reject
                             </button>
 
-                            <button type="submit" class="btn btn-primary float-right mr-1 mt-1 mb-1" data-toggle="modal"
+                            <button type="submit" class="btn btn-primary float-right mr-1 mt-1 mb-1 indam" data-toggle="modal"
                                 data-target='#exampleModalCenter1{{UserID}}'>
                                 <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
                                 Seller
@@ -101,7 +101,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title text-danger" id="exampleModalCenterTitle">
-                                        <i class="fa fa-trash-o"></i>
+                                        <i class="fa fa-ban"></i>
                                         Confirm Reject
                                     </h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

@@ -7,26 +7,26 @@
                     Views
                 </h4>
                 <div class="list-group list-group-flush">
-                    <a href="/admin/user/updowngrade" class="list-group-item list-group-item-action indam active hover">
-                        <i class="fa fa-arrow-circle-up"></i>
+                    <a href="/admin/user/updowngrade" class="list-group-item list-group-item-action indam active hover" style="font-size: 18px;">
+                        <i class="fa fa-arrow-circle-up text-success"></i>
                         Upgrade -
-                        <i class="fa fa-arrow-circle-down"></i>
+                        <i class="fa fa-arrow-circle-down text-danger"></i>
                         Downgrade
                         {{#if countAll}}
                         <span class="badge badge-danger float-right">{{countAll}}</span>
                         {{/if}}
                     </a>
 
-                    <a href="/admin/user/upgrade" class="list-group-item list-group-item-action indam hover">
-                        <i class="fa fa-arrow-circle-up"></i>
+                    <a href="/admin/user/upgrade" class="list-group-item list-group-item-action indam hover" style="font-size: 18px;">
+                        <i class="fa fa-arrow-circle-up text-success"></i>
                         Upgrade
                         {{#if countAllBidder}}
                         <span class="badge badge-danger float-right">{{countAllBidder}}</span>
                         {{/if}}
                     </a>
 
-                    <a href="/admin/user/downgrade" class="list-group-item list-group-item-action indam hover">
-                        <i class="fa fa-arrow-circle-down"></i>
+                    <a href="/admin/user/downgrade" class="list-group-item list-group-item-action indam hover" style="font-size: 18px;">
+                        <i class="fa fa-arrow-circle-down text-danger"></i>
                         Downgrade
                         {{#if countAllSeller}}
                         <span class="badge badge-danger float-right">{{countAllSeller}}</span>
@@ -50,15 +50,15 @@
                     </div>
                     {{/if}}
                     <div class="row profile_line1">
-                        <div class="col-lg-2 indam text-danger">
+                        <div class="col-lg-2 indam text-danger chulon">
                             <i class="fa fa-sort-numeric-down"></i>
                             #
                         </div>
-                        <div class="col-lg-4 indam text-danger">
+                        <div class="col-lg-4 indam text-danger chulon">
                             <i class="fa fa-user"></i>
                             Username
                         </div>
-                        <div class="col-lg-3 indam text-danger">
+                        <div class="col-lg-3 indam text-danger chulon">
                             <i class="fa fa-star"></i>
                             Rating
                         </div>
@@ -67,13 +67,13 @@
 
 
                     <div class="row profile_line">
-                        <div class="col-lg-2 mt-1 mb-1">
+                        <div class="col-lg-2 mt-1 mb-1" style="font-size: 16px;">
                             {{UserID}}
                         </div>
-                        <div class="col-lg-4 mt-1 mb-1 indam">
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
                             {{Username}}
                         </div>
-                        <div class="col-lg-3 mt-1 mb-1 text-warning">
+                        <div class="col-lg-3 mt-1 mb-1 text-warning" style="font-size: 16px;"   >
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -82,7 +82,7 @@
                         </div>
                         {{#if_eq Type 1}}
                         <div class="col-lg-3">
-                            <button type="submit" class="btn btn-danger float-right mt-1 mb-1" data-toggle="modal"
+                            <button type="submit" class="btn btn-danger float-right mt-1 mb-1 indam" data-toggle="modal"
                                 data-target='#exampleModalCenter2{{UserID}}'>
                                 <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
                                 Bidder
@@ -90,13 +90,13 @@
                         </div>
                         {{else}}
                         <div class="col-lg-3">
-                            <button type="submit" class="btn btn-danger float-right mt-1 mb-1" data-toggle="modal"
+                            <button type="submit" class="btn btn-danger float-right mt-1 mb-1 indam" data-toggle="modal"
                                 data-target='#exampleModalCenter{{UserID}}'>
                                 <i class="fa fa-ban" aria-hidden="true"></i>
                                 Reject
                             </button>
 
-                            <button type="submit" class="btn btn-primary float-right mr-1 mt-1 mb-1" data-toggle="modal"
+                            <button type="submit" class="btn btn-primary float-right mr-1 mt-1 mb-1 indam" data-toggle="modal"
                                 data-target='#exampleModalCenter1{{UserID}}'>
                                 <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
                                 Seller

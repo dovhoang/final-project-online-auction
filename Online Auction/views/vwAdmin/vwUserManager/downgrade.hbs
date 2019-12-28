@@ -51,27 +51,27 @@
                     {{/if}}
                     <div class="row profile_line1">
                         <div class="col-lg-2 indam text-danger">
-                            <i class="fa fa-sort-numeric-down"></i>
+                            <i class="fa fa-sort-numeric-down chulon"></i>
                             #
                         </div>
-                        <div class="col-lg-4 indam text-danger">
+                        <div class="col-lg-4 indam text-danger chulon">
                             <i class="fa fa-user"></i>
                             Username
                         </div>
-                        <div class="col-lg-3 indam text-danger">
+                        <div class="col-lg-3 indam text-danger chulon">
                             <i class="fa fa-star"></i>
                             Rating
                         </div>
                     </div>
                     {{#each users}}
                     <div class="row profile_line">
-                        <div class="col-lg-2 mt-1 mb-1">
+                        <div class="col-lg-2 mt-1 mb-1" style="font-size: 16px;">
                             {{UserID}}
                         </div>
-                        <div class="col-lg-4 mt-1 mb-1 indam">
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
                             {{Username}}
                         </div>
-                        <div class="col-lg-3 mt-1 mb-1 text-warning">
+                        <div class="col-lg-3 mt-1 mb-1 text-warning" style="font-size: 16px;">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
@@ -79,7 +79,7 @@
                             <i class="fa fa-star-o"></i>
                         </div>
                         <div class="col-lg-3">
-                            <button type="submit" class="btn btn-danger float-right mt-1 mb-1" data-toggle="modal"
+                            <button type="submit" class="btn btn-danger float-right mt-1 mb-1 indam" data-toggle="modal"
                                 data-target='#exampleModalCenter2{{UserID}}'>
                                 <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
                                 Bidder

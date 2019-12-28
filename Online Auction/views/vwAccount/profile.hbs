@@ -1,205 +1,260 @@
-<div class="container">
-    <div class="card shadow mb-4" id="register">
-        <h3 class="card-header text-danger">
-            <i class="fa fa-edit"></i> Information
-        </h3>
-        <div class="card-body">
-            {{#if success_msg}}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{success_msg}}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {{/if}}
-            <div class="row profile_line">
-                <div class="col-lg-4 indam text-danger mt-1 mb-1">
-                    <i class="fa fa-user"></i>
-                    Username
-                </div>
-                <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.Username}}
-                </div>
-                <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/username"
-                        role="button">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        Edit
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card shadow" id="a">
+                <h4 class="card-header text-danger">
+                    <i class="fa fa-eye"></i>
+                    Views
+                </h4>
+                <div class="list-group list-group-flush">
+                    <a href="/account/profile" class="list-group-item list-group-item-action indam active hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-id-card text-info" aria-hidden="true"></i>
+                        Profile
                     </a>
-                </div>
-            </div>
 
-            <div class="row profile_line">
-                <div class="col-lg-4 indam text-danger mt-1 mb-1">
-                    <i class="fa fa-key"></i>
-                    Password
-                </div>
-                <div class="col-lg-4 mt-1 mb-1">
-                    *********
-                </div>
-                <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1 " href="/account/profile/edit/password"
-                        role="button">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        Edit
+                    <a href="/account/auctionproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-gavel text-success" aria-hidden="true"></i>
+                        Products you auction
                     </a>
-                </div>
-            </div>
 
-            <div class="row profile_line">
-                <div class="col-lg-4 indam text-danger mt-1 mb-1">
-                    <i class="fa fa-envelope"></i>
-                    Email
-                </div>
-                <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.Email}}
-                </div>
-                <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/email" role="button">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        Edit
+                    <a href="/account/wonproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
+                        Products you won
                     </a>
-                </div>
-            </div>
 
-            <div class="row profile_line">
-                <div class="col-lg-4 indam text-danger mt-1 mb-1">
-                    <i class="fa fa-user"></i>
-                    First name
-                </div>
-                <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.FirstName}}
-                </div>
-                <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/firstname"
-                        role="button">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        Edit
+                    <a href="/account/favoriteproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-heart text-danger" aria-hidden="true"></i>
+                        Products favorite
                     </a>
-                </div>
-            </div>
-
-            <div class="row profile_line">
-                <div class="col-lg-4 indam text-danger mt-1 mb-1">
-                    <i class="fa fa-user"></i>
-                    Last name
-                </div>
-                <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.LastName}}
-                </div>
-                <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/lastname"
-                        role="button">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        Edit
+                    {{#if_eq authUser.Type 1}}
+                    <a href="/account/postproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-plus-square text-danger" aria-hidden="true"></i>
+                        Post products
                     </a>
-                </div>
-            </div>
 
-            <div class="row profile_line">
-                <div class="col-lg-4 indam text-danger mt-1 mb-1">
-                    <i class="fa fa-birthday-cake"></i>
-                    Day of birth
-                </div>
-                <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.DOB}}
-                </div>
-                <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/dob" role="button">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        Edit
+                    <a href="/account/postwonproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
+                        Post products have a winner
                     </a>
+                    {{/if_eq}}
                 </div>
             </div>
-
-            <div class="row profile_line">
-                <div class="col-lg-4 indam text-danger mt-1 mb-1">
-                    <i class="fa fa-building"></i>
-                    City/Province
-                </div>
-                <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.CityProvince}}
-                </div>
-                <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/cityprovince"
-                        role="button">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        Edit
-                    </a>
-                </div>
-            </div>
-
-            <div class="row profile_line">
-                <div class="col-lg-4 indam text-danger mt-1 mb-1">
-                    <i class="fa fa-home"></i>
-                    District
-                </div>
-                <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.District}}
-                </div>
-                <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/district"
-                        role="button">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        Edit
-                    </a>
-                </div>
-            </div>
-
-            <div class="row profile_line">
-                <div class="col-lg-4 indam text-danger mt-1 mb-1">
-                    <i class="fa fa-home"></i>
-                    Ward
-                </div>
-                <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.Ward}}
-                </div>
-                <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/ward" role="button">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        Edit
-                    </a>
-                </div>
-            </div>
-
-            <div class="row profile_line">
-                <div class="col-lg-4 indam text-danger mt-1 mb-1">
-                    <i class="fa fa-road"></i>
-                    Street
-                </div>
-                <div class="col-lg-4 mt-1 mb-1">
-                    {{authUser.Street}}
-                </div>
-                <div class="col-lg-4">
-                    <a class="btn btn-warning float-right mt-1 mb-1" href="/account/profile/edit/street" role="button">
-                        <i class="fa fa-edit" aria-hidden="true"></i>
-                        Edit
-                    </a>
-                </div>
-            </div>
-
-            {{#if_eq authUser.Type 0}}
-            <form method="POST">
-                {{#if authUser.IsUpgrade}}
-                <button type="submit" class="btn btn-primary float-right mt-2" formaction="/account/profile/upgrade"
-                    disabled>
-                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                    Waiting for approval..
-                </button>
-                {{else}}
-
-                <button type="submit" class="btn btn-primary float-right mt-2" formaction="/account/profile/upgrade">
-                    <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
-                    Upgrade to seller
-                </button>
-                {{/if}}
-            </form>
-            {{/if_eq}}
-
-
         </div>
-        <div class="card-footer text-muted">
-            Footer
+        <div class="col-lg-9">
+            <div class="card shadow mb-4" id="register">
+                <h3 class="card-header text-danger">
+                    <i class="fa fa-edit"></i> Information
+                </h3>
+                <div class="card-body">
+                    {{#if success_msg}}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{success_msg}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {{/if}}
+                    <div class="row profile_line">
+                        <div class="col-lg-4 indam text-danger mt-1 mb-1 chulon">
+                            <i class="fa fa-user"></i>
+                            Username
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
+                            {{authUser.Username}}
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-warning float-right mt-1 mb-1 indam" href="/account/profile/edit/username"
+                                role="button">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row profile_line">
+                        <div class="col-lg-4 indam text-danger mt-1 mb-1 chulon">
+                            <i class="fa fa-key"></i>
+                            Password
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
+                            *********
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-warning float-right mt-1 mb-1 indam" href="/account/profile/edit/password"
+                                role="button">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row profile_line">
+                        <div class="col-lg-4 indam text-danger mt-1 mb-1 chulon">
+                            <i class="fa fa-envelope"></i>
+                            Email
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
+                            {{authUser.Email}}
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-warning float-right mt-1 mb-1 indam" href="/account/profile/edit/email"
+                                role="button">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row profile_line">
+                        <div class="col-lg-4 indam text-danger mt-1 mb-1 chulon">
+                            <i class="fa fa-user"></i>
+                            First name
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
+                            {{authUser.FirstName}}
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-warning float-right mt-1 mb-1 indam"
+                                href="/account/profile/edit/firstname" role="button">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row profile_line">
+                        <div class="col-lg-4 indam text-danger mt-1 mb-1 chulon">
+                            <i class="fa fa-user"></i>
+                            Last name
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
+                            {{authUser.LastName}}
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-warning float-right mt-1 mb-1 indam" href="/account/profile/edit/lastname"
+                                role="button">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row profile_line">
+                        <div class="col-lg-4 indam text-danger mt-1 mb-1 chulon">
+                            <i class="fa fa-birthday-cake"></i>
+                            Day of birth
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
+                            {{authUser.DOB}}
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-warning float-right mt-1 mb-1 indam" href="/account/profile/edit/dob"
+                                role="button">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row profile_line">
+                        <div class="col-lg-4 indam text-danger mt-1 mb-1 chulon">
+                            <i class="fa fa-building"></i>
+                            City/Province
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
+                            {{authUser.CityProvince}}
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-warning float-right mt-1 mb-1 indam"
+                                href="/account/profile/edit/cityprovince" role="button">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row profile_line">
+                        <div class="col-lg-4 indam text-danger mt-1 mb-1 chulon">
+                            <i class="fa fa-home"></i>
+                            District
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
+                            {{authUser.District}}
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-warning float-right mt-1 mb-1 indam" href="/account/profile/edit/district"
+                                role="button">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row profile_line">
+                        <div class="col-lg-4 indam text-danger mt-1 mb-1 chulon">
+                            <i class="fa fa-home"></i>
+                            Ward
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
+                            {{authUser.Ward}}
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-warning float-right mt-1 mb-1 indam" href="/account/profile/edit/ward"
+                                role="button">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row profile_line">
+                        <div class="col-lg-4 indam text-danger mt-1 mb-1 chulon">
+                            <i class="fa fa-road"></i>
+                            Street
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam" style="font-size: 16px;">
+                            {{authUser.Street}}
+                        </div>
+                        <div class="col-lg-4">
+                            <a class="btn btn-warning float-right mt-1 mb-1 indam" href="/account/profile/edit/street"
+                                role="button">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                        </div>
+                    </div>
+
+                    {{#if_eq authUser.Type 0}}
+                    <form method="POST">
+                        {{#if authUser.IsUpgrade}}
+                        <button type="submit" class="btn btn-primary float-right mt-2 indam"
+                            formaction="/account/profile/upgrade" disabled>
+                            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                            Waiting for approval..
+                        </button>
+                        {{else}}
+
+                        <button type="submit" class="btn btn-primary float-right mt-2 indam"
+                            formaction="/account/profile/upgrade">
+                            <i class="fa fa-arrow-circle-up" aria-hidden="true"></i>
+                            Upgrade to seller
+                        </button>
+                        {{/if}}
+                    </form>
+                    {{/if_eq}}
+
+
+                </div>
+                <div class="card-footer text-muted">
+                    Footer
+                </div>
+            </div>
         </div>
     </div>
 </div>
