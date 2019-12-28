@@ -1,4 +1,5 @@
 const db = require('../utils/db');
+const config = require('../config/default.json');
 
 module.exports = {
   all: () => db.load('select * from Product'),
@@ -6,7 +7,20 @@ module.exports = {
       select * from Product p join Categories c
       on p.CatID = c.CatID
       where p.CatID = ${catId} or c.ParentID = ${catId}`),
-
+  countByCat: async catId => {
+    const rows = await db.load(`
+    select count(p.ProductID) as total 
+    from Product p join Categories c
+    on p.CatID = c.CatID
+    where p.CatID = ${catId} and p.CatID = c.CatID  and c.ParentID != 0
+    or  (p.CatID = c.CatID and c.ParentID = ${catId})`)
+    return rows[0].total;
+  },
+  pageByCat: (catId, offset) => db.load(`
+  select * from Product p join Categories c
+      on p.CatID = c.CatID
+      where p.CatID = ${catId} or c.ParentID = ${catId}
+      limit ${config.paginate.limit} offset ${offset}`),
   single: id => db.load(`CALL getSingleProduct(${id})`),
   getSellerInfo: id => db.load(`CALL getSellerInfo(${id});`),
   getCurrentWinner: id=> db.load(`CALL getCurrentWinner(${id}) `),
