@@ -18,7 +18,7 @@ router.get('/id=:id', async (req, res) => {
     productModel.fvr(proid, userTmp)
   ]);
   var reviewLength = 0, isWinner = false;
-  if (req.session.isAuthenticated && cwi[0][0].length!=0) {
+  if (req.session.isAuthenticated && cwi[0].length!=0) {
     isWinner= (cwi[0][0].userID === req.session.authUser.UserID);
   }
   if (review[0].length != 0) reviewLength = review[0][0].CountRevByID;
@@ -40,32 +40,36 @@ router.get('/id=:id', async (req, res) => {
 router.post('/id=:id', async (req, res) => {
   if (req.body.key === 'bid') {
     delete req.body.key;
-    if (req.session.isAuthenticated) {
-      const status = await productModel.fAuction(req.body.ProductId, req.session.authUser.UserID, req.body.Price);
+    if (req.session.isAuthenticated && 1==1) {
+      const status = await productModel.fAuction(req.params.id, req.session.authUser.UserID, req.body.Price);
     }
     return res.redirect('back');
   }
   if (req.body.key === 'review') {
     delete req.body.key;
+    if (req.session.isAuthenticated) {
     const date = new Date();
     const entity = req.body;
     entity.UserID = req.session.authUser.UserID;
     entity.ReviewID = null;
+    entity.ProductId = req.params.id;
     entity.TimePost = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
       date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-    console.log(entity);
     await productModel.addReview(entity);
     const tmp = await productModel.getReview(req.body.ProductId, 1);
     return res.json(tmp[0][0]);
+    }
   }
   if (req.body.key === 'favorite') {
     delete req.body.key;
     if (req.session.isAuthenticated) {
-      const tmpx = await productModel.fInsertFavorite(req.body.ProductID, req.session.authUser.UserID);
+      const tmpx = await productModel.fInsertFavorite(req.params.id, req.session.authUser.UserID);
       return res.json(tmpx[0].result);
     }
     return res.json(0);
   }
+  
+  return res.redirect('back');
 })
 
 module.exports = router;

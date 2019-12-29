@@ -1,10 +1,4 @@
-{{#if isWinner}}
-<script>
-	alert("You are the highest bidder!!!");
-	</script>
-{{/if}}
 <div class="container">
-	<div style="margin-top: 150px;">
 		{{#if this.PrdEmpty}}
 		<div class="card-body">
 			<p class="card-text">
@@ -92,7 +86,8 @@
 		<div>{{this.status}}</div>
 							<div class="row">
 								{{#each this.curWinnerInfo}}
-								<div class="col-lg-3 line_product_price1" id="product_price">{{CurrentBid}}$</div>
+								<div class="col-lg-3 line_product_price1" > <span id="product_price">
+									{{CurrentBid}}</span>$</div>
 								<div class="col-lg-4 line_product_price">
 									<i class="fa fa-trophy" aria-hidden="true"></i>
 									<span id="current_winner">{{curWinnerName}}</span>
@@ -124,8 +119,7 @@
 								<button disabled id="priceStep" type="button" class="btn btn-success" value="{{PriceStep}}">{{PriceStep}}</button>
 									{{/each}}	
 									<form id="bid_form" method="post">
-										<input type="hidden" class="key" value="bid" name="key">
-										<input type="hidden" id="prdID1" value="{{this.Productid}}" name="ProductId">
+										<input type="hidden" id="key" value="bid" name="key">
 										<input type="hidden"  id="price" value="0" name="Price">
 								{{#if authUser.UserID}}
 								<button id="bidButton" type="submit" class="btn btn-danger m-1" >
@@ -143,7 +137,6 @@
 								{{#if authUser.UserID}}
 									{{#if favorite}}
 									<form id="favoritePrd">
-									<input type="hidden" id="prdID" value="{{this.Productid}}" name="ProductId">
 									<button id="favoriteBtn" class="btn btn-danger" value="1">
 										<span class="fa fa-heart"></span>
 									</button>
@@ -151,7 +144,6 @@
 									</form>
 									{{else}}
 									<form id="favoritePrd">
-									<input type="hidden" id="prdID" value="{{this.Productid}}" name="ProductId">
 									<button id="favoriteBtn" class="btn btn-light" value="0">
 										<span class="fa fa-heart"></span>
 									</button>
@@ -188,7 +180,7 @@
 						<tbody>
 							{{#each this.InfoLastestAuction}}
 							<tr>
-								<th scope="row">1</th>
+								<th scope="row">{{BidID}}</th>
 								<td>{{name}}</td>
 								<td>{{Amount}}</td>
 								<td>
@@ -311,8 +303,6 @@
 										<div class="add_review">
 												{{!-- <form id="review_form" method="post" target="uploader_iframe"></form> --}}
 											<form id="review_form">
-												<input type="hidden" class="key" value="review" name="key">
-												<input type="hidden" id="prdID" value="{{this.Productid}}" name="ProductId">
 												<input type="hidden"  id="rate2" value="0" name="Rating">
 												<div>
 													<h1>Your Rating:</h1>
@@ -348,14 +338,13 @@
 										<div class="tab_title relatedproduct_title">
 											<h4>Related Product</h4>
 										</div>
-										<div class="product-grid" data-isotope='{" itemSelector" :"
-											.product-item"
+										<div class="product-grid" data-isotope='{" itemSelector" :".product-item"
 											," layoutMode" :" fitRows" }'>
 											<div class="timer">
 											</div>
 											<!-- Product 1 -->
 											{{#each this.relatedPrd}}
-											<div class="product-item men">
+											<div class="product-item">
 												<div class="product discount product_filter">
 													<div class="product_image">
 														<img src="/{{ProductID}}/main_thumbs.png" alt="{{ProductName}}"
@@ -378,9 +367,39 @@
 													<div class="ml-3 date_post">{{TimePost}}</div>
 													<div>{{CountBid}}&nbsp<i class="fa fa-gavel" aria-hidden="true"></i></div>
 												</div>
-											</div>
+											</div>	
 											{{/each}}
-
+											{{!-- {{#each this.relatedPrd}}
+											<div class="product-item m-1">
+						<div class="product discount product_filter ">
+							<div class="product_image">
+								<img class="rounded mx-auto d-block" src="/{{ProductID}}/main_thumbs.png"
+									alt="{{ProductName}}" title="{{ProductName}}">
+							</div>
+							{{#if PricePurchase}}
+							<div
+								class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
+								<span>Buy now: {{PricePurchase}} $</span></div>
+							{{/if}}
+							<div class="favorite favorite_left"></div>
+							<div class="product_info">
+								<h6 class="product_name"><a href="/product/id={{ProductID}}">{{ProductName}}</a></h6>
+								<div class="product_price price_custom">{{PriceStart}} $</div>
+								<div class="d-flex flex-row time_custom justify-content-center">
+									<div class="product_expiration_date timer_num time_custom_number"></div>
+								</div>
+								<div class="time_exp" style="visibility: hidden; font-size: 1px">{{TimeExp}}</div>
+							</div>
+						</div>
+						<div class="d-flex justify-content-between">
+							<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i> 
+							
+								&nbsp{{curWinner}}
+							 </div>
+							<div class="card_hammer"><i class="fa fa-gavel" aria-hidden="true"></i>{{NumBid}}</div>
+						</div>
+					</div>
+											{{/each}} --}}
 										</div>
 									</div>
 								</div>
@@ -389,7 +408,13 @@
 					</div>
 				</div>
 			</div>
-		</div>
 		{{/if}}
 	</div>
 </div>
+{{#if isWinner}}
+<script>
+window.onload = function() {
+   notify1();
+}
+</script> 
+{{/if}}

@@ -18,21 +18,21 @@
                         list-group-item-action indam active hover"
                         style="font-size: 18px;">
                         <i class="fa fa-gavel text-success" aria-hidden="true"></i>
-                        Products you auction
+                        Bidding List
                     </a>
 
                     <a href="/account/wonproduct" class="list-group-item
                         list-group-item-action indam hover"
                         style="font-size: 18px;">
                         <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
-                        Products you won
+                        Won List
                     </a>
 
                     <a href="/account/favorite" class="list-group-item
                         list-group-item-action indam hover"
                         style="font-size: 18px;">
                         <i class="fa fa-heart text-danger" aria-hidden="true"></i>
-                        Favorite products
+                        Watch List
                     </a>
                     {{#if_eq authUser.Type 1}}
                     <a href="/account/postproduct" class="list-group-item
@@ -56,7 +56,7 @@
         <div class="col-lg-9">
             <div class="card shadow mb-4" id="register">
                 <h3 class="card-header text-success">
-                    <i class="fa fa-gavel"></i> PRODUCTS YOU AUCTION
+                    <i class="fa fa-gavel"></i> BIDDING LIST
                 </h3>
                 <div class="card-body">
                     <div class="row">
@@ -89,7 +89,7 @@
                     {{#each this.list}}
                     <div class="row profile_line">
                         <div class="col-lg-4 indam text-dark mt-1 mb-1">
-                            {{ProductName}}
+                            <a href="/product/id={{ProductID}}"> {{ProductName}}</a>
                         </div>
                         <div class="col-lg-2 indam text-dark mt-1 mb-1">
                             {{CurrentBid}}
