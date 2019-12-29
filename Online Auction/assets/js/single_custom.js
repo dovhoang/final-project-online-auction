@@ -16,7 +16,10 @@
 
 
 ******************************/
-var tmp = 0;
+
+ 
+
+var execute = false;
 jQuery(document).ready(function ($) {
 
 
@@ -273,37 +276,102 @@ jQuery(document).ready(function ($) {
 
 $("#bid_form").submit(function (e) {
 	e.preventDefault();
-	if ($('#placebid_value').text() < $('#product_price').text()
-		|| {{authUser.UserID}} === "") {
-		alert("Please bid again\n");
+	if (parseInt($('#placebid_value').text()) <=parseInt($('#product_price').text()))
+		 {
+			Swal.fire({
+				icon:'warning',
+				title: 'Please bid again',
+				showConfirmButton: true,
+				showCloseButton: true
+			  });
 	}
 	else {
-		$('#price').val($('#placebid_value').text());
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "Price: "+$('#placebid_value').text(),
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Confirm'
+		  }).then((result) => {
+			if (result.value) {
+			  Swal.fire({
+				text:'Bidding...',
+				timer: 5000,
+				timerProgressBar: true
+			  })
+			  $('#price').val($('#placebid_value').text());
 		this.submit();
+			}
+		  });
 	}
 });
 
+
+$('#favoritePrd').on('submit', function (event) {
+	event.preventDefault(); // Stop the form from causing a page refresh.
+	if ($('#favoriteBtn').val()==1){
+		Swal.fire({
+			icon:'info',
+			title: 'This product already exists in your favorite products list',
+			showConfirmButton: true,
+			showCloseButton: true
+		  });
+	}
+	else{
+	$('#favoriteBtn').attr("disabled", true);
+	const tmpid=window.location.pathname.split('product/id=')[1];
+	var data = {
+		key: 'favorite'
+	  };
+	  $.ajax({
+		url: 'http://localhost:3000/product/id='+tmpid,
+		data: data,
+		method: 'POST'
+	  }).then(function(response) { 
+		  if (response==1)  {
+			Swal.fire({
+				icon: 'success',
+				title: 'Success',
+				showConfirmButton: false,
+				timer: 1500
+			  });
+		  $( "#favoriteBtn" ).removeClass("btn btn-light").addClass("btn btn-danger");
+		  $('#favoriteBtn').val(1);
+		}
+		$('#favoriteBtn').attr("disabled", false);
+	}).catch(function(err) {
+		$('#favoriteBtn').attr("disabled", false);
+		console.error(err);
+	 });
+	}
+});
 
 
   $('#review_form').on('submit', function (event) {
 	event.preventDefault(); // Stop the form from causing a page refresh.
 	$('#review_submit').attr("disabled", true);
-
+	const tmpid=window.location.pathname.split('product/id=')[1];
     var data = {
-      key: $('#key').val(),
-	  ProductId: $('#prdID').val(),
+      key: 'review',
 	  Rating:  $('#rate2').val(),
 	  Comment: $('#review_message').val()
 	};
+
 	$('#notify').append('Uploading...');
     $.ajax({
-      url: 'http://localhost:3000/product/id='+$('#prdID').val(),
+      url: 'http://localhost:3000/product/id='+tmpid,
       data: data,
       method: 'POST'
     }).then(function (response) {
 		const data=response;
 		$('#notify').empty();	
-
+		Swal.fire({
+			icon: 'success',
+			title: 'Success',
+			showConfirmButton: false,
+			timer: 1500
+		  });
 		/*ve rate*/
 		var strTmp='';
 		var n=data.rateStar
@@ -349,10 +417,22 @@ $("#bid_form").submit(function (e) {
 				});
 		//kich hoat lai nut submit
 		$('#review_submit').attr("disabled", false);
-
-    }).catch(function (err) {
-	   console.error(err);
-	   $('#notify').append("falied");
+    }).catch(function(err) {
+	   console.error("error:"+err);
+	   $('#review_submit').attr("disabled", false);
+	   $('#notify').empty().append("falied");
     });
   });
 
+  function notify1()
+  {
+	  if (execute==false)
+	  {
+		execute=true;
+	Swal.fire({
+		title: 'You are the highest bidder!!!',
+		showConfirmButton: false,
+		timer: 1500
+	  });
+	}
+  }

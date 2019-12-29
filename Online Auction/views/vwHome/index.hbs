@@ -145,14 +145,17 @@
 								<h6 class="product_name"><a href="/product/id={{ProductID}}">{{ProductName}}</a></h6>
 								<div class="product_price price_custom">{{PriceStart}} $</div>
 								<div class="d-flex flex-row time_custom justify-content-center">
-									<div class="product_expiration_date timer_num time_custom_number">{{TimeExp}}
-									</div>
+									<div class="product_expiration_date timer_num time_custom_number"></div>
 								</div>
+								<div class="time_exp" style="visibility: hidden; font-size: 1px">{{TimeExp}}</div>
 							</div>
 						</div>
 						<div class="d-flex justify-content-between">
-							<div class="ml-3"><i class="fa fa-trophy" aria-hidden="true"></i> : tcs123</div>
-							<div><i class="fa fa-gavel mr-3" aria-hidden="true">: 30</i></div>
+							<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i> 
+							{{#if CurrentWinner}}
+								&nbsp{{WinnerName}}
+							{{/if}} </div>
+							<div class="card_hammer"><i class="fa fa-gavel" aria-hidden="true"></i>{{NumBid}}</div>
 						</div>
 					</div>
 					{{/each}}
@@ -191,14 +194,17 @@
 								<h6 class="product_name"><a href="#">{{ProductName}}</a></h6>
 								<div class="product_price price_custom">{{PriceStart}} $</div>
 								<div class="d-flex flex-row time_custom justify-content-center">
-									<div class="product_expiration_date timer_num time_custom_number">{{TimeExp}}
-									</div>
+									<div class="product_expiration_date timer_num time_custom_number"></div>
 								</div>
+								<div class="time_exp" style="visibility: hidden; font-size: 1px">{{TimeExp}}</div>
 							</div>
 						</div>
 						<div class="d-flex justify-content-between">
-							<div class="ml-3"><i class="fa fa-trophy" aria-hidden="true"></i> : tcs123</div>
-							<div><i class="fa fa-gavel mr-3" aria-hidden="true">: 30</i></div>
+							<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i> 
+							{{#if CurrentWinner}}
+								{{WinnerName}}
+							{{/if}} </div>
+							<div class="card_hammer"><i class="fa fa-gavel" aria-hidden="true"></i>{{NumBid}}</div>
 						</div>
 					</div>
 					{{/each}}
@@ -238,14 +244,17 @@
 								<h6 class="product_name"><a href="#">{{ProductName}}</a></h6>
 								<div class="product_price price_custom">{{PriceStart}} $</div>
 								<div class="d-flex flex-row time_custom justify-content-center">
-									<div class="product_expiration_date timer_num time_custom_number">{{TimeExp}}
-									</div>
+									<div class="product_expiration_date timer_num time_custom_number"></div>
 								</div>
+								<div class="time_exp" style="visibility: hidden; font-size: 1px">{{TimeExp}}</div>
 							</div>
 						</div>
 						<div class="d-flex justify-content-between">
-							<div class="ml-3"><i class="fa fa-trophy" aria-hidden="true"></i> : tcs123</div>
-							<div><i class="fa fa-gavel mr-3" aria-hidden="true">: 30</i></div>
+							<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i> 
+							{{#if CurrentWinner}}
+								&nbsp{{WinnerName}}
+							{{/if}} </div>
+							<div class="card_hammer"><i class="fa fa-gavel" aria-hidden="true"></i>{{NumBid}}</div>
 						</div>
 					</div>
 					{{/each}}
@@ -288,10 +297,10 @@
 			</div>
 			<div class="col-lg-3 benefit_col">
 				<div class="benefit_item d-flex flex-row align-items-center">
-					<div class="benefit_icon"><i class="fa fa-gavel" aria-hidden="true"></i></div>
+					<div class="benefit_icon"><i class="fa fa-shield" aria-hidden="true"></i></div>
 					<div class="benefit_content">
-						<h6>Money Auction</h6>
-						<p>Auctions from 1K !</p>
+						<h6>Information security</h6>
+						<p>Customer information is absolutely confidential</p>
 					</div>
 				</div>
 			</div>

@@ -16,8 +16,6 @@
 	<link rel="stylesheet" type="text/css" href="/styles/main_styles.css">
 	<link rel="stylesheet" type="text/css" href="/styles/responsive.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-
-
 	<link rel="stylesheet" type="text/css" href="/styles/single_responsive.css">
 	<link rel="stylesheet" type="text/css" href="/styles/single_styles.css">
 	<link rel="stylesheet" type="text/css" href="/styles/custom.css">
@@ -171,12 +169,12 @@
 											{{!-- Sản phẩm mình đang tham gia đấu giá --}}
 											<a class="dropdown-item hover" href="/account/auctionproduct">
 												<i class="fa fa-gavel text-success" aria-hidden="true"></i>
-												Products you auction
+												Bidding List
 											</a>
 											{{!-- Sản phẩm mình đã thắng --}}
 											<a class="dropdown-item hover" href="/account/wonproduct">
 												<i class="fa fa-trophy text-warning" aria-hidden="true"></i>
-												Products you won
+												Won List
 											</a>
 											{{!-- Đăng xuất --}}
 											<a class="dropdown-item hover"
@@ -184,10 +182,15 @@
 												<i class="fa fa-sign-out text-danger" aria-hidden="true"></i>
 												Sign out
 											</a>
+											{{!-- Sản phẩm  yêu thích--}}
+											<a class="dropdown-item hover" href="/account/favorite">
+												<i class="fa fa-heart text-danger" aria-hidden="true"></i>
+												Watch List
+											</a>
 										</div>
 									</div>
 									<li class="checkout ml-3 mr-3">
-										<a href="/account/favoriteproduct">
+										<a href="/account/favorite">
 											<i class="fa fa-heart text-danger" aria-hidden="true"></i>
 											<span id="checkout_items" class="checkout_items">2</span>
 										</a>
@@ -290,7 +293,7 @@
 						<div
 							class="footer_nav_container d-flex flex-sm-row flex-column align-items-center justify-content-lg-start justify-content-center text-center">
 							<ul class="footer_nav">
-								<li><a href="#">Blog</a></li>
+								<li><a href="https://www.facebook.com/groups/593639274702380/"><i class="fa fa-facebook-square fa-2x text-primary" aria-hidden="true"></i>  Fanpage</a></li>
 								<li><a href="#">FAQs</a></li>
 								<li><a href="contact.html">Contact us</a></li>
 							</ul>
@@ -315,8 +318,8 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<script src="/js/custom.js"></script>
-
 	<script src="/js/index.js"></script>
 	<script src="/js/single_custom.js"></script>
 	{{{_sections.js}}}

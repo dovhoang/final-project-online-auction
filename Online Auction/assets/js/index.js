@@ -27,10 +27,11 @@ var length = 15
 var days,hours,minutes,seconds 
 var distance
 var countDownDate=new Array(length)
+var allTimeExp = $(document).find('.time_exp')
 var allTimeRemaining = $(document).find('.product_expiration_date')
 
 for (i = 0; i < allTimeRemaining.length; i++) {
-    countDownDate[i] = new Date(allTimeRemaining[i].textContent).getTime();
+    countDownDate[i] = new Date(allTimeExp[i].textContent).getTime();
 }
 var x = setInterval(function() {
     var now = new Date().getTime();
@@ -48,6 +49,5 @@ var x = setInterval(function() {
             allTimeRemaining[i].innerHTML = "ENDING";
         }
     }
-
 }, 1000);
 
