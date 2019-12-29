@@ -3,10 +3,25 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const userModel = require('../models/user.model');
+const productModel = require('../models/product.model');
 const requestUpdateModel = require('../models/requestupdate.model');
 const restrict = require('../middlewares/auth.mdw');
 const nodemailer = require('nodemailer');
+const path = require('path');
+const fs = require('fs');
+var multer = require('multer');
 
+var FolderName = "./pictures/";
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, FolderName)
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    }
+})
+
+var upload = multer({ storage: storage })
 //Register
 router.get('/register', restrict.forUserSignIn, async (req, res) => {
     res.render('vwAccount/register');
@@ -672,6 +687,75 @@ router.post('/profile/upgrade', async (req, res) => {
     req.session.authUser.IsUpgrade = 1;
     req.flash('success_msg', 'Your request has been sent');
     res.redirect('/account/profile');
+});
+
+
+router.get('/postproduct', restrict.forUserNotSeller, (req, res) => {
+    res.render('vwAccount/postproduct');
+})
+
+router.post('/postproduct', async (req, res) => {
+    //Lấy ra proID lớn nhất
+    const result = await productModel.getLargestProID();
+    var proId = +result[0].ProId;
+    proId++;
+
+    //Xác định folder chứa hình ảnh upload
+    FolderName = "./pictures/" + proId.toString(10);
+
+    //Tạo thư mục /pictures/proId
+    fs.mkdir(FolderName, (err) => {
+        if (err) console.log(err);
+        else console.log("Create directory success");
+    })
+    //Upload ảnh vào thư mục FolderName
+    upload.array('Picture', 3)(req, res, async err => {
+        if (err) {//Nếu lỗi
+            res.render('vwAccount/postproduct', {
+                error: 'Error while uploading images'
+            });
+        } else {//Nếu OK
+            //Nếu upload không đúng 3 hình
+            if (req.files.length !== 3) {
+                //Xóa thư mục /pictures/proIdgi
+                fs.unlink(FolderName, (err) => {
+                    if (err) console.log(err);
+                    else console.log("Delete directory success");
+                });
+                return res.render('vwAccount/postproduct', {
+                    error: 'Please put in exactly 3 images'
+                });
+            }
+            //Ok 3 ảnh
+            //Đổi tên các bức ảnh
+            for (var i = 1; i <= req.files.length; i++) {
+                fs.rename(FolderName + "/" + req.files[i - 1].originalname,
+                    FolderName + "/" + i.toString(10) + "_thumbs" +
+                    path.extname(req.files[i - 1].originalname), (err) => {
+                        if (err) console.log(err);
+                        else console.log("Rename success");
+                    });
+            }
+            //Ghi product vào db
+            const product = {
+                ProductID: proId,
+                ProductName: req.body.ProductName, 
+                CatId: req.body.Categories,
+                SellerID: req.session.authUser.UserID,
+                PriceStart: req.body.PriceStart,
+                PricePurchase: req.body.PricePurchase,
+                PriceStep: req.body.PriceStep,
+                Description: req.body.Description,
+                // TimePost: moment(Date.now()),
+
+            }
+            const result = await productModel.add(product);
+
+            res.render('vwAccount/postproduct', {
+                success: 'Your product was successfully posted'
+            });
+        }
+    });
 })
 
 module.exports = router;

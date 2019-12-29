@@ -1,0 +1,260 @@
+{{#section 'css'}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/css/fileinput.min.css" media="all"
+    rel="stylesheet" type="text/css" />
+
+{{/section}}
+
+{{#section 'js'}}
+
+
+<script
+    src="https://cdn.tiny.cloud/1/9cgh18vp67j80gds5dkronb8wp8jhoebshn09lnmwgc3oidl/tinymce/5/tinymce.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/js/fileinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.3/themes/fa/theme.min.js"></script>
+<script>
+
+</script>
+<script>
+
+    tinymce.init({
+        selector: '#Description',
+        height: 600,
+        plugins: 'paste image link autolink lists table media',
+        menubar: false,
+        toolbar: [
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+        ],
+    });
+
+    $('#Picture').fileinput({
+        theme: 'fa',
+        dropZoneEnabled: false,
+        allowedFileExtensions: ['png', 'jpg', 'gif', 'jpeg'],
+        showUpload: false,
+    });
+
+
+</script>
+<script>
+    function validate() {
+        var result = true;
+        //Lấy ra trường ProductName,PriceStart,PriceStep
+        const productname = $('#ProductName').val();
+        const pricestart = $('#PriceStart').val();
+        const pricestep = $('#PriceStep').val();
+        //Kiểm tra các trường có trống không
+        if (productname === '' || pricestart === '' || pricestep === '') {
+            $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Please fill in all fields</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+            result = false;
+        }
+        return result;
+    }
+</script>
+
+{{/section}}
+
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card shadow" id="a">
+                <h4 class="card-header text-danger">
+                    <i class="fa fa-eye"></i>
+                    Views
+                </h4>
+                <div class="list-group list-group-flush">
+                    <a href="/account/profile" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-id-card text-info" aria-hidden="true"></i>
+                        Profile
+                    </a>
+
+                    <a href="/account/auctionproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-gavel text-success" aria-hidden="true"></i>
+                        Products you auction
+                    </a>
+
+                    <a href="/account/wonproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
+                        Products you won
+                    </a>
+
+                    <a href="/account/favoriteproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-heart text-danger" aria-hidden="true"></i>
+                        Products favorite
+                    </a>
+                    <a href="/account/postproduct" class="list-group-item list-group-item-action indam active hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-plus-square text-danger" aria-hidden="true"></i>
+                        Post a auction product
+                    </a>
+
+                    <a href="/account/allpostproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-gavel text-dark" aria-hidden="true"></i>
+                        All ur post products
+                    </a>
+
+                    <a href="/account/allfinishpostproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
+                        All ur post products have a winner
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="card shadow mb-4" id="register">
+                <h3 class="card-header text-danger">
+                    <i class="fa fa-plus-square"></i> Post product
+                </h3>
+                <div class="card-body">
+                    <form onsubmit="return validate();" method="POST" action="/account/postproduct" id="frmPostProduct"
+                        name="frmPostProduct" enctype="multipart/form-data">
+                        {{#if error}}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>{{error}}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {{/if}}
+                        {{#if success}}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>{{success}}</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        {{/if}}
+                        {{!-- Product name --}}
+                        <div class="row abcdef">
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label for="ProductName" class="chulon">
+                                        <i class="fa fa-font"></i>
+                                        Product name
+                                        <i class="fa fa-star text-danger"></i>
+                                    </label>
+                                    <input type="text" class="form-control" id="ProductName" name="ProductName"
+                                        placeholder="Laptop MSI" autofocus>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="ProductName" class="chulon">
+                                        <i class="fa fa-cubes"></i>
+                                        Categories
+                                        <i class="fa fa-star text-danger"></i>
+                                    </label>
+                                    <select name="Categories" class="form-control form-control-sm">
+                                        <option selected="selected" style="display:none;">Select categories</option>
+                                        <option value="1">Technology</option>
+                                        <option value="2">Tablet</option>
+                                        <option value="3">Smartphone</option>
+                                        <option value="4">Camera</option>
+                                        <option value="5">Appliances</option>
+                                        <option value="6">Fan</option>
+                                        <option value="7">Washing machine</option>
+                                        <option value="8">Refrigerator</option>
+                                        <option value="9">Microwave</option>
+                                        <option value="10">Pump</option>
+                                        <option value="11">Fashion</option>
+                                        <option value="12">Men</option>
+                                        <option value="13">Women</option>
+                                        <option value="14">Famous brand</option>
+                                        <option value="15">Children</option>
+                                        <option value="16">Laptop</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        {{!-- Price --}}
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="PriceStart" class="chulon">
+                                        <i class="fa fa-money"></i>
+                                        Price start
+                                        <i class="fa fa-star text-danger"></i>
+                                    </label>
+                                    <input type="number" class="form-control" id="PriceStart" name="PriceStart"
+                                        placeholder="1000000">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="PriceStep" class="chulon">
+                                        <i class="fa fa-money"></i>
+                                        Price step
+                                        <i class="fa fa-star text-danger"></i></label>
+                                    <input type="number" class="form-control" id="PriceStep" name="PriceStep"
+                                        placeholder="100000">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="PricePurchase" class="chulon">
+                                        <i class="fa fa-money"></i>
+                                        Price purchase
+                                    </label>
+                                    <input type="number" class="form-control" id="PricePurchase" name="PricePurchase"
+                                        placeholder="50000000">
+                                </div>
+                            </div>
+                        </div>
+
+                        {{!-- Description --}}
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="Description" class="chulon">
+                                        <i class="fa fa-info-circle"></i>
+                                        Description
+                                        <i class="fa fa-star text-danger"></i>
+                                    </label>
+                                    <textarea class="form-control" name="Description" id="Description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{!-- Images --}}
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="Picture" class="chulon">
+                                        <i class="fa fa-images"></i>
+                                        Represent images (3 images)
+                                        <i class="fa fa-star text-danger"></i>
+                                    </label>
+                                    <input type="file" class="form-control" id="Picture" name="Picture" multiple>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-plus-square text-danger" aria-hidden="true"></i>
+                            Post
+                        </button>
+                        <span class="float-left"><a href=""></a></span>
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+                    Footer
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

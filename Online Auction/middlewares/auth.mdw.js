@@ -54,4 +54,12 @@ module.exports = {
         }
         next();
     },
+
+    forUserNotSeller: (req, res, next) => {
+        //Nếu không là seller
+        if (req.session.authUser === undefined || req.session.authUser.Type !== 1) {
+            return res.redirect('/');
+        }
+        next();
+    }
 }
