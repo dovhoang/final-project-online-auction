@@ -52,12 +52,8 @@ module.exports = {
   getWonProduct: userID => db.load(`CALL getWonProduct(${userID})`),
   getProductRecently: userID => db.load(`CALL getProductRecently(${userID})`),
   fvr: (id, userID) => db.load(`Select * from Favorite where ProductID=${id} and UserID=${userID}`),
-  fAuction: (proID, userID, price) => db.load(` SELECT fAuction(${proID}, ${userID}, ${price}) AS Auction`),
   fInsertFavorite: (proID, userID) => db.load(` SELECT fInsertFavorite(${proID}, ${userID}) AS result`),
-  checkBlock: (proID, userID) => db.load(`select exists(select ProductID from BlackList where UserID=${userID} and
-     ProductID=${proID}) as isBlocked`),
   add: entity => db.add('Product', entity),
-  addBid: entity => db.add('Bid', entity),
   addReview: entity => db.add('Review', entity),
   del: id => db.del('Product', { ProID: id }),
 
