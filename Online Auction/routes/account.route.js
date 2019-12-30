@@ -215,33 +215,33 @@ router.get('/profile', restrict.forUserNotSignIn, restrict.forAdmin, (req, res) 
 })
 
 //View favorite
-router.get('/favorite', restrict.forUserNotSignIn, restrict.forAdmin,async (req, res) => {
-     const list=await productModel.getFavoriteProduct(req.session.authUser.UserID);
+router.get('/favorite', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) => {
+    const list = await productModel.getFavoriteProduct(req.session.authUser.UserID);
     console.log(list[0]);
     res.render('vwAccount/favorite', {
-      list: list[0],
+        list: list[0],
     });
-  });
+});
 router.post('/favorite', restrict.forUserNotSignIn, async (req, res) => {
-    await productModel.delInFav(req.body.ProductID,req.session.authUser.UserID);
+    await productModel.delInFav(req.body.ProductID, req.session.authUser.UserID);
     res.redirect('back');
+});
+
+//View won product
+router.get('/wonproduct', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) => {
+    const list = await productModel.getWonProduct(req.session.authUser.UserID);
+    res.render('vwAccount/wonproduct', {
+        list: list[0],
     });
+});
 
-   //View won product
-router.get('/wonproduct', restrict.forUserNotSignIn, restrict.forAdmin,async (req, res) => {
-    const list=await productModel.getWonProduct(req.session.authUser.UserID);
-   res.render('vwAccount/wonproduct', {
-     list: list[0],
-   });
- });
-
-      //View auction product'
-router.get('/auctionproduct', restrict.forUserNotSignIn, restrict.forAdmin,async (req, res) => {
-    const list=await productModel.getProductRecently(req.session.authUser.UserID);
-   res.render('vwAccount/auctionproduct', {
-     list: list[0],
-   });
- });
+//View auction product'
+router.get('/auctionproduct', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) => {
+    const list = await productModel.getProductRecently(req.session.authUser.UserID);
+    res.render('vwAccount/auctionproduct', {
+        list: list[0],
+    });
+});
 
 
 router.get('/profile/edit/username', restrict.forUserNotSignIn, (req, res) => {
@@ -747,7 +747,7 @@ router.post('/postproduct', async (req, res) => {
         } else {//Nếu OK
             //Nếu upload không đúng 3 hình
             if (req.files.length !== 3) {
-                //Xóa thư mục /pictures/proIdgi
+                //Xóa thư mục /pictures/proId
                 fs.unlink(FolderName, (err) => {
                     if (err) console.log(err);
                     else console.log("Delete directory success");
@@ -766,21 +766,22 @@ router.post('/postproduct', async (req, res) => {
                         else console.log("Rename success");
                     });
             }
+            var timeexpired = moment();
+            timeexpired.set('date', timeexpired.get('date') + 7);
             //Ghi product vào db
             const product = {
                 ProductID: proId,
-                ProductName: req.body.ProductName, 
+                ProductName: req.body.ProductName,
                 CatId: req.body.Categories,
                 SellerID: req.session.authUser.UserID,
                 PriceStart: req.body.PriceStart,
                 PricePurchase: req.body.PricePurchase,
                 PriceStep: req.body.PriceStep,
                 Description: req.body.Description,
-                // TimePost: moment(Date.now()),
-
+                TimePost: moment().format('YYYY-MM-DD HH:mm:ss'),
+                TimeExp: timeexpired.format('YYYY-MM-DD HH:mm:ss'),
             }
             const result = await productModel.add(product);
-
             res.render('vwAccount/postproduct', {
                 success: 'Your product was successfully posted'
             });
