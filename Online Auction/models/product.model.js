@@ -3,6 +3,10 @@ const config = require('../config/default.json');
 
 module.exports = {
   all: () => db.load('select * from Product'),
+  allProductWithSellerID: sellerid => {
+    const sql = `SELECT ProductID FROM Product WHERE SellerID = ${sellerid}`;
+    return db.load(sql);
+  },
   getLargestProID: () => {
     const sql = `SELECT MAX(ProductID) as ProId FROM Product`;
     return db.load(sql);
@@ -26,19 +30,25 @@ module.exports = {
     or  (p.CatID = c.CatID and c.ParentID = ${catId})`)
     return rows[0].total;
   },
-  pageByCat: (catId, offset, sort) => db.load(`
-  SELECT p4.ProductID, p4.ProductName, p4.PriceStart,p4.PricePurchase,
-  p4.TimeExp, p4.NumBid,p4.CurrentWinner, concat(u.FirstName," ", u.LastName) as WinnerName
-  FROM (SELECT p3.ProductID, p3.ProductName, p3.PriceStart,p3.PricePurchase,
-        p3.TimeExp, p2.NumBid,p3.CurrentWinner
-        FROM (SELECT p1.ProductID, p1.CurrentWinner, COUNT(b.BidID) as NumBid
-        FROM Bid b RIGHT JOIN Product p1 ON b.ProID = p1.ProductID
-        GROUP BY p1.ProductID,p1.CurrentWinner) p2, Product p3, Categories c
-        WHERE p2.ProductID = p3.ProductID and p3.CatID = c.CatID and (p3.CatID = ${catId} or c.ParentID = ${catId})
-        limit ${config.paginate.limit} offset ${offset}) p4 
-  left join Users u
-  on u.UserID = p4.CurrentWinner`
+  pageByCat: (catId, offset, sortby, order) => db.load(`
+  SELECT p3.ProductID, p3.ProductName, p3.PriceStart,p3.PricePurchase,
+  p3.TimeExp, p3.NumBid,p3.CurrentWinner, p3.TimePost, concat(u.FirstName," ", u.LastName) as WinnerName
+  FROM (SELECT p2.ProductID, p2.ProductName, p2.PriceStart,p2.PricePurchase,p2.TimeExp, p2.NumBid,p2.CurrentWinner, p2.TimePost
+        FROM (SELECT p1.ProductID,p1.CatID, p1.ProductName, p1.PriceStart,p1.PricePurchase,
+              p1.TimeExp, p1.CurrentWinner, p1.TimePost, COUNT(b.BidID) as NumBid
+              FROM Bid b RIGHT JOIN Product p1 ON b.ProID = p1.ProductID
+              GROUP BY p1.ProductID,p1.CatID, p1.ProductName, p1.PriceStart,p1.PricePurchase,
+              p1.TimeExp, p1.CurrentWinner, p1.TimePost) p2, Categories c
+        WHERE p2.CatID = c.CatID and (p2.CatID = ${catId} or c.ParentID = ${catId})
+        ORDER BY p2.${sortby} ${order}
+        LIMIT ${config.paginate.limit} offset ${offset}) p3 
+  LEFT JOIN Users u
+  ON u.UserID = p3.CurrentWinner`
   ),
+  getCategoryNameById: async id =>{
+    const rows = await db.load(`select CatName from Categories where CatID = ${id}`)
+    return rows[0].CatName;
+  },
   single: id => db.load(`CALL getSingleProduct(${id})`),
   getSellerInfo: id => db.load(`CALL getSellerInfo(${id});`),
   getCurrentWinner: id => db.load(`CALL getCurrentWinner(${id}) `),

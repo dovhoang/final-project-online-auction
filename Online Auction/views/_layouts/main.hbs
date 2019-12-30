@@ -95,12 +95,12 @@
 										<ul class="dropdown-menu ">
 											{{#each lcCatLevel1}}
 											<li class="dropdown-submenu">
-												<a href="/user/categories/{{CatID}}/products"
+												<a href="/user/categories/{{CatID}}/products?sortby&order"
 													class="dropdown-toggle">{{CatName}}</a>
 												<ul class="dropdown-menu">
 													{{#each ../lcCatAll}}
 													{{#if_eq ParentID ../CatID}}
-													<li><a href="/user/categories/{{CatID}}/products">{{CatName}}</a>
+													<li><a href="/user/categories/{{CatID}}/products?sortby&order">{{CatName}}</a>
 													</li>
 													{{/if_eq}}
 													{{/each}}
@@ -331,6 +331,47 @@
 	<script src="/js/index.js"></script>
 	<script src="/js/single_custom.js"></script>
 	{{{_sections.js}}}
+	{{#if signinsuccess}}
+	<script>
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			onOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer)
+				toast.addEventListener('mouseleave', Swal.resumeTimer)
+			}
+		})
+
+		Toast.fire({
+			icon: 'success',
+			title: 'Signed in successfully'
+		})
+	</script>
+	{{/if}}
+
+	{{#if signoutsuccess}}
+	<script>
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			onOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer)
+				toast.addEventListener('mouseleave', Swal.resumeTimer)
+			}
+		})
+
+		Toast.fire({
+			icon: 'success',
+			title: 'Signed out successfully'
+		})
+	</script>
+	{{/if}}
 </body>
 
 </html>

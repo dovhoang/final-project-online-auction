@@ -196,6 +196,7 @@ router.post('/signin', async (req, res) => {
         res.redirect('/');
     } else {
         const url = req.query.retUrl || '/';
+        req.flash('signinsuccess', true);
         res.redirect(url);
     }
 
@@ -205,6 +206,7 @@ router.post('/signin', async (req, res) => {
 router.post('/signout', (req, res) => {
     req.session.isAuthenticated = false;
     req.session.authUser = null;
+    req.flash('signoutsuccess', true);
     res.redirect(req.headers.referer);
 })
 
@@ -215,14 +217,14 @@ router.get('/profile', restrict.forUserNotSignIn, restrict.forAdmin, (req, res) 
 })
 
 //View favorite
-router.get('/favorite', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) => {
+router.get('/favorite', async (req, res) => {
     const list = await productModel.getFavoriteProduct(req.session.authUser.UserID);
     console.log(list[0]);
     res.render('vwAccount/favorite', {
         list: list[0],
     });
 });
-router.post('/favorite', restrict.forUserNotSignIn, async (req, res) => {
+router.post('/favorite', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) => {
     await productModel.delInFav(req.body.ProductID, req.session.authUser.UserID);
     res.redirect('back');
 });

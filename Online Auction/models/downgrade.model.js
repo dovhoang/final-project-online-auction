@@ -21,5 +21,6 @@ module.exports = {
         return db.patch('Downgrade', entity, condition);
     },
 
-    del: name => db.del('Downgrade', { Username: name }),
+    delByUserID: userid => db.del('Downgrade', { UserID: userid }),
+    delByUsername: username => db.del('Downgrade', { Username: username }),
 };

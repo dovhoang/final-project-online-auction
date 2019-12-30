@@ -31,8 +31,8 @@ router.get('/', async (req, res) => {
         if ((user1 === null && user2 === null)) {
             //Xóa user khỏi 2 bảng
             const [result1, result2] = await Promise.all([
-                requestUpdateModel.del(req.session.authUser.Username),
-                downgradeModel.del(req.session.authUser.Username)
+                requestUpdateModel.delByUsername(req.session.authUser.Username),
+                downgradeModel.delByUsername(req.session.authUser.Username)
             ]);
             return res.render('vwHome/index', {
                 top5ToEnd: toend[0],
@@ -69,7 +69,7 @@ router.get('/', async (req, res) => {
             } else {//Nếu admin đã duyệt
                 //Xóa user khỏi bảng RequestUpdate
                 console.log("Xóa user khỏi bảng");
-                const result = await requestUpdateModel.del(req.session.authUser.Username);
+                const result = await requestUpdateModel.delByUsername(req.session.authUser.Username);
                 if (+user1.IsRefuse === 0) {//Nếu duyệt cho lên seller
                     return res.render('vwHome/index', {
                         top5ToEnd: toend[0],
@@ -100,7 +100,7 @@ router.get('/', async (req, res) => {
                 });
             } else {//Nếu admin duyệt xuống
                 //Xóa user khỏi bảng Downgrade
-                const result = await downgradeModel.del(req.session.authUser.Username);
+                const result = await downgradeModel.delByUsername(req.session.authUser.Username);
                 return res.render('vwHome/index', {
                     top5ToEnd: toend[0],
                     top5Popular: popular[0],

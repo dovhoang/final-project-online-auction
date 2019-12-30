@@ -9,24 +9,17 @@ router.get('/:id/products', async (req, res) => {
   const catId = req.params.id;
   const limit = config.paginate.limit;
 
-  const sort = req.query.sort || 1
-  // const myquery = [
-  //   {id:1 ,add: "p4.PriceStart ASC"},
-  //   {id:2 ,add: "p4.PriceStart DESC"},
-  //   {id:3 ,add: "p4.TimeExp ASC"},
-  //   {id:4 ,add: "p4.TimeExp DESC"},
-  // ]
-  // if(sort == myquery.id){
-  //   const addrow = myquery.add
-  // }
-
   const page = req.query.page || 1;
+  const sortby = req.query.sortby|| "NumBid";
+  const order = req.query.order || "desc" ;
+ 
   if (page < 1) page = 1;
   const offset = (page - 1) * config.paginate.limit;
 
-  const [total, rows] = await Promise.all([
+  const [total, rows,catname] = await Promise.all([
     productModel.countByCat(catId),
-    productModel.pageByCat(catId, offset)
+    productModel.pageByCat(catId, offset,sortby,order),
+    productModel.getCategoryNameById(catId),
   ]);
 
   let nPages = Math.floor(total / limit);
@@ -36,7 +29,9 @@ router.get('/:id/products', async (req, res) => {
   for (i = 1; i <= nPages; i++) {
     page_numbers.push({
       value: i,
-      isCurrentPage: i === +page
+      isCurrentPage: i === +page,
+      sortby,
+      order
     })
   }
 
@@ -49,6 +44,9 @@ router.get('/:id/products', async (req, res) => {
     prev_value: +page - 1,
     next_value: +page + 1,
     over_page: SumPage === +page,
+    catname,
+    sortby,
+    order
   });
 })
 
