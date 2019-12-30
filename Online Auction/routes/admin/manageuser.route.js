@@ -19,10 +19,21 @@ router.get('/manage', restrict.forUserNotAdmin, async (req, res) => {
 
 //Xử lý xóa 
 router.post('/manage/:id/del', async (req, res) => {
+    //Xóa người dùng trong bảng RequestUpdate và Downgrade (nếu có)
+    const result1 = await requestUpdateModel.delByUserID(req.params.id);
+    const result2 = await downgradeModel.delByUserID(req.params.id);
     //Xóa tất cả các lần đấu giá đó
-    const result1 = await bidModel.delByUserID(req.params.id);
+    const result3 = await bidModel.delByUserID(req.params.id);
+    //Lấy ra các sản phẩm mà người bị xóa đã đăng
+    const result4 = await productModel.allProductWithSellerID(req.params.id);
+    if (result4.length > 0) {
+        //Xóa tất cả những lần bid của các users khác về các sản phẩm mà người bị xóa đã đăng
+        for (var i = 0; i < result4.length; i++) {
+            const result3 = await bidModel.delbyProID(result4[i]);
+        }
+    }
     //Nếu là seller thì xóa các sản phẩm mà seller đã đăng
-    const result2 = await productModel.delBySellerID(req.params.id);
+    const result5 = await productModel.delBySellerID(req.params.id);
     //Xóa user trong db
     const rows = await userModel.delByID(req.params.id);
     console.log(req.body.username);

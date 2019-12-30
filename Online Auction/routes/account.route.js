@@ -215,20 +215,20 @@ router.get('/profile', restrict.forUserNotSignIn, restrict.forAdmin, (req, res) 
 })
 
 //View favorite
-router.get('/favorite', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) => {
+router.get('/favorite', restrict.forUserNotSeller, async (req, res) => {
     const list = await productModel.getFavoriteProduct(req.session.authUser.UserID);
     console.log(list[0]);
     res.render('vwAccount/favorite', {
         list: list[0],
     });
 });
-router.post('/favorite', restrict.forUserNotSignIn, async (req, res) => {
+router.post('/favorite', async (req, res) => {
     await productModel.delInFav(req.body.ProductID, req.session.authUser.UserID);
     res.redirect('back');
 });
 
 //View won product
-router.get('/wonproduct', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) => {
+router.get('/wonproduct', restrict.forUserNotSeller, async (req, res) => {
     const list = await productModel.getWonProduct(req.session.authUser.UserID);
     res.render('vwAccount/wonproduct', {
         list: list[0],
@@ -236,7 +236,7 @@ router.get('/wonproduct', restrict.forUserNotSignIn, restrict.forAdmin, async (r
 });
 
 //View auction product'
-router.get('/auctionproduct', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) => {
+router.get('/auctionproduct', restrict.forUserNotSeller, async (req, res) => {
     const list = await productModel.getProductRecently(req.session.authUser.UserID);
     res.render('vwAccount/auctionproduct', {
         list: list[0],
