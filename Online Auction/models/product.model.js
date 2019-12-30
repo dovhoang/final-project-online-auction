@@ -3,6 +3,10 @@ const config = require('../config/default.json');
 
 module.exports = {
   all: () => db.load('select * from Product'),
+  allProductWithSellerID: sellerid => {
+    const sql = `SELECT ProductID FROM Product WHERE SellerID = ${sellerid}`;
+    return db.load(sql);
+  },
   getLargestProID: () => {
     const sql = `SELECT MAX(ProductID) as ProId FROM Product`;
     return db.load(sql);

@@ -49,5 +49,6 @@ module.exports = {
         return db.patch('RequestUpdate', entity, condition);
     },
 
-    del: name => db.del('RequestUpdate', { Username: name }),
+    delByUserID: userid => db.del('RequestUpdate', { UserID: userid }),
+    delByUsername: username => db.del('RequestUpdate', { Username: username }),
 };

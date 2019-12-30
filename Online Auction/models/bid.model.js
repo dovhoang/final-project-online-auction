@@ -16,6 +16,9 @@ module.exports = {
     const condition = { BidID: bidid };
     return db.patch('Bid', entity, condition);
   },
-
+  //Xóa những lần bid có UserID
   delByUserID: userid => db.del('Bid', { UserID: userid }),
+
+  //Xóa những lần bid có ProID
+  delByProID: proid => db.del('Bid', { ProID: proid }),
 };

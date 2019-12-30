@@ -5,18 +5,21 @@ module.exports = app => {
   app.use(async (req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
+    res.locals.signinsuccess = req.flash('signinsuccess');
+    res.locals.signoutsuccess = req.flash('signoutsuccess');
+    if (req.session.authUser !== undefined && req.session.authUser !== null && req.session.authUser.Type === 2) {
+      const Users = await userModel.countUsers();
+      res.locals.countUsers = Users[0].totalUsers;
 
-    const Users = await userModel.countUsers();
-    res.locals.countUsers = Users[0].totalUsers;
+      const all = await userModel.countAll();
+      res.locals.countAll = all;
 
-    const all = await userModel.countAll();
-    res.locals.countAll = all;
+      const allBidder = await userModel.countBidderWantToBeSeller();
+      res.locals.countAllBidder = allBidder[0].totalBidder;
 
-    const allBidder = await userModel.countBidderWantToBeSeller();
-    res.locals.countAllBidder = allBidder[0].totalBidder;
-    
-    const allSeller = await userModel.countSeller();
-    res.locals.countAllSeller = allSeller[0].totalSeller;
+      const allSeller = await userModel.countSeller();
+      res.locals.countAllSeller = allSeller[0].totalSeller;
+    }
     // res.locals.lcCategories = rows;
     // res.locals.otp = req.flash('otp');
     if (typeof (req.session.isAuthenticated) === 'undefined') {
