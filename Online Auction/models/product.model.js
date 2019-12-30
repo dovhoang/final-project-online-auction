@@ -7,6 +7,12 @@ module.exports = {
     const sql = `SELECT MAX(ProductID) as ProId FROM Product`;
     return db.load(sql);
   },
+  delBySellerID: sellerid => {
+    db.del('Product', { SellerID: sellerid });
+  },
+  // getProductOfSeller: sellerid => {
+  //   const sql = `SELECT `
+  // },
   allByCat: catId => db.load(`
       select * from Product p join Categories c
       on p.CatID = c.CatID
@@ -43,20 +49,20 @@ module.exports = {
   getTop5ToEnd: _ => db.load(`CALL getTop5ToEnd()`),
   getTop5PopularBid: _ => db.load(`CALL getTop5PopularBid()`),
   getTop5Price: _ => db.load(`CALL getTop5Price()`),
-  getFavoriteProduct: userID=> db.load(`CALL getFavoriteProduct(${userID})`),
-  getWonProduct: userID=> db.load(`CALL getWonProduct(${userID})`),
-  getProductRecently:userID=> db.load(`CALL getProductRecently(${userID})`),
-  fvr: (id,userID) => db.load(`Select * from Favorite where ProductID=${id} and UserID=${userID}`),
-  fAuction: (proID,userID,price)=>db.load(` SELECT fAuction(${proID}, ${userID}, ${price}) AS Auction`),
-  fInsertFavorite: (proID,userID)=>db.load(` SELECT fInsertFavorite(${proID}, ${userID}) AS result`),
-  checkBlock: (proID,userID)=>db.load(`select exists(select ProductID from BlackList where UserID=${userID} and
+  getFavoriteProduct: userID => db.load(`CALL getFavoriteProduct(${userID})`),
+  getWonProduct: userID => db.load(`CALL getWonProduct(${userID})`),
+  getProductRecently: userID => db.load(`CALL getProductRecently(${userID})`),
+  fvr: (id, userID) => db.load(`Select * from Favorite where ProductID=${id} and UserID=${userID}`),
+  fAuction: (proID, userID, price) => db.load(` SELECT fAuction(${proID}, ${userID}, ${price}) AS Auction`),
+  fInsertFavorite: (proID, userID) => db.load(` SELECT fInsertFavorite(${proID}, ${userID}) AS result`),
+  checkBlock: (proID, userID) => db.load(`select exists(select ProductID from BlackList where UserID=${userID} and
      ProductID=${proID}) as isBlocked`),
   add: entity => db.add('Product', entity),
   addBid: entity => db.add('Bid', entity),
   addReview: entity => db.add('Review', entity),
   del: id => db.del('Product', { ProID: id }),
 
-  delInFav: (pid,uid) => db.load(`delete from Favorite where ProductID=${pid} and UserID=${uid}`),
+  delInFav: (pid, uid) => db.load(`delete from Favorite where ProductID=${pid} and UserID=${uid}`),
   patch: entity => {
     const condition = { ProID: entity.ProID };
     delete entity.ProID;
