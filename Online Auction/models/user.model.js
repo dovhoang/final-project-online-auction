@@ -30,13 +30,18 @@ module.exports = {
     const sql = `SELECT count(DISTINCT Username) AS totalBidder FROM RequestUpdate WHERE IsRefuse = -1`;
     return db.load(sql);
   },
-  //Đếm Bidder muốn thành seller và seller
+  //Đếm Bidder muốn thành seller và seller 
   countAll: async () => {
     const sql1 = `SELECT count(DISTINCT UserID) AS totalSeller FROM Users WHERE Type = 1`;
     const seller = await db.load(sql1);
     const sql2 = `SELECT count(DISTINCT Username) AS totalBidder FROM RequestUpdate WHERE IsRefuse = -1`;
     const bidderUpgradeSeller = await db.load(sql2);
     return seller[0].totalSeller + bidderUpgradeSeller[0].totalBidder;
+  },
+  //Đếm số lượng users
+  countUsers: async () => {
+    const sql = `SELECT COUNT(DISTINCT Username) AS totalUsers FROM Users WHERE Type != 2`;
+    return db.load(sql);
   },
   ///Chọn ra tất cả users không là admin
   allUserNotAdmin: () => {

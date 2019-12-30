@@ -6,6 +6,9 @@ module.exports = app => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
 
+    const Users = await userModel.countUsers();
+    res.locals.countUsers = Users[0].totalUsers;
+
     const all = await userModel.countAll();
     res.locals.countAll = all;
 

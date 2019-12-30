@@ -4,6 +4,8 @@ const userModel = require('../../models/user.model');
 const requestUpdateModel = require('../../models/requestupdate.model');
 const downgradeModel = require('../../models/downgrade.model');
 const categoryModel = require('../../models/category.model');
+const productModel = require('../../models/product.model');
+const bidModel = require('../../models/bid.model');
 const router = express.Router();
 
 //Quản lý users
@@ -17,6 +19,10 @@ router.get('/manage', restrict.forUserNotAdmin, async (req, res) => {
 
 //Xử lý xóa 
 router.post('/manage/:id/del', async (req, res) => {
+    //Xóa tất cả các lần đấu giá đó
+    const result1 = await bidModel.delByUserID(req.params.id);
+    //Nếu là seller thì xóa các sản phẩm mà seller đã đăng
+    const result2 = await productModel.delBySellerID(req.params.id);
     //Xóa user trong db
     const rows = await userModel.delByID(req.params.id);
     console.log(req.body.username);
@@ -93,12 +99,15 @@ router.post('/updowngrade/:id/reject', async (req, res) => {
 });
 
 router.post('/updowngrade/:id/down', async (req, res) => {
+    //Xóa tất cả các sản phẩm mà người dùng đã đăng(khi còn là seller)
+    const result = await productModel.delBySellerID(req.params.id);
     //Hạ cấp cho user đổi type = 0(xuống bidder)
     const Type = { Type: 0 };
     const user = await userModel.singleByUserID(req.params.id);
     const result1 = await userModel.patch(Type, user.Username);
-    const IsDown = {IsDown: 1};
-    const result2 = await downgradeModel.patch(IsDown,user.Username);
+    //Cho IsDown = 1 để thông báo cho user biết
+    const IsDown = { IsDown: 1 };
+    const result2 = await downgradeModel.patch(IsDown, user.Username);
     req.flash('success_msg', 'Downgrade success');
     res.redirect('/admin/user/updowngrade');
 });

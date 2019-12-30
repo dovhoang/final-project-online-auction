@@ -1,3 +1,24 @@
+{{#if_eq authUser.Type 0}}
+{{#section 'js'}}
+<script>
+    $(`#frmRequest`).submit(function (e) {
+        e.preventDefault();
+        Swal.fire({
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Agree',
+            text: 'Sending request...',
+            timer: 3000,
+            timerProgressBar: true
+        });
+        this.submit();
+    });
+</script>
+{{/section}}
+{{/if_eq}}
+
+
+
 <div class="container-fluid mt-4">
     <div class="row">
         <div class="col-lg-3">
@@ -6,38 +27,33 @@
                     <i class="fa fa-eye"></i>
                     Views
                 </h4>
-               <div class="list-group list-group-flush">
+                <div class="list-group list-group-flush">
                     <a href="/account/profile" class="list-group-item
-                        list-group-item-action indam active hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam active hover" style="font-size: 18px;">
                         <i class="fa fa-id-card text-info" aria-hidden="true"></i>
                         Profile
                     </a>
 
                     <a href="/account/auctionproduct" class="list-group-item
-                        list-group-item-action indam hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam hover" style="font-size: 18px;">
                         <i class="fa fa-gavel text-success" aria-hidden="true"></i>
                         Bidding List
                     </a>
 
                     <a href="/account/wonproduct" class="list-group-item
-                        list-group-item-action indam  hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam  hover" style="font-size: 18px;">
                         <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
                         Won List
                     </a>
 
                     <a href="/account/favorite" class="list-group-item
-                        list-group-item-action indam hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam hover" style="font-size: 18px;">
                         <i class="fa fa-heart text-danger" aria-hidden="true"></i>
                         Watch List
                     </a>
                     {{#if_eq authUser.Type 1}}
                     <a href="/account/postproduct" class="list-group-item
-                        list-group-item-action indam hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam hover" style="font-size: 18px;">
                         <i class="fa fa-plus-square text-danger" aria-hidden="true"></i>
                         Post a auction product
                     </a>
@@ -242,7 +258,7 @@
                     </div>
 
                     {{#if_eq authUser.Type 0}}
-                    <form method="POST">
+                    <form method="POST" id="frmRequest" action="/account/profile/upgrade">
                         {{#if authUser.IsUpgrade}}
                         <button type="submit" class="btn btn-primary float-right mt-2 indam"
                             formaction="/account/profile/upgrade" disabled>

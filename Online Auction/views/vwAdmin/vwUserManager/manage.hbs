@@ -1,100 +1,144 @@
-<div class="container">
-    <div class="card shadow mb-4" id="register">
-        <h3 class="card-header text-danger">
-            <i class="fa fa-users"></i> All users
-        </h3>
-        <div class="card-body">
-            {{#if success_msg}}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{success_msg}}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {{/if}}
-            <div class="row profile_line1">
-                <div class="col-lg-2 indam text-danger">
-                    <i class="fa fa-sort-numeric-down"></i>
-                    #
-                </div>
-                <div class="col-lg-4 indam text-danger">
-                    <i class="fa fa-user"></i>
-                    Username
-                </div>
-                <div class="col-lg-3 indam text-danger">
-                    <i class="fa fa-star"></i>
-                    Rating
-                </div>
-            </div>
-            {{#each users}}
+{{#section 'js'}}
+{{#each users}}
+<script>
+    $(`#frmDeleteUser` + {{ UserID }}).submit(function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: 'Are you sure you want to delete user ' + $(`#username` + {{ UserID }}).text() + '?',
+            showCancelButton: true,
+                icon: 'question',
+                    confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                            confirmButtonText: 'Confirm'
+    }).then((result) => {
+        if (result.value) {
+            Swal.fire({
+                text: 'Deleting...',
+                timer: 3000,
+                timerProgressBar: true
+            })
+            this.submit();
+        }
+    });
+    });
+</script>
+{{/each}}
+{{/section}}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card shadow" id="a">
+                <h4 class="card-header text-danger">
+                    <i class="fa fa-eye"></i>
+                    Views
+                </h4>
+                <div class="list-group list-group-flush">
 
+                    <a href="/admin/user/manage" class="list-group-item list-group-item-action indam active hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-users text-info" aria-hidden="true"></i>
+                        Manage
+                        {{#if countUsers}}
+                        <span class="badge badge-danger float-right">{{countUsers}}</span>
+                        {{/if}}
+                    </a>
 
-            <div class="row profile_line">
-                <div class="col-lg-2 mt-1 mb-1">
-                    {{UserID}}
-                </div>
-                <div class="col-lg-4 mt-1 mb-1 indam">
-                    {{Username}}
-                </div>
-                <div class="col-lg-3 mt-1 mb-1 text-warning">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star-o"></i>
-                </div>
-                <div class="col-lg-3">
-                    <button type="button" class="btn btn-danger float-right mt-1 mb-1" data-toggle="modal"
-                        data-target='#exampleModalCenter{{UserID}}'>
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        Delete
-                    </button>
+                    <a href="/admin/user/updowngrade" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-arrow-circle-up text-success"></i>
+                        Upgrade -
+                        <i class="fa fa-arrow-circle-down text-danger"></i>
+                        Downgrade
+                        {{#if countAll}}
+                        <span class="badge badge-danger float-right">{{countAll}}</span>
+                        {{/if}}
+                    </a>
 
-                    <a class="btn btn-info float-right mt-1 mb-1 mr-1" href="/admin/user/manage/{{UserID}}/profile"
-                        role="button">
-                        <i class="fa fa-eye" aria-hidden="true"></i>
-                        Profile
+                    <a href="/admin/user/upgrade" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-arrow-circle-up text-success"></i>
+                        Upgrade
+                        {{#if countAllBidder}}
+                        <span class="badge badge-danger float-right">{{countAllBidder}}</span>
+                        {{/if}}
+                    </a>
+
+                    <a href="/admin/user/downgrade" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-arrow-circle-down text-danger"></i>
+                        Downgrade
+                        {{#if countAllSeller}}
+                        <span class="badge badge-danger float-right">{{countAllSeller}}</span>
+                        {{/if}}
                     </a>
                 </div>
             </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter{{UserID}}" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title text-danger" id="exampleModalCenterTitle">
-                                <i class="fa fa-trash-o"></i>
-                                Confirm Delete
-                            </h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+        </div>
+        <div class="col-lg-9">
+            <div class="card shadow mb-4" id="register">
+                <h3 class="card-header text-danger">
+                    <i class="fa fa-users"></i> All users
+                </h3>
+                <div class="card-body">
+                    {{#if success_msg}}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{success_msg}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {{/if}}
+                    <div class="row profile_line1">
+                        <div class="col-lg-2 indam text-danger chulon">
+                            <i class="fa fa-sort-numeric-down"></i>
+                            #
                         </div>
-                        <div class="modal-body indam">
-                            Are you sure you want to delete user {{Username}}?
+                        <div class="col-lg-4 indam text-danger chulon">
+                            <i class="fa fa-user"></i>
+                            Username
                         </div>
-                        <div class="modal-footer">
-                            <form method="POST" id="frmManageUsers">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                    <i class="fa fa-times" aria-hidden="true"></i>
-                                    No
-                                </button>
-                                <button type="submit" class="btn btn-primary"
-                                    formaction="/admin/user/manage/{{UserID}}/del">
-                                    <i class="fa fa-check" aria-hidden="true"></i>
-                                    Yes
-                                </button>
-                            </form>
+                        <div class="col-lg-3 indam text-danger chulon">
+                            <i class="fa fa-star"></i>
+                            Rating
                         </div>
                     </div>
+                    {{#each users}}
+
+
+                    <div class="row profile_line">
+                        <div class="col-lg-2 mt-1 mb-1 chulon">
+                            {{UserID}}
+                        </div>
+                        <div class="col-lg-4 mt-1 mb-1 indam chulon" id="username{{UserID}}">
+                            {{Username}}
+                        </div>
+                        <div class="col-lg-3 mt-1 mb-1 text-warning chulon">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                        </div>
+                        <div class="col-lg-3">
+                            <form method="POST" action="/admin/user/manage/{{UserID}}/del" id="frmDeleteUser{{UserID}}">
+                                <button type="submit" class="btn btn-danger float-right mt-1 mb-1">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    Delete
+                                </button>
+                            </form>
+                            <a class="btn btn-info float-right mt-1 mb-1 mr-1"
+                                href="/admin/user/manage/{{UserID}}/profile" role="button">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                Profile
+                            </a>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                <div class="card-footer text-muted">
+                    Footer
                 </div>
             </div>
-            {{/each}}
-        </div>
-        <div class="card-footer text-muted">
-            Footer
         </div>
     </div>
 </div>

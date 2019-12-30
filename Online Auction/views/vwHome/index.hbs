@@ -1,105 +1,46 @@
 {{#section 'js'}}
-<script>
-	$('#exampleModalCenter').modal('show');
-</script>
-{{/section}}
-
-
 {{#if_eq thongbao 1}}
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-	aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title text-danger" id="exampleModalCenterTitle">
-					<i class="fa fa-bullhorn"></i>
-					Notification
-				</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body indam">
-				You have been upgrade to SELLER
-				<i class="fa fa-laugh-beam"></i>
-				<i class="fa fa-laugh-beam"></i>
-				<i class="fa fa-laugh-beam"></i>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">
-					<i class="fa fa-check" aria-hidden="true"></i>
-					Agree
-				</button>
-			</div>
-		</div>
-	</div>
-</div>
+<script>
+	Swal.fire({
+		title: '<i class="fa fa-bullhorn"></i> Nofitication',
+		text: 'Congratulations....You have been upgrade to seller',
+		icon: 'success',
+		showCancelButton: false,
+		confirmButtonColor: '#3085d6',
+		confirmButtonText: 'Agree'
+	})
+</script>
 {{/if_eq}}
 
+
 {{#if_eq thongbao 2}}
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-	aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title text-danger" id="exampleModalCenterTitle">
-					<i class="fa fa-bullhorn"></i>
-					Notification
-				</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body indam">
-				<i class="fa fa-grin"></i>
-				<i class="fa fa-grin"></i>
-				<i class="fa fa-grin"></i>
-				Your request upgrade to SELLER has been reject
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">
-					<i class="fa fa-check" aria-hidden="true"></i>
-					Agree
-				</button>
-			</div>
-		</div>
-	</div>
-</div>
+<script>
+	Swal.fire({
+		title: '<i class="fa fa-bullhorn"> Nofitication',
+		text: 'Unfornately....Your request to seller have been rejected',
+		icon: 'warning',
+		showCancelButton: false,
+		confirmButtonColor: '#3085d6',
+		confirmButtonText: 'Agree'
+	})
+</script>
 {{/if_eq}}
 
 {{#if_eq thongbao 3}}
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-	aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title text-danger" id="exampleModalCenterTitle">
-					<i class="fa fa-bullhorn"></i>
-					Notification
-				</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body indam">
-				<i class="fa fa-frown"></i>
-				<i class="fa fa-frown"></i>
-				<i class="fa fa-frown"></i>
-				You have been downgraded to bidder
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">
-					<i class="fa fa-check" aria-hidden="true"></i>
-					Agree
-				</button>
-			</div>
-		</div>
-	</div>
-</div>
+<script>
+	Swal.fire({
+		title: '<i class="fa fa-bullhorn"> Nofitication',
+		text: 'Unfornately....You have been downgrade to bidder',
+		icon: 'warning',
+		showCancelButton: false,
+		confirmButtonColor: '#3085d6',
+		confirmButtonText: 'Agree'
+	})
+</script>
 {{/if_eq}}
+{{/section}}
+
+
 
 <!-- Slider -->
 <div class="main_slider" style="background-image:url(images/banner_index.png);height:300px">
@@ -151,10 +92,10 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-between">
-							<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i> 
-							{{#if CurrentWinner}}
+							<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i>
+								{{#if CurrentWinner}}
 								&nbsp{{WinnerName}}
-							{{/if}} </div>
+								{{/if}} </div>
 							<div class="card_hammer"><i class="fa fa-gavel" aria-hidden="true"></i>{{NumBid}}</div>
 						</div>
 					</div>
@@ -200,10 +141,10 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-between">
-							<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i> 
-							{{#if CurrentWinner}}
+							<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i>
+								{{#if CurrentWinner}}
 								{{WinnerName}}
-							{{/if}} </div>
+								{{/if}} </div>
 							<div class="card_hammer"><i class="fa fa-gavel" aria-hidden="true"></i>{{NumBid}}</div>
 						</div>
 					</div>
@@ -250,10 +191,10 @@
 							</div>
 						</div>
 						<div class="d-flex justify-content-between">
-							<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i> 
-							{{#if CurrentWinner}}
+							<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i>
+								{{#if CurrentWinner}}
 								&nbsp{{WinnerName}}
-							{{/if}} </div>
+								{{/if}} </div>
 							<div class="card_hammer"><i class="fa fa-gavel" aria-hidden="true"></i>{{NumBid}}</div>
 						</div>
 					</div>
