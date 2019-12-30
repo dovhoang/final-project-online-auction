@@ -12,8 +12,16 @@ const router = express.Router();
 router.get('/manage', restrict.forUserNotAdmin, async (req, res) => {
     //Lấy ra những users không phải admin
     const rows = await userModel.allUserNotAdmin();
+    // const Users = await userModel.countUsers();
+    // const all = await userModel.countAll();
+    // const allBidder = await userModel.countBidderWantToBeSeller();
+    // const allSeller = await userModel.countSeller();
     res.render('vwAdmin/vwUserManager/manage', {
-        users: rows
+        users: rows,
+        // countUsers: Users[0].totalUsers,
+        // countAll: all,
+        // countAllBidder: allBidder[0].totalBidder,
+        // countAllSeller: allSeller[0].totalSeller
     });
 })
 
@@ -29,14 +37,13 @@ router.post('/manage/:id/del', async (req, res) => {
     if (result4.length > 0) {
         //Xóa tất cả những lần bid của các users khác về các sản phẩm mà người bị xóa đã đăng
         for (var i = 0; i < result4.length; i++) {
-            const result3 = await bidModel.delbyProID(result4[i]);
+            const result3 = await bidModel.delByProID(result4[i]);
         }
     }
     //Nếu là seller thì xóa các sản phẩm mà seller đã đăng
     const result5 = await productModel.delBySellerID(req.params.id);
     //Xóa user trong db
     const rows = await userModel.delByID(req.params.id);
-    console.log(req.body.username);
     req.flash('success_msg', 'Delete user success');
     res.redirect('/admin/user/manage');
 })
@@ -56,8 +63,16 @@ router.get('/manage/:id/profile', restrict.forUserNotAdmin, async (req, res) => 
 router.get('/updowngrade', restrict.forUserNotAdmin, async (req, res) => {
     //Lấy ra những bidder muốn nâng cấp thành seller và các seller
     const rows = await userModel.allBidderUpgradeAndSeller();
+    // const Users = await userModel.countUsers();
+    // const all = await userModel.countAll();
+    // const allBidder = await userModel.countBidderWantToBeSeller();
+    // const allSeller = await userModel.countSeller();
     res.render('vwAdmin/vwUserManager/updowngrade', {
         users: rows,
+        // countUsers: Users[0].totalUsers,
+        // countAll: all,
+        // countAllBidder: allBidder[0].totalBidder,
+        // countAllSeller: allSeller[0].totalSeller
     });
 });
 
@@ -65,8 +80,16 @@ router.get('/updowngrade', restrict.forUserNotAdmin, async (req, res) => {
 router.get('/upgrade', restrict.forUserNotAdmin, async (req, res) => {
     //Lấy ra những bidder muốn nâng cấp thành seller
     const rows = await userModel.allBidderWantToBeSeller();
+    // const Users = await userModel.countUsers();
+    // const all = await userModel.countAll();
+    // const allBidder = await userModel.countBidderWantToBeSeller();
+    // const allSeller = await userModel.countSeller();
     res.render('vwAdmin/vwUserManager/upgrade', {
         users: rows,
+        // countUsers: Users[0].totalUsers,
+        // countAll: all,
+        // countAllBidder: allBidder[0].totalBidder,
+        // countAllSeller: allSeller[0].totalSeller
     });
 });
 
@@ -74,8 +97,16 @@ router.get('/upgrade', restrict.forUserNotAdmin, async (req, res) => {
 router.get('/downgrade', restrict.forUserNotAdmin, async (req, res) => {
     //Lấy ra những bidder muốn nâng cấp thành seller và các seller
     const rows = await userModel.allSeller();
+    // const Users = await userModel.countUsers();
+    // const all = await userModel.countAll();
+    // const allBidder = await userModel.countBidderWantToBeSeller();
+    // const allSeller = await userModel.countSeller();
     res.render('vwAdmin/vwUserManager/downgrade', {
         users: rows,
+        // countUsers: Users[0].totalUsers,
+        // countAll: all,
+        // countAllBidder: allBidder[0].totalBidder,
+        // countAllSeller: allSeller[0].totalSeller
     });
 });
 
@@ -87,7 +118,8 @@ router.post('/updowngrade/:id/up', async (req, res) => {
     const IsRefuse = { IsRefuse: 0 };
 
     const user = await userModel.singleByUserID(req.params.id);
-    const add = { Username: "", IsDown: "" };
+    const add = { UserID: "", Username: "", IsDown: "" };
+    add.UserID = req.params.id;
     add.Username = user.Username;
     add.IsDown = 0;
     const [result, result1, result2] = await Promise.all([

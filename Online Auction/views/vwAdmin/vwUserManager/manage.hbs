@@ -13,8 +13,9 @@
     }).then((result) => {
         if (result.value) {
             Swal.fire({
-                text: 'Deleting...',
-                timer: 3000,
+                icon: 'success',
+                text: 'Deleting...Please wait a few seconds',
+                timer: 6000,
                 timerProgressBar: true
             })
             this.submit();

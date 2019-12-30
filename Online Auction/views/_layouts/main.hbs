@@ -331,6 +331,47 @@
 	<script src="/js/index.js"></script>
 	<script src="/js/single_custom.js"></script>
 	{{{_sections.js}}}
+	{{#if signinsuccess}}
+	<script>
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			onOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer)
+				toast.addEventListener('mouseleave', Swal.resumeTimer)
+			}
+		})
+
+		Toast.fire({
+			icon: 'success',
+			title: 'Signed in successfully'
+		})
+	</script>
+	{{/if}}
+
+	{{#if signoutsuccess}}
+	<script>
+		const Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			onOpen: (toast) => {
+				toast.addEventListener('mouseenter', Swal.stopTimer)
+				toast.addEventListener('mouseleave', Swal.resumeTimer)
+			}
+		})
+
+		Toast.fire({
+			icon: 'success',
+			title: 'Signed out successfully'
+		})
+	</script>
+	{{/if}}
 </body>
 
 </html>
