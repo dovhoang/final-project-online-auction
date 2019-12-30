@@ -22,11 +22,11 @@
         Sort
       </button>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Price <i class="fa fa-level-up" aria-hidden="true"></i> </a>
+        <a class="dropdown-item" href="?page=1&sort=1">Price <i class="fa fa-level-up" aria-hidden="true"></i> </a>
         <a class="dropdown-item" href="#">Price <i class="fa fa-level-down" aria-hidden="true"></i></a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#">Expired time <i class="fa fa-level-up" aria-hidden="true"></i> </a>
-        <a class="dropdown-item" href="#">Expired time Price <i class="fa fa-level-down" aria-hidden="true"></i></a>
+        <a class="dropdown-item" href="#">Expired time <i class="fa fa-level-down" aria-hidden="true"></i></a>
       </div>
     </div>
     <div class="row">
@@ -74,7 +74,7 @@
   <nav>
     <ul class="pagination" style="justify-content: center;">
       <li class="page-item {{#if_eq prev_value 0}} disabled {{/if_eq}}">
-        <a class="page-link" href="?page={{prev_value}}">
+        <a class="page-link" href="?page={{prev_value}}&sort=1">
           <i class="fa fa-backward" aria-hidden="true"></i>
         </a>
       </li>
@@ -85,12 +85,12 @@
       </li>
       {{else}}
       <li class="page-item">
-        <a class="page-link" href="?page={{value}}">{{value}}</a>
+        <a class="page-link" href="?page={{value}}&sort=1">{{value}}</a>
       </li>
       {{/if}}
       {{/each}}
       <li class="page-item {{#if over_page}} disabled {{/if}}">
-        <a class="page-link" href="?page={{next_value}}">
+        <a class="page-link" href="?page={{next_value}}&sort=1">
           <i class="fa fa-forward" aria-hidden="true"></i>
         </a>
       </li>

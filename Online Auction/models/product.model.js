@@ -26,7 +26,7 @@ module.exports = {
     or  (p.CatID = c.CatID and c.ParentID = ${catId})`)
     return rows[0].total;
   },
-  pageByCat: (catId, offset) => db.load(`
+  pageByCat: (catId, offset, sort) => db.load(`
   SELECT p4.ProductID, p4.ProductName, p4.PriceStart,p4.PricePurchase,
   p4.TimeExp, p4.NumBid,p4.CurrentWinner, concat(u.FirstName," ", u.LastName) as WinnerName
   FROM (SELECT p3.ProductID, p3.ProductName, p3.PriceStart,p3.PricePurchase,
@@ -37,8 +37,7 @@ module.exports = {
         WHERE p2.ProductID = p3.ProductID and p3.CatID = c.CatID and (p3.CatID = ${catId} or c.ParentID = ${catId})
         limit ${config.paginate.limit} offset ${offset}) p4 
   left join Users u
-  on u.UserID = p4.CurrentWinner
-  `
+  on u.UserID = p4.CurrentWinner`
   ),
   single: id => db.load(`CALL getSingleProduct(${id})`),
   getSellerInfo: id => db.load(`CALL getSellerInfo(${id});`),

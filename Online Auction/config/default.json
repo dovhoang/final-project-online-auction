@@ -1,11 +1,11 @@
 {
   "mysql": {
-    "connectionLimit": 50,
+    "connectionLimit": 200,
     "host": "sql12.freemysqlhosting.net",
     "port": 3306,
-    "user": "sql12316883",
-    "password": "2H7naDWhDM",
-    "database": "sql12316883"
+    "user": "sql12317223",
+    "password": "jwKspnlsB3",
+    "database": "sql12317223"
   },
   "paginate": {
     "limit": 4
