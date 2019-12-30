@@ -23,7 +23,7 @@ router.get('/:id/products', async (req, res) => {
   ]);
 
   let nPages = Math.floor(total / limit);
-  if (total % limit > 0) nPages++;
+  if (total % limit > 0 || total == 0 ) nPages++;
   const SumPage = nPages;
   const page_numbers = [];
   for (i = 1; i <= nPages; i++) {
@@ -34,8 +34,6 @@ router.get('/:id/products', async (req, res) => {
       order
     })
   }
-
-  
 
   res.render('vwCatProducts/allByCat', {
     products: rows,

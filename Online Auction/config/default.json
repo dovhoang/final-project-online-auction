@@ -8,6 +8,6 @@
     "database": "sql12317223"
   },
   "paginate": {
-    "limit": 4
+    "limit": 5
   }
 }
