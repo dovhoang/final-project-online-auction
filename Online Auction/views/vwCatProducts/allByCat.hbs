@@ -9,48 +9,66 @@
 <div class="new_arrivals" style="margin-top:50px">
   <div class="container">
     <div class="row">
+
       <div class="col text-center">
         <div class="section_title new_arrivals_title">
           <h4>Category</h4>
         </div>
       </div>
     </div>
+    <div class="btn-group dropright">
+      <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        Sort
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Price <i class="fa fa-level-up" aria-hidden="true"></i> </a>
+        <a class="dropdown-item" href="#">Price <i class="fa fa-level-down" aria-hidden="true"></i></a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Expired time <i class="fa fa-level-up" aria-hidden="true"></i> </a>
+        <a class="dropdown-item" href="#">Expired time Price <i class="fa fa-level-down" aria-hidden="true"></i></a>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
         <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
           {{#each this.products}}
-          <div class="product-item m-1">
-            <div class="product discount product_filter ">
-              <div class="product_image">
-                <img class="rounded mx-auto d-block" src="/{{ProductID}}/main_thumbs.png" alt="{{ProductName}}"
-                  title="{{ProductName}}">
-              </div>
-              {{#if PricePurchase}}
-              <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
-                <span>Buy now: {{PricePurchase}} $</span></div>
-              {{/if}}
-              <div class="favorite favorite_left"></div>
-              <div class="product_info">
-                <h6 class="product_name"><a href="/product/id={{ProductID}}">{{ProductName}}</a></h6>
-                <div class="product_price price_custom">{{PriceStart}} $</div>
-                <div class="d-flex flex-row time_custom justify-content-center">
-                  <div class="product_expiration_date timer_num time_custom_number">{{TimeExp}}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between">
-              <div class="ml-3"><i class="fa fa-trophy" aria-hidden="true"></i> : tcs123</div>
-              <div><i class="fa fa-gavel mr-3" aria-hidden="true">: 30</i></div>
-            </div>
-          </div>
-          {{/each}}
-          {{/if}}
+					<div class="product-item m-1">
+						<div class="product discount product_filter ">
+							<div class="product_image">
+								<img class="rounded mx-auto d-block" src="/{{ProductID}}/main_thumbs.png"
+									alt="{{ProductName}}" title="{{ProductName}}">
+							</div>
+							{{#if PricePurchase}}
+							<div
+								class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
+								<span>Buy now: {{PricePurchase}} $</span></div>
+							{{/if}}
+							<div class="favorite favorite_left"></div>
+							<div class="product_info">
+								<h6 class="product_name"><a href="#">{{ProductName}}</a></h6>
+								<div class="product_price price_custom">{{PriceStart}} $</div>
+								<div class="d-flex flex-row time_custom justify-content-center">
+									<div class="product_expiration_date timer_num time_custom_number"></div>
+								</div>
+								<div class="time_exp" style="visibility: hidden; font-size: 1px">{{TimeExp}}</div>
+							</div>
+						</div>
+						<div class="d-flex justify-content-between">
+							<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i> 
+							{{#if CurrentWinner}}
+								&nbsp{{WinnerName}}
+							{{/if}} </div>
+							<div class="card_hammer"><i class="fa fa-gavel" aria-hidden="true"></i>{{NumBid}}</div>
+						</div>
+					</div>
+					{{/each}}
         </div>
       </div>
     </div>
   </div>
 </div>
+{{/if}}
 
 <div class="mt-4">
   <nav>
