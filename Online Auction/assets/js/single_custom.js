@@ -17,7 +17,7 @@
 
 ******************************/
 
- 
+
 
 var execute = false;
 jQuery(document).ready(function ($) {
@@ -61,7 +61,7 @@ jQuery(document).ready(function ($) {
 	2. Set Header
 
 	*/
-	
+
 	function setHeader() {
 		if (window.innerWidth < 992) {
 			if ($(window).scrollTop() > 100) {
@@ -276,163 +276,220 @@ jQuery(document).ready(function ($) {
 
 $("#bid_form").submit(function (e) {
 	e.preventDefault();
-	if (parseInt($('#placebid_value').text()) <=parseInt($('#product_price').text()))
-		 {
-			Swal.fire({
-				icon:'warning',
-				title: 'Please bid again',
-				showConfirmButton: true,
-				showCloseButton: true
-			  });
+	if (parseInt($('#placebid_value').text()) <= parseInt($('#product_price').text())) {
+		Swal.fire({
+			icon: 'warning',
+			title: 'Please bid again',
+			showConfirmButton: true,
+			showCloseButton: true
+		});
 	}
 	else {
 		Swal.fire({
 			title: 'Are you sure?',
-			text: "Price: "+$('#placebid_value').text(),
+			text: "Price: " + $('#placebid_value').text(),
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Confirm'
-		  }).then((result) => {
+		}).then((result) => {
 			if (result.value) {
-			  Swal.fire({
-				text:'Bidding...',
-				timer: 5000,
-				timerProgressBar: true
-			  })
-			  $('#price').val($('#placebid_value').text());
-		this.submit();
+				Swal.fire({
+					text: 'Bidding...',
+					timer: 5000,
+					timerProgressBar: true
+				})
+				$('#price').val($('#placebid_value').text());
+				this.submit();
 			}
-		  });
+		});
 	}
 });
 
 
 $('#favoritePrd').on('submit', function (event) {
 	event.preventDefault(); // Stop the form from causing a page refresh.
-	if ($('#favoriteBtn').val()==1){
+	if ($('#favoriteBtn').val() == 1) {
 		Swal.fire({
-			icon:'info',
+			icon: 'info',
 			title: 'This product already exists in your favorite products list',
 			showConfirmButton: true,
 			showCloseButton: true
-		  });
+		});
 	}
-	else{
-	$('#favoriteBtn').attr("disabled", true);
-	const tmpid=window.location.pathname.split('product/id=')[1];
-	var data = {
-		key: 'favorite'
-	  };
-	  $.ajax({
-		url: 'http://localhost:3000/product/id='+tmpid,
-		data: data,
-		method: 'POST'
-	  }).then(function(response) { 
-		  if (response==1)  {
-			Swal.fire({
-				icon: 'success',
-				title: 'Success',
-				showConfirmButton: false,
-				timer: 1500
-			  });
-		  $( "#favoriteBtn" ).removeClass("btn btn-light").addClass("btn btn-danger");
-		  $('#favoriteBtn').val(1);
-		}
-		$('#favoriteBtn').attr("disabled", false);
-	}).catch(function(err) {
-		$('#favoriteBtn').attr("disabled", false);
-		console.error(err);
-	 });
+	else {
+		$('#favoriteBtn').attr("disabled", true);
+		const tmpid = window.location.pathname.split('product/id=')[1];
+		var data = {
+			key: 'favorite'
+		};
+		$.ajax({
+			url: 'http://localhost:3000/product/id=' + tmpid,
+			data: data,
+			method: 'POST'
+		}).then(function (response) {
+			if (response == 1) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Added to favorite product list!!!',
+					showConfirmButton: false,
+					timer: 2000
+				});
+				$("#favoriteBtn").removeClass("btn btn-light").addClass("btn btn-danger");
+				$('#favoriteBtn').val(1);
+			}
+			$('#favoriteBtn').attr("disabled", false);
+		}).catch(function (err) {
+			$('#favoriteBtn').attr("disabled", false);
+			console.error(err);
+		});
 	}
 });
 
 
-  $('#review_form').on('submit', function (event) {
+$('#review_form').on('submit', function (event) {
 	event.preventDefault(); // Stop the form from causing a page refresh.
 	$('#review_submit').attr("disabled", true);
-	const tmpid=window.location.pathname.split('product/id=')[1];
-    var data = {
-      key: 'review',
-	  Rating:  $('#rate2').val(),
-	  Comment: $('#review_message').val()
+	const tmpid = window.location.pathname.split('product/id=')[1];
+	var data = {
+		key: 'review',
+		Rating: $('#rate2').val(),
+		Comment: $('#review_message').val()
 	};
 
 	$('#notify').append('Uploading...');
-    $.ajax({
-      url: 'http://localhost:3000/product/id='+tmpid,
-      data: data,
-      method: 'POST'
-    }).then(function (response) {
-		const data=response;
-		$('#notify').empty();	
+	$.ajax({
+		url: 'http://localhost:3000/product/id=' + tmpid,
+		data: data,
+		method: 'POST'
+	}).then(function (response) {
+		const data = response;
+		$('#notify').empty();
 		Swal.fire({
 			icon: 'success',
 			title: 'Success',
 			showConfirmButton: false,
 			timer: 1500
-		  });
+		});
 		/*ve rate*/
-		var strTmp='';
-		var n=data.rateStar
-		for ( i = 0; i < 2 * n-1; i+=2){
-			strTmp+='<li><i class="fa fa-star" aria-hidden="true"></i></li>';
+		var strTmp = '';
+		var n = data.rateStar
+		for (i = 0; i < 2 * n - 1; i += 2) {
+			strTmp += '<li><i class="fa fa-star" aria-hidden="true"></i></li>';
 		}
-		if ((n*2-1)%2==0) 
-		{strTmp+='<li><i class="fa fa-star-half" aria-hidden="true"></i></li>';
-		k=2} else k=0;
-		for ( i =n*2 ; i <10-k; i+=2){
-			strTmp+=' <li><i class="fa fa-star-o" aria-hidden="true"></i></li>';
+		if ((n * 2 - 1) % 2 == 0) {
+			strTmp += '<li><i class="fa fa-star-half" aria-hidden="true"></i></li>';
+			k = 2
+		} else k = 0;
+		for (i = n * 2; i < 10 - k; i += 2) {
+			strTmp += ' <li><i class="fa fa-star-o" aria-hidden="true"></i></li>';
 		}
 
 		//hien thi thong tin vua review
-	$('#insert').prepend( ' <div class="user_review_container d-flex flex-column flex-sm-row">'+
-										'	<div class="user">'+
-												'<div class="user_pic">'+
-													'<img src="/users/default/person_default_image.png" alt="'+data.name+'"'+
-														'/>'+
-												'</div>'+
-												'<ul class="star_rating1">'+
-													'<span class="stars">'+strTmp+' </span>'+
-											'	</ul>'+
-											'</div>'+
-										'	<div class="review">'+
-												'<div class="review_date">'+data.TimePost+'</div>'+
-												'<div class="user_name">'+data.name+'</div>'+
-												'<p>'+data.comment+'</p>'+
-										'	</div>'+
-									'</div>');
+		$('#insert').prepend(' <div class="user_review_container d-flex flex-column flex-sm-row">' +
+			'	<div class="user">' +
+			'<div class="user_pic">' +
+			'<img src="/users/default/person_default_image.png" alt="' + data.name + '"' +
+			'/>' +
+			'</div>' +
+			'<ul class="star_rating1">' +
+			'<span class="stars">' + strTmp + ' </span>' +
+			'	</ul>' +
+			'</div>' +
+			'	<div class="review">' +
+			'<div class="review_date">' + data.TimePost + '</div>' +
+			'<div class="user_name">' + data.name + '</div>' +
+			'<p>' + data.comment + '</p>' +
+			'	</div>' +
+			'</div>');
 		//tang so dem review len
-		var counttmp=parseInt($('#countRev').text())+1;
-			$('#countRev').html(counttmp);
-			$('#countRev0').html(counttmp);
+		var counttmp = parseInt($('#countRev').text()) + 1;
+		$('#countRev').html(counttmp);
+		$('#countRev0').html(counttmp);
 		//format form
 		$("#review_message").val('');
 		var stars = $('.user_star_rating ul li');
 		stars.each(function () {
-		 stars.find('i').each(function () {
-							$(this).removeClass('fa-star');
-							$(this).addClass('fa-star-o');
-						});
-				});
+			stars.find('i').each(function () {
+				$(this).removeClass('fa-star');
+				$(this).addClass('fa-star-o');
+			});
+		});
 		//kich hoat lai nut submit
 		$('#review_submit').attr("disabled", false);
-    }).catch(function(err) {
-	   console.error("error:"+err);
-	   $('#review_submit').attr("disabled", false);
-	   $('#notify').empty().append("falied");
-    });
-  });
+	}).catch(function (err) {
+		console.error("error:" + err);
+		$('#review_submit').attr("disabled", false);
+		$('#notify').empty().append("falied");
+	});
+});
 
-  function notify1()
-  {
-	  if (execute==false)
-	  {
-		execute=true;
-	Swal.fire({
-		title: 'You are the highest bidder!!!',
-		showConfirmButton: false,
-		timer: 1500
-	  });
+function notify1() {
+	if (execute == false) {
+		execute = true;
+		Swal.fire({
+			title: 'You are the highest bidder!!!',
+			showConfirmButton: false,
+			timer: 1500
+		});
 	}
-  }
+}
+
+
+$('#btnAutoBid').on('click', function (event) {
+	event.preventDefault();
+	Swal.fire({
+		title: 'AUTOMATIC BIDDING',
+		input: 'number',
+		inputValue: parseInt($('#product_price').text()),
+		text: 'Current bid:' + $('#product_price').text() + '  ; Price step:' + $('#priceStep').val(),
+		inputAttributes: {
+			maxlength: '10',
+			min: parseInt($('#product_price').text()) + parseInt($('#priceStep').val()),
+			step: $('#priceStep').val()
+		},
+		showCancelButton: true,
+		confirmButtonText: 'Confirm',
+		showLoaderOnConfirm: true
+	}).then((result) => {
+		if (result.value) {
+			const tmpid = window.location.pathname.split('product/id=')[1];
+			var data = {
+				key: 'autobid',
+				Price:result.value
+			};
+			$.ajax({
+				url: 'http://localhost:3000/product/id=' + tmpid,
+				data: data,
+				method: 'POST'
+			}).then(function (response) {
+				if (response === 1) {
+					Swal.fire(
+						'Success!',
+						'',
+						'success'
+					)
+				}
+				else {
+					Swal.fire(
+						'Faild!',
+						'Try again!!!',
+						'error'
+					)
+				}
+			}).catch(function (err) {
+				Swal.fire(
+					'Faild!',
+					'Try again!!!',
+					'error'
+				)
+				console.error(err);
+			});
+
+		}
+		else {
+
+		}
+	})
+});
+

@@ -1,5 +1,6 @@
 const express = require('express');
 const productModel = require('../models/product.model');
+const bidModel= require('../models/bid.model');
 const router = express.Router();
 
 
@@ -41,7 +42,7 @@ router.post('/id=:id', async (req, res) => {
   if (req.body.key === 'bid') {
     delete req.body.key;
     if (req.session.isAuthenticated && 1==1) {
-      const status = await productModel.fAuction(req.params.id, req.session.authUser.UserID, req.body.Price);
+      const status = await bidModel.fAuction(req.params.id, req.session.authUser.UserID, req.body.Price);
     }
     return res.redirect('back');
   }
@@ -68,7 +69,15 @@ router.post('/id=:id', async (req, res) => {
     }
     return res.json(0);
   }
-  
+  if (req.body.key === 'autobid') {
+    delete req.body.key;
+    console.log(req.body);
+    if (req.session.isAuthenticated) {
+     const tmpx = await bidModel.fAutoBid(req.params.id, req.session.authUser.UserID,req.body.Price);
+     return res.json(tmpx[0].autoBid);
+    }
+    return res.json(0);
+  }
   return res.redirect('back');
 })
 

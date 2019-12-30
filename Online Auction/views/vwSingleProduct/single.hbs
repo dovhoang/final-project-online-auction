@@ -155,10 +155,11 @@
 										class="fa fa-heart"></span></button> --}}
 									
 							</div>
-
-
-						</div>
-
+					{{#if authUser.UserID}}
+									<div id="AutoBid">
+										<button id="btnAutoBid" class="btn  btn-secondary mt-5">AUTOMATIC BIDDING</button>
+									</div>
+									{{/if}}
 					</div>
 				</div>
 
