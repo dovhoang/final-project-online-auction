@@ -7,6 +7,46 @@
 {{/section}}
 
 {{#section 'js'}}
+
+<script>
+  function validate() {
+    var result = true;
+    const username = $('#txtUserName').val();
+    const password = $('#txtPassword').val();
+    if (username === '' || password === '') {
+      $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Please fill in all fields</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+      return false;
+    }
+
+    if (username !== '')
+      if (username.length < 4) {
+        $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Username should be at least 4 characters</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+        result = false;
+      }
+
+    if (password !== '')
+      if (password.length < 4) {
+        $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Password should be at least 4 characters</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+        result = false;
+      }
+    return result;
+  }
+</script>
 <script>
   var check = true;
   function showHiddenPassword() {
@@ -28,7 +68,7 @@
       <i class="fa fa-edit"></i> Username
     </h3>
     <div class="card-body">
-      <form method="POST" id="frmChangeUsername" name="frmChangeUsername">
+      <form onsubmit="return validate();" method="POST" id="frmChangeUsername" name="frmChangeUsername">
         {{#if error}}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>{{error}}</strong>
@@ -37,7 +77,7 @@
           </button>
         </div>
         {{/if}}
-        <div class="row">
+        <div class="row abcdef">
           <div class="col">
             <div class="form-group">
               <label for="txtPassword" class="chulon"><i class="fa fa-lock"></i> Confirm Password <i
@@ -53,8 +93,7 @@
             <div class="form-group">
               <label for="txtUserName" class="chulon"><i class="fa fa-user"></i> New Username <i
                   class="fa fa-star text-danger"></i></label>
-              <input type="text" class="form-control" id="txtUserName" name="username" placeholder="Hienhhcc"
-                value="{{name}}">
+              <input type="text" class="form-control" id="txtUserName" name="username" placeholder="Hienhhcc">
             </div>
           </div>
         </div>

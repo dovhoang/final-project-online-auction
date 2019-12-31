@@ -1,10 +1,28 @@
+{{#section 'js'}}
+<script>
+    function validate() {
+        const otp = $('#txtOTP').val();
+        if (otp === '') {
+            $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Please fill in all fields</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+{{/section}}
 <div class="container">
     <div class="card shadow mb-4" id="otp">
         <h3 class="card-header text-danger">
             <i class="fa fa-edit"></i> Verification
         </h3>
         <div class="card-body">
-            <form method="POST" id="frmOTP" name="frmOTP">
+            <form onsubmit="return validate();" method="POST" id="frmOTP" name="frmOTP">
                 {{#if success_msg}}
                 <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
                     <strong>{{success_msg}}</strong>
@@ -37,8 +55,9 @@
                     </button>
                 </div>
                 {{/if}}
-                <div class="form-group">
-                    <label for="txtOTP" class="chulon"><i class="fa fa-edit"></i> OTP <i class="fa fa-star text-danger"></i></label>
+                <div class="form-group abcdef">
+                    <label for="txtOTP" class="chulon"><i class="fa fa-edit"></i> OTP <i
+                            class="fa fa-star text-danger"></i></label>
                     <input type="text" class="form-control" id="txtOTP" name="OTP" placeholder="Your otp" autofocus>
                 </div>
 

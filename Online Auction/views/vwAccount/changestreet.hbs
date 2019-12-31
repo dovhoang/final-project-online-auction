@@ -7,6 +7,24 @@
 {{/section}}
 
 {{#section 'js'}}
+
+<script>
+  function validate() {
+    const result = true;
+    const password = $('#txtPassword').val();
+    const street = $('#txtStreet').val();
+    if (password === '' || street === '') {
+      $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Please fill in all fields</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+      return false;
+    }
+    return result;
+  }
+</script>
 <script>
   var check = true;
   function showHiddenPassword() {
@@ -28,7 +46,7 @@
       <i class="fa fa-edit"></i> Street
     </h3>
     <div class="card-body">
-      <form method="POST" id="frmStreet" name="frmStreet">
+      <form onsubmit="return validate();" method="POST" id="frmStreet" name="frmStreet">
         {{#if error}}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>{{error}}</strong>
@@ -37,7 +55,7 @@
           </button>
         </div>
         {{/if}}
-        <div class="row">
+        <div class="row abcdef">
           <div class="col">
             <div class="form-group">
               <label for="txtPassword" class="chulon"><i class="fa fa-lock"></i> Confirm Password <i
@@ -50,7 +68,8 @@
         <div class="row">
           <div class="col">
             <div class="form-group">
-              <label for="txtStreet" class="chulon"><i class="fa fa-road"></i> Street <i class="fa fa-star text-danger"></i></label>
+              <label for="txtStreet" class="chulon"><i class="fa fa-road"></i> Street <i
+                  class="fa fa-star text-danger"></i></label>
               <input type="text" class="form-control" id="txtStreet" name="street" autofocus>
             </div>
           </div>

@@ -12,6 +12,77 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js">
 </script>
 <script>
+  function validate() {
+    const result = true;
+    const username = $('#txtUserName').val();
+    const email = $('#txtEmail').val();
+    const rawpassword = $('#txtPassword').val();
+    const confirmpassword = $('#txtConfirm').val();
+    const firstname = $('#txtFirstName').val();
+    const lastname = $('#txtLastName').val();
+    const dob = $('#txtDOB').val();
+    const cityprovince = $('#txtCityProvince').val();
+    const district = $('#txtDistrict').val();
+    const ward = $('#txtWard').val();
+    const street = $('#txtStreet').val();
+    //Kiểm tra các trường
+    if (username == '' || rawpassword == '' || confirmpassword == '' ||
+      firstname == '' || lastname == '' || email == '' ||
+      dob == '' || cityprovince == '' || district == '' ||
+      ward == '' || street == '') {
+      $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Please fill in all fields</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+      return false;
+    }
+    if (user_name != '')
+      if (user_name.length < 4) {
+        $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Username should be at least 4 characters</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+        result = false;
+      }
+
+    if (raw_password != '')
+      if (raw_password.length < 4) {
+        $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Password should be at least 4 characters</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+        result = false;
+      }
+
+    if (raw_password != confirm_password) {
+      $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Password not match</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+      result = false;
+    }
+
+    if (user_email != '')
+      if (user_email.indexOf("@") == -1) {
+        $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Password not match</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+        result = false;
+      }
+    return result;
+  }
+
   $('#txtDOB').datetimepicker({
     // format: 'd/m/Y H:i'
     format: 'd/m/Y',
@@ -51,7 +122,7 @@
       <i class="fa fa-edit"></i> Register
     </h3>
     <div class="card-body">
-      <form method="POST" id="frmRegister" name="frmRegister">
+      <form onsubmit="return validate();" method="POST" id="frmRegister" name="frmRegister">
         {{#each error}}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <strong>{{msg}}</strong>
@@ -68,7 +139,7 @@
           </button>
         </div>
         {{/if}}
-        <h4 class="mb-3">
+        <h4 class="mb-3 abcdef">
           <i class="fa fa-user-circle"></i> Account
         </h4>
         <div class="row">
