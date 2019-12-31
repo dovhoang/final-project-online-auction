@@ -9,8 +9,29 @@
 {{/section}}
 
 {{#section 'js'}}
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js">
 </script>
+
+<script>
+    function validate() {
+        const result = true;
+        const password = $('#txtPassword').val();
+        const dob = $('#txtDOB').val();
+        if (password === '' || dob === '') {
+            $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Please fill in all fields</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+            return false;
+        }
+        return result;
+    }
+</script>
+
 <script>
     $('#txtDOB').datetimepicker({
         // format: 'd/m/Y H:i'
@@ -39,7 +60,7 @@
             <i class="fa fa-edit"></i> Day of birth
         </h3>
         <div class="card-body">
-            <form method="POST" id="frmDOB" name="frmDOB">
+            <form onsubmit="return validate();" method="POST" id="frmDOB" name="frmDOB">
                 {{#if error}}
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>{{error}}</strong>
@@ -49,7 +70,7 @@
                 </div>
                 {{/if}}
 
-                <div class="row">
+                <div class="row abcdef">
                     <div class="col">
                         <div class="form-group">
                             <label for="txtPassword" class="chulon"><i class="fa fa-lock"></i> Confirm Password <i

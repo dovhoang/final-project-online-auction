@@ -7,6 +7,7 @@ module.exports = app => {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.signinsuccess = req.flash('signinsuccess');
     res.locals.signoutsuccess = req.flash('signoutsuccess');
+
     if (req.session.authUser !== undefined && req.session.authUser !== null && req.session.authUser.Type === 2) {
       const Users = await userModel.countUsers();
       res.locals.countUsers = Users[0].totalUsers;

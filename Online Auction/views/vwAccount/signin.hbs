@@ -6,6 +6,47 @@
 </style>
 {{/section}}
 {{#section 'js'}}
+
+<script>
+    function validate() {
+        const result = true;
+        const username = $('#txtUsername').val();
+        const password = $('#txtPassword').val();
+        if (username === '' || password === '') {
+            $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Please fill in all fields</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+            return false;
+        }
+
+        if (username !== '')
+            if (username.length < 4) {
+                $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Username should be at least 4 characters</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+                result = false;
+            }
+
+        if (password !== '')
+            if (password.length < 4) {
+                $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Password should be at least 4 characters</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+                result = false;
+            }
+
+        return result;
+    }
+</script>
 <script>
     var check = true;
     function showHiddenPassword() {
@@ -27,7 +68,7 @@
             <i class="fa fa-sign-in"></i> Sign in
         </h3>
         <div class="card-body">
-            <form onsubmit="return true;" method="POST" id="frmRegister" name="frmRegister">
+            <form onsubmit="return validate();" method="POST" id="frmRegister" name="frmRegister">
                 {{#if success_msg}}
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>{{success_msg}}</strong>
@@ -54,7 +95,7 @@
                     </button>
                 </div>
                 {{/if}}
-                <div class="form-group">
+                <div class="form-group abcdef">
                     <label for="txtUsername" class="chulon"><i class="fa fa-user"></i> Username <i
                             class="fa fa-star text-danger"></i></label>
                     <input type="text" class="form-control" id="txtUsername" name="username" placeholder="hienhhcc"
