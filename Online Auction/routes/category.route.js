@@ -21,7 +21,6 @@ router.get('/:id/products', async (req, res) => {
     productModel.pageByCat(catId, offset,sortby,order),
     productModel.getCategoryNameById(catId),
   ]);
-
   let nPages = Math.floor(total / limit);
   if (total % limit > 0 || total == 0 ) nPages++;
   const SumPage = nPages;
