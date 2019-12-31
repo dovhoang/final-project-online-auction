@@ -1,11 +1,11 @@
 {
   "mysql": {
     "connectionLimit": 1000,
-    "host": "b1lztxcfahjxtnqe1sfb-mysql.services.clever-cloud.com",
+    "host": "sql12.freemysqlhosting.net",
     "port": 3306,
-    "user": "u7sqbknygbb6uml8",
-    "password": "7qH7if8OTG04tsvgi9st",
-    "database": "b1lztxcfahjxtnqe1sfb"
+    "user": "sql12317308",
+    "password": "K9xHN4APdv",
+    "database": "sql12317308"
   },
   "paginate": {
     "limit": 5

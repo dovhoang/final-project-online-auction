@@ -1,4 +1,9 @@
 {{#section 'js'}}
+{{#if thongbao}}
+<script>
+	alert(thongbao);
+</script>
+{{/if}}
 {{#if_eq thongbao 1}}
 <script>
 	Swal.fire({
