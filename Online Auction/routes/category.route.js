@@ -1,7 +1,7 @@
 
 const express = require('express');
-const productModel = require('../../models/product.model');
-const config = require('../../config/default.json');
+const productModel = require('../models/product.model');
+const config = require('../config/default.json');
 const router = express.Router();
 
 router.get('/:id/products', async (req, res) => {
@@ -35,7 +35,7 @@ router.get('/:id/products', async (req, res) => {
     })
   }
 
-  res.render('vwCatProducts/allByCat', {
+  res.render('vwProducts/allByCat', {
     products: rows,
     empty: rows.length === 0,
     page_numbers,

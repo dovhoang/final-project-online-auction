@@ -1,6 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
-const morgan = require('morgan')
+const morgan = require('morgan');
 const hbs_sections = require('express-handlebars-sections');
 require('express-async-errors');
 const session = require('express-session')
@@ -43,6 +43,7 @@ app.set('view engine', 'hbs');
 
 require('./middlewares/locals.mdw')(app);
 require('./middlewares/routes.mdw')(app);
+
 
 
 //comment lai de xem loi tren browser

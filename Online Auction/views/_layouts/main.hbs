@@ -62,13 +62,13 @@
 										<ul class="dropdown-menu ">
 											{{#each lcCatLevel1}}
 											<li class="dropdown-submenu">
-												<a href="/user/categories/{{CatID}}/products?sortby&order"
+												<a href="/categories/{{CatID}}/products?sortby&order"
 													class="dropdown-toggle">{{CatName}}</a>
 												<ul class="dropdown-menu">
 													{{#each ../lcCatAll}}
 													{{#if_eq ParentID ../CatID}}
 													<li><a
-															href="/user/categories/{{CatID}}/products?sortby&order">{{CatName}}</a>
+															href="/categories/{{CatID}}/products?sortby&order">{{CatName}}</a>
 													</li>
 													{{/if_eq}}
 													{{/each}}
@@ -86,9 +86,9 @@
 									{{/if_eq}}
 									{{/if}}
 									<li>
-										<form class="form-inline my-2 my-lg-0 mr-2">
+										<form  class="form-inline my-2 my-lg-0 mr-2" method="POST" action="/search" id="search" name="search">
 											<input class="form-control mr-sm-2" type="search" placeholder="Search"
-												aria-label="Search">
+												aria-label="Search" id="search" name="search">
 											<button class="btn btn-outline-success my-2 my-sm-0"
 												type="submit">Search</button>
 										</form>
