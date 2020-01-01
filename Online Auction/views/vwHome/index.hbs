@@ -1,18 +1,15 @@
 {{#section 'js'}}
-{{#if thongbao}}
-<script>
-	alert(thongbao);
-</script>
-{{/if}}
 {{#if_eq thongbao 1}}
 <script>
-	Swal.fire({
-		title: '<i class="fa fa-bullhorn"></i> Nofitication',
-		text: 'Congratulations....You have been upgrade to seller',
-		icon: 'success',
-		showCancelButton: false,
-		confirmButtonColor: '#3085d6',
-		confirmButtonText: 'Agree'
+	$(document).ready(function () {
+		Swal.fire({
+			title: '<i class="fa fa-bullhorn"></i> Nofitication',
+			text: 'Congratulations....You have been upgrade to seller',
+			icon: 'success',
+			showCancelButton: false,
+			confirmButtonColor: '#3085d6',
+			confirmButtonText: 'Agree'
+		})
 	})
 </script>
 {{/if_eq}}
@@ -20,26 +17,30 @@
 
 {{#if_eq thongbao 2}}
 <script>
-	Swal.fire({
-		title: '<i class="fa fa-bullhorn"> Nofitication',
-		text: 'Unfornately....Your request to seller have been rejected',
-		icon: 'warning',
-		showCancelButton: false,
-		confirmButtonColor: '#3085d6',
-		confirmButtonText: 'Agree'
+	$(document).ready(function () {
+		Swal.fire({
+			title: '<i class="fa fa-bullhorn"></i> Nofitication',
+			text: 'Unfortunately....Your request upgrade to seller have been rejected',
+			icon: 'success',
+			showCancelButton: false,
+			confirmButtonColor: '#3085d6',
+			confirmButtonText: 'Agree'
+		})
 	})
 </script>
 {{/if_eq}}
 
 {{#if_eq thongbao 3}}
 <script>
-	Swal.fire({
-		title: '<i class="fa fa-bullhorn"> Nofitication',
-		text: 'Unfornately....You have been downgrade to bidder',
-		icon: 'warning',
-		showCancelButton: false,
-		confirmButtonColor: '#3085d6',
-		confirmButtonText: 'Agree'
+	$(document).ready(function () {
+		Swal.fire({
+			title: '<i class="fa fa-bullhorn"> Nofitication',
+			text: 'Unfornately....You have been downgrade to bidder',
+			icon: 'warning',
+			showCancelButton: false,
+			confirmButtonColor: '#3085d6',
+			confirmButtonText: 'Agree'
+		})
 	})
 </script>
 {{/if_eq}}

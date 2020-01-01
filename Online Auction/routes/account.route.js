@@ -156,6 +156,7 @@ router.post('/signin', async (req, res) => {
     delete user1.Password;
     req.session.isAuthenticated = true;
     req.session.authUser = user1;
+    req.session.authUser.DOB = moment(req.session.authUser.DOB).format("YYYY-MM-DD");
     if (user2 === null)
         req.session.authUser.IsUpgrade = 0;
     else req.session.authUser.IsUpgrade = 1;

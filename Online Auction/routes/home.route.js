@@ -18,51 +18,34 @@ router.get('/', async (req, res) => {
             requestUpdateModel.singleByUsername(req.session.authUser.Username),
             downgradeModel.singleByUsername(req.session.authUser.Username),
         ]);
-        //Nếu có trong bảng RequestUpdate
-        if (userup !== null) {
-            //Nếu admin đã duyệt cho bidder
-            if (+userup.IsRefuse !== -1) {
-                //Xóa bidder đó khỏi bảng requestUpdate
-                const result = await requestUpdateModel.delByUsername(req.session.authUser.Username);
-                if (+userup.IsRefuse === 0) {//Nếu duyệt cho lên seller
-                    thongbao = 1;
-                } else { //Nếu duyệt không cho lên seller
-                    thongbao = 2;
+        //Nếu admin upgrade rồi downgrade trước khi user đó đăng nhập
+        if (userup !== null && userdown !== null && userup.IsRefuse === 0 && userdown.IsDown === 1) {
+            const result = await requestUpdateModel.delByUsername(req.session.authUser.Username);
+            const result1 = await downgradeModel.delByUsername(req.session.authUser.Username);
+            thongbao = 0;
+        } else {
+            //Nếu có trong bảng RequestUpdate
+            if (userup !== null) {
+                //Nếu admin đã duyệt cho bidder
+                if (+userup.IsRefuse !== -1) {
+                    //Xóa bidder đó khỏi bảng requestUpdate
+                    const result = await requestUpdateModel.delByUsername(req.session.authUser.Username);
+                    if (+userup.IsRefuse === 0) {//Nếu duyệt cho lên seller
+                        thongbao = 1;
+                    } else { //Nếu duyệt không cho lên seller
+                        thongbao = 2;
+                    }
+                }
+            }
+            //Nếu có trong bảng Downgrade
+            if (userdown !== null) {
+                if (+userdown.IsDown !== 0) {
+                    const result = await downgradeModel.delByUsername(req.session.authUser.Username);
+                    thongbao = 3;
                 }
             }
         }
-        //Nếu có trong bảng Downgrade
-        console.log(userdown !== null);
-        console.log(userdown !== null);
-        console.log(userdown !== null);
-        if(userdown !== null){
-            console.log(+userdown.IsDown !== 0);
-            console.log(+userdown.IsDown !== 0);
-            console.log(+userdown.IsDown !== 0);
-            console.log(+userdown.IsDown !== 0);
-            console.log(+userdown.IsDown !== 0);
-            console.log(+userdown.IsDown !== 0);
-            console.log(+userdown.IsDown !== 0);
-
-        }
-
-
-        if (userdown !== null) {
-            if (+userdown.IsDown !== 0) {
-                const result = await downgradeModel.delByUsername(req.session.authUser.Username);
-                thongbao = 3;
-            }
-        }
-
-        console.log(thongbao);
     }
-    console.log(thongbao);
-    console.log(thongbao);
-    console.log(thongbao);
-    console.log(thongbao);
-    console.log(thongbao);
-    console.log(thongbao);
-    console.log(thongbao);
     return res.render('vwHome/index', {
         top5ToEnd: toend[0],
         top5Popular: popular[0],

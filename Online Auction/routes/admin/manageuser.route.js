@@ -7,21 +7,14 @@ const categoryModel = require('../../models/category.model');
 const productModel = require('../../models/product.model');
 const bidModel = require('../../models/bid.model');
 const router = express.Router();
+const moment = require('moment');
 
 //Quản lý users
 router.get('/manage', restrict.forUserNotAdmin, async (req, res) => {
     //Lấy ra những users không phải admin
     const rows = await userModel.allUserNotAdmin();
-    // const Users = await userModel.countUsers();
-    // const all = await userModel.countAll();
-    // const allBidder = await userModel.countBidderWantToBeSeller();
-    // const allSeller = await userModel.countSeller();
     res.render('vwAdmin/vwUserManager/manage', {
         users: rows,
-        // countUsers: Users[0].totalUsers,
-        // countAll: all,
-        // countAllBidder: allBidder[0].totalBidder,
-        // countAllSeller: allSeller[0].totalSeller
     });
 })
 
@@ -53,6 +46,7 @@ router.get('/manage/:id/profile', restrict.forUserNotAdmin, async (req, res) => 
     //Lấy ra user có UserID
     const userID = req.params.id;
     const user = await userModel.singleByUserID(userID);
+    user.DOB = moment(user.DOB).format("YYYY-MM-DD");
     res.render('vwAdmin/vwUserManager/profileuser', {
         user: user,
     });
@@ -63,16 +57,8 @@ router.get('/manage/:id/profile', restrict.forUserNotAdmin, async (req, res) => 
 router.get('/updowngrade', restrict.forUserNotAdmin, async (req, res) => {
     //Lấy ra những bidder muốn nâng cấp thành seller và các seller
     const rows = await userModel.allBidderUpgradeAndSeller();
-    // const Users = await userModel.countUsers();
-    // const all = await userModel.countAll();
-    // const allBidder = await userModel.countBidderWantToBeSeller();
-    // const allSeller = await userModel.countSeller();
     res.render('vwAdmin/vwUserManager/updowngrade', {
         users: rows,
-        // countUsers: Users[0].totalUsers,
-        // countAll: all,
-        // countAllBidder: allBidder[0].totalBidder,
-        // countAllSeller: allSeller[0].totalSeller
     });
 });
 
@@ -80,16 +66,8 @@ router.get('/updowngrade', restrict.forUserNotAdmin, async (req, res) => {
 router.get('/upgrade', restrict.forUserNotAdmin, async (req, res) => {
     //Lấy ra những bidder muốn nâng cấp thành seller
     const rows = await userModel.allBidderWantToBeSeller();
-    // const Users = await userModel.countUsers();
-    // const all = await userModel.countAll();
-    // const allBidder = await userModel.countBidderWantToBeSeller();
-    // const allSeller = await userModel.countSeller();
     res.render('vwAdmin/vwUserManager/upgrade', {
         users: rows,
-        // countUsers: Users[0].totalUsers,
-        // countAll: all,
-        // countAllBidder: allBidder[0].totalBidder,
-        // countAllSeller: allSeller[0].totalSeller
     });
 });
 
@@ -97,16 +75,8 @@ router.get('/upgrade', restrict.forUserNotAdmin, async (req, res) => {
 router.get('/downgrade', restrict.forUserNotAdmin, async (req, res) => {
     //Lấy ra những bidder muốn nâng cấp thành seller và các seller
     const rows = await userModel.allSeller();
-    // const Users = await userModel.countUsers();
-    // const all = await userModel.countAll();
-    // const allBidder = await userModel.countBidderWantToBeSeller();
-    // const allSeller = await userModel.countSeller();
     res.render('vwAdmin/vwUserManager/downgrade', {
         users: rows,
-        // countUsers: Users[0].totalUsers,
-        // countAll: all,
-        // countAllBidder: allBidder[0].totalBidder,
-        // countAllSeller: allSeller[0].totalSeller
     });
 });
 

@@ -8,44 +8,43 @@
                 </h4>
                 <div class="list-group list-group-flush">
                     <a href="/account/profile" class="list-group-item
-                        list-group-item-action indam hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam hover" style="font-size: 18px;">
                         <i class="fa fa-id-card text-info" aria-hidden="true"></i>
                         Profile
                     </a>
 
                     <a href="/account/auctionproduct" class="list-group-item
-                        list-group-item-action indam active hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam active hover" style="font-size: 18px;">
                         <i class="fa fa-gavel text-success" aria-hidden="true"></i>
                         Bidding List
                     </a>
 
                     <a href="/account/wonproduct" class="list-group-item
-                        list-group-item-action indam hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam hover" style="font-size: 18px;">
                         <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
                         Won List
                     </a>
 
                     <a href="/account/favorite" class="list-group-item
-                        list-group-item-action indam hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam hover" style="font-size: 18px;">
                         <i class="fa fa-heart text-danger" aria-hidden="true"></i>
                         Watch List
                     </a>
                     {{#if_eq authUser.Type 1}}
                     <a href="/account/postproduct" class="list-group-item
-                        list-group-item-action indam hover"
-                        style="font-size: 18px;">
-                        <i class="fa fa-plus-square text-danger"
-                            aria-hidden="true"></i>
+                        list-group-item-action indam hover" style="font-size: 18px;">
+                        <i class="fa fa-plus-square text-danger" aria-hidden="true"></i>
+                        Post a auction product
+                    </a>
+
+                    <a href="/account/allpostproduct" class="list-group-item
+                        list-group-item-action indam hover" style="font-size: 18px;">
+                        <i class="fa fa-gavel text-dark" aria-hidden="true"></i>
                         Post products
                     </a>
 
-                    <a href="/account/postwonproduct" class="list-group-item
-                        list-group-item-action indam hover"
-                        style="font-size: 18px;">
+                    <a href="/account/allfinishpostproduct" class="list-group-item
+                        list-group-item-action indam hover" style="font-size: 18px;">
                         <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
                         Post products have a winner
                     </a>
@@ -61,23 +60,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-4 indam text-light mt-1 mb-1 bg-dark
-                            chulon"
-                            style="padding-top:10px;padding-bottom:10px">
+                            chulon" style="padding-top:10px;padding-bottom:10px">
                             Product Name
                         </div>
                         <div class="col-lg-2 indam text-light mt-1 mb-1 bg-dark
-                            chulon"
-                            style="padding-top:10px;padding-bottom:10px">
+                            chulon" style="padding-top:10px;padding-bottom:10px">
                             Current Price
                         </div>
                         <div class="col-lg-3 indam text-light mt-1 mb-1 bg-dark
-                            chulon"
-                            style="padding-top:10px;padding-bottom:10px">
+                            chulon" style="padding-top:10px;padding-bottom:10px">
                             Expired Time
                         </div>
                         <div class="col-lg-2 indam text-light mt-1 mb-1 bg-dark
-                            chulon"
-                            style="padding-top:10px;padding-bottom:10px">
+                            chulon" style="padding-top:10px;padding-bottom:10px">
                             Name Winner
                         </div>
                         <div class="col-lg-1 indam text-light mt-1 mb-1 bg-dark"
@@ -98,24 +93,22 @@
                             {{Time}}
                         </div>
                         {{#if isWinner}}
-                         <div class="col-lg-2 indam text-danger mt-1 mb-1">
+                        <div class="col-lg-2 indam text-danger mt-1 mb-1">
                             {{NameWinner}}
                         </div>
                         {{else}}
                         <div class="col-lg-2 indam text-dark mt-1 mb-1">
                             {{NameWinner}}
                         </div>
-{{/if}}
+                        {{/if}}
                         <div class="col-lg-1">
                             <a class="btn btn-primary float-right mt-1
-                                mb-1" href="/product/id={{ProductID}}"
-                                role="button">
-                                <i class="fa fa-gavel"
-                                    aria-hidden="true"></i>
+                                mb-1" href="/product/id={{ProductID}}" role="button">
+                                <i class="fa fa-gavel" aria-hidden="true"></i>
                             </a>
                         </div>
 
-    
+
                     </div>
                     {{/each}}
 

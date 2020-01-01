@@ -6,45 +6,44 @@
                     <i class="fa fa-eye"></i>
                     Views
                 </h4>
-                  <div class="list-group list-group-flush">
+                <div class="list-group list-group-flush">
                     <a href="/account/profile" class="list-group-item
-                        list-group-item-action indam hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam hover" style="font-size: 18px;">
                         <i class="fa fa-id-card text-info" aria-hidden="true"></i>
                         Profile
                     </a>
 
                     <a href="/account/auctionproduct" class="list-group-item
-                        list-group-item-action indam  hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam  hover" style="font-size: 18px;">
                         <i class="fa fa-gavel text-success" aria-hidden="true"></i>
                         Bidding List
                     </a>
 
                     <a href="/account/wonproduct" class="list-group-item
-                        list-group-item-action indam hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam hover" style="font-size: 18px;">
                         <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
                         Won List
                     </a>
 
                     <a href="/account/favorite" class="list-group-item
-                        list-group-item-action indam  active hover"
-                        style="font-size: 18px;">
+                        list-group-item-action indam  active hover" style="font-size: 18px;">
                         <i class="fa fa-heart text-danger" aria-hidden="true"></i>
                         Watch List
                     </a>
                     {{#if_eq authUser.Type 1}}
                     <a href="/account/postproduct" class="list-group-item
-                        list-group-item-action indam hover"
+                        list-group-item-action indam hover" style="font-size: 18px;">
+                        <i class="fa fa-plus-square text-danger" aria-hidden="true"></i>
+                        Post a auction product
+                    </a>
+
+                    <a href="/account/allpostproduct" class="list-group-item list-group-item-action indam hover"
                         style="font-size: 18px;">
-                        <i class="fa fa-plus-square text-danger"
-                            aria-hidden="true"></i>
+                        <i class="fa fa-gavel text-dark" aria-hidden="true"></i>
                         Post products
                     </a>
 
-                    <a href="/account/postwonproduct" class="list-group-item
-                        list-group-item-action indam hover"
+                    <a href="/account/allfinishpostproduct" class="list-group-item list-group-item-action indam hover"
                         style="font-size: 18px;">
                         <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
                         Post products have a winner
@@ -71,9 +70,8 @@
                         <div class="col-lg-4 indam text-light mt-1 mb-1  bg-dark
                             chulon" style="padding-top:10px;padding-bottom:10px">
                             Expired Time
-                        </div>  
-                        <div class="col-lg-2 indam text-light mt-1 mb-1  bg-dark" 
-                        style="padding-top:10px">
+                        </div>
+                        <div class="col-lg-2 indam text-light mt-1 mb-1  bg-dark" style="padding-top:10px">
 
                         </div>
                     </div>
@@ -93,18 +91,15 @@
                                 </div>
                                 <div class="col-lg-1">
                                     <a class="btn btn-primary float-right mt-1
-                                        mb-1"href="/product/id={{ProductID}}"
-                                        role="button">
-                                        <i class="fa fa-gavel"
-                                            aria-hidden="true"></i>
+                                        mb-1" href="/product/id={{ProductID}}" role="button">
+                                        <i class="fa fa-gavel" aria-hidden="true"></i>
                                     </a>
                                 </div>
 
                                 <div class="col-lg-1">
-                                 <input type="hidden" value="{{ProductID}}" name="ProductID">
+                                    <input type="hidden" value="{{ProductID}}" name="ProductID">
                                     <button class="btn btn-danger float-right mt-1 mb-1 btnRemoveFavPrd">
-                                        <i class="fa fa-remove"
-                                            aria-hidden="true"></i>
+                                        <i class="fa fa-remove" aria-hidden="true"></i>
                                     </button>
 
                                 </div>
