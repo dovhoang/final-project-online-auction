@@ -10,6 +10,7 @@ const nodemailer = require('nodemailer');
 const path = require('path');
 const fs = require('fs');
 var multer = require('multer');
+const sharp = require('sharp');
 
 var FolderName = "./pictures/";
 var storage = multer.diskStorage({
@@ -26,6 +27,33 @@ var upload = multer({ storage: storage })
 router.get('/register', restrict.forUserSignIn, async (req, res) => {
     res.render('vwAccount/register');
 });
+
+function RenameFile(filetorename, renamefile) {
+    fs.renameSync(filetorename, renamefile);
+}
+
+function SharpLargeImages(fileinput, fileoutput) {
+    sharp(fileinput)
+        .resize(500, 500)
+        .toFile(fileoutput, function (err) {
+            if (err) console.log(err)
+            else console.log("Resize success");
+        });
+}
+
+function SharpSmallImages(fileinput, fileoutput) {
+    sharp(fileinput)
+        .resize(100, 100)
+        .toFile(fileoutput, function (err) {
+            if (err) console.log(err)
+            else console.log("Resize success");
+        });
+}
+
+function DeleteFileTemp(fileinput) {
+    //Xóa file temp
+    fs.unlinkSync(fileinput);
+}
 
 router.post('/register', async (req, res) => {
     //Kiểm tra trong db đã có user có username trùng không
@@ -294,7 +322,7 @@ router.post('/profile/edit/email', restrict.forUserNotSignIn, async (req, res) =
         //So sánh có người dùng với email nhập vào hay không
         const user = await userModel.singleByEmail(req.body.email);
         if (user === null) {//Nếu không có người dùng
-            const email = {Email: req.body.email};
+            const email = { Email: req.body.email };
             const result = await userModel.patch(email, req.session.authUser.Username);
             req.session.authUser.Email = req.body.email;
             req.flash('success_msg', 'Change email success');
@@ -594,6 +622,7 @@ router.post('/postproduct', async (req, res) => {
         if (err) console.log(err);
         else console.log("Create directory success");
     })
+
     //Upload ảnh vào thư mục FolderName
     upload.array('Picture', 3)(req, res, async err => {
         if (err) {//Nếu lỗi
@@ -615,12 +644,17 @@ router.post('/postproduct', async (req, res) => {
             //Ok 3 ảnh
             //Đổi tên các bức ảnh
             for (var i = 1; i <= req.files.length; i++) {
-                fs.rename(FolderName + "/" + req.files[i - 1].originalname,
-                    FolderName + "/" + i.toString(10) + "_thumbs" +
-                    path.extname(req.files[i - 1].originalname), (err) => {
-                        if (err) console.log(err);
-                        else console.log("Rename success");
-                    });
+                //3 file người dùng nhập vào rename thành temp
+                //từ 3 file temp này sharp ra 6 tấm ảnh (3 lớn 3 nhỏ)
+                const result = RenameFile(FolderName + "/" + req.files[i - 1].originalname, FolderName + "/" + i.toString(10) + "_temps" +
+                    path.extname(req.files[i - 1].originalname));
+                //Sharp 3 lớn
+                const result1 = SharpLargeImages(FolderName + "/" + i.toString(10) + "_temps" +
+                    path.extname(req.files[i - 1].originalname), FolderName + "/" + i.toString(10) + "_main.png");
+                //Sharp 3 nhỏ
+                const result2 = SharpSmallImages(FolderName + "/" + i.toString(10) + "_temps" +
+                    path.extname(req.files[i - 1].originalname), FolderName + "/" + i.toString(10) + "_thumbs.png");
+                //Xóa file temp dưới chỗ này thì lỗi vì tài nguyên bận
             }
             var timeexpired = moment();
             timeexpired.set('date', timeexpired.get('date') + 7);
@@ -633,11 +667,16 @@ router.post('/postproduct', async (req, res) => {
                 PriceStart: req.body.PriceStart,
                 PricePurchase: req.body.PricePurchase,
                 PriceStep: req.body.PriceStep,
-                Description: req.body.Description,
+                Description: '<i class="fa fa-edit"></i> ' + moment().format('YYYY-MM-DD HH:mm:ss') + "<br>" + req.body.Description,
                 TimePost: moment().format('YYYY-MM-DD HH:mm:ss'),
                 TimeExp: timeexpired.format('YYYY-MM-DD HH:mm:ss'),
             }
             const result = await productModel.add(product);
+            for (var i = 1; i <= req.files.length; i++) {
+                const result3 = DeleteFileTemp(FolderName + "/" + i.toString(10) + "_temps" +
+                    path.extname(req.files[i - 1].originalname));
+            }
+
             res.render('vwAccount/postproduct', {
                 success: 'Your product was successfully posted'
             });
