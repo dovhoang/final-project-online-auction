@@ -81,7 +81,7 @@
 									{{#if_eq authUser.Type 1}}
 									<li>
 										{{!-- Đăng sản phẩm đấu giá --}}
-										<a href="/account/postproduct">Post Product</a>
+										<a href="/postproduct">Post Product</a>
 									</li>
 									{{/if_eq}}
 									{{/if}}
@@ -99,7 +99,7 @@
 								<ul class="navbar_user">
 									{{#if isAuthenticated}}
 									<li class="checkout ml-3 mr-3">
-										<a href="/account/favoriteproduct">
+										<a href="/favorite">
 											<i class="fa fa-heart text-danger" aria-hidden="true"></i>
 											<span id="checkout_items" class="checkout_items">2</span>
 										</a>
@@ -130,17 +130,17 @@
 												Profile
 											</a>
 											{{!-- Sản phẩm mình đang tham gia đấu giá --}}
-											<a class="dropdown-item hover" href="/account/auctionproduct">
+											<a class="dropdown-item hover" href="/auctionproduct">
 												<i class="fa fa-gavel text-success" aria-hidden="true"></i>
 												Bidding List
 											</a>
 											{{!-- Sản phẩm mình đã thắng --}}
-											<a class="dropdown-item hover" href="/account/wonproduct">
+											<a class="dropdown-item hover" href="/wonproduct">
 												<i class="fa fa-trophy text-warning" aria-hidden="true"></i>
 												Won List
 											</a>
 											{{!-- Sản phẩm  yêu thích--}}
-											<a class="dropdown-item hover" href="/account/favorite">
+											<a class="dropdown-item hover" href="/favorite">
 												<i class="fa fa-heart text-danger" aria-hidden="true"></i>
 												Watch List
 											</a>
@@ -149,17 +149,17 @@
 											{{#if_eq authUser.Type 1}}
 											<div class="dropdown-divider"></div>
 											{{!-- Đăng sản phẩm đấu giá --}}
-											<a class="dropdown-item hover" href="/account/postproduct">
+											<a class="dropdown-item hover" href="/postproduct">
 												<i class="fa fa-gavel text-success" aria-hidden="true"></i>
 												Post a auction product
 											</a>
 											{{!-- Sản phẩm mình đăng đấu giá --}}
-											<a class="dropdown-item hover" href="/account/allpostproduct">
+											<a class="dropdown-item hover" href="/allpostproduct">
 												<i class="fa fa-gavel text-dark" aria-hidden="true"></i>
 												Post products
 											</a>
 											{{!-- Sản phẩm mình đăng đấu giá có người thắng --}}
-											<a class="dropdown-item hover" href="/account/allfinishpostproduct">
+											<a class="dropdown-item hover" href="/allfinishpostproduct">
 												<i class="fa fa-trophy text-warning" aria-hidden="true"></i>
 												Post products <br> &nbsp&nbsp&nbsp&nbsp have a winner
 											</a>

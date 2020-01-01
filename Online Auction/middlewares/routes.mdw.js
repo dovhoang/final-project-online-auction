@@ -7,4 +7,10 @@ module.exports = function (app) {
   app.use('/product', require('../routes/product.route'));
   app.use('/', require('../routes/home.route'));
   app.use('/search', require('../routes/search.route'));
+  app.use('/favorite', require('../routes/favorite.route'));
+  app.use('/wonproduct', require('../routes/wonproduct.route'));
+  app.use('/auctionproduct', require('../routes/auctionproduct.route'));
+  app.use('/forgotpassword', require('../routes/forgotpassword.route'));
+  app.use('/postproduct', require('../routes/postproduct.route'));
+  app.use('/allpostproduct', require('../routes/allpostproduct.route'));
 };

@@ -3,58 +3,15 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const userModel = require('../models/user.model');
-const productModel = require('../models/product.model');
 const requestUpdateModel = require('../models/requestupdate.model');
-const categoriesModel = require('../models/category.model')
 const restrict = require('../middlewares/auth.mdw');
 const nodemailer = require('nodemailer');
-const path = require('path');
-const fs = require('fs');
-var multer = require('multer');
-const sharp = require('sharp');
 
-var FolderName = "./pictures/";
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, FolderName)
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    }
-})
-
-var upload = multer({ storage: storage })
 //Register
 router.get('/register', restrict.forUserSignIn, async (req, res) => {
     res.render('vwAccount/register');
 });
 
-function RenameFile(filetorename, renamefile) {
-    fs.renameSync(filetorename, renamefile);
-}
-
-function SharpLargeImages(fileinput, fileoutput) {
-    sharp(fileinput)
-        .resize(500, 500)
-        .toFile(fileoutput, function (err) {
-            if (err) console.log(err)
-            else console.log("Resize success");
-        });
-}
-
-function SharpSmallImages(fileinput, fileoutput) {
-    sharp(fileinput)
-        .resize(100, 100)
-        .toFile(fileoutput, function (err) {
-            if (err) console.log(err)
-            else console.log("Resize success");
-        });
-}
-
-function DeleteFileTemp(fileinput) {
-    //Xóa file temp
-    fs.unlinkSync(fileinput);
-}
 
 router.post('/register', async (req, res) => {
     //Kiểm tra trong db đã có user có username trùng không
@@ -214,48 +171,11 @@ router.get('/profile', restrict.forUserNotSignIn, restrict.forAdmin, (req, res) 
     res.render('vwAccount/profile');
 })
 
-//View favorite
-router.get('/favorite', async (req, res) => {
-    const list = await productModel.getFavoriteProduct(req.session.authUser.UserID);
-    console.log(list[0]);
-    res.render('vwAccount/favorite', {
-        list: list[0],
-    });
-});
-router.post('/favorite', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) => {
-    await productModel.delInFav(req.body.ProductID, req.session.authUser.UserID);
-    res.redirect('back');
-});
-
-//View won product
-router.get('/wonproduct', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) => {
-    const list = await productModel.getWonProduct(req.session.authUser.UserID);
-    res.render('vwAccount/wonproduct', {
-        list: list[0],
-    });
-});
-
-//View auction product'
-router.get('/auctionproduct', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) => {
-    const list = await productModel.getProductRecently(req.session.authUser.UserID);
-    res.render('vwAccount/auctionproduct', {
-        list: list[0],
-    });
-});
-
-
 router.get('/profile/edit/username', restrict.forUserNotSignIn, restrict.forAdmin, (req, res) => {
     res.render('vwAccount/changeusername')
 })
 
 router.post('/profile/edit/username', restrict.forUserNotSignIn, async (req, res) => {
-    console.log(req.body.username);
-    console.log(req.body.username);
-    console.log(req.body.username);
-    console.log(req.body.username);
-    console.log(req.body.username);
-    console.log(req.body.username);
-
     //Kiểm tra password có khớp hay không
     const user1 = await userModel.singleByUsername(req.session.authUser.Username);
     const rs = bcrypt.compareSync(req.body.password, user1.Password);
@@ -497,99 +417,6 @@ router.post('/profile/edit/street', restrict.forUserNotSignIn, async (req, res) 
     res.redirect('/account/profile');
 });
 
-//Forgot password
-router.get('/forgotpassword', restrict.forUserSignIn, (req, res) => {
-    res.render('vwAccount/forgotpassword')
-})
-
-router.post('/forgotpassword', async (req, res) => {
-    //So sánh có người dùng hay không
-    const user = await userModel.singleByEmail(req.body.email);
-    if (user === null) {//Nếu không có người dùng
-        return res.render('vwAccount/forgotpassword', {
-            error: 'That email is not registered',
-            email: req.body.email
-        });
-    } else {//Nếu có người dùng
-        //Gửi email OTP xác nhận
-        const otp = Math.floor(Math.random() * 1001);
-        var transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
-            service: 'gmail',
-            auth: {
-                user: 'hiendeptraiso1thegioi@gmail.com',
-                pass: 'hiendeptraiqua'
-            }
-        });
-        var mailOptions = {
-            from: 'hiendeptraiso1thegioi@gmail.com',
-            to: req.body.email,
-            subject: 'OTP Code',
-            text: 'You recieved message from ' + req.body.email,
-            html: `<b>Your OTP is: ${otp}</b>`
-        }
-        transporter.sendMail(mailOptions, (err, info) => {
-            if (err) {
-                console.log(err);
-                return res.render('vwAccount/forgotpassword');
-            } else {
-                console.log('Message sent: ' + info.response);
-                req.session.OTP1 = otp;
-                req.session.email = req.body.email;
-                req.flash('success_msg', 'Please check your email for OTP');
-                return res.redirect('/account/forgotpassword/otp');
-            }
-        });
-    }
-});
-
-//OTP forgotpassword
-router.get('/forgotpassword/otp', restrict.forUserSignIn, restrict.forGuestNotEnterEmailRecovery, (req, res) => {
-    res.render('vwAccount/otpforgotpassword')
-})
-
-router.post('/forgotpassword/otp', async (req, res) => {
-    //Kiểm tra nếu OTP nhập vào có đúng không
-    if (+req.body.OTP === +req.session.OTP1) {//Đúng
-        req.session.OTP1 = null;
-        req.session.isTrueOTP = true;
-        res.redirect('/account/forgotpassword/newpassword');
-    } else {//Không đúng
-        res.render('vwAccount/otpforgotpassword', {
-            error: 'Wrong OTP'
-        });
-    }
-});
-
-//New password 
-router.get('/forgotpassword/newpassword', restrict.forUserSignIn, restrict.forGuestNotEnterOTP, (req, res) => {
-    res.render('vwAccount/newpassword')
-})
-
-router.post('/forgotpassword/newpassword', async (req, res) => {
-    //Kiểm tra 2 password có match hay không
-    if (req.body.newpassword === req.body.confirmpassword) {//Nếu match
-        const N = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(req.body.newpassword, N);
-        req.body.password = hash;
-        delete req.body.newpassword;
-        delete req.body.confirmpassword;
-        const user = await userModel.singleByEmail(req.session.email);
-        const result = await userModel.patch(req.body, user.Username);
-        //Xóa các session
-        req.session.email = null;
-        req.session.isTrueOTP = null;
-        req.flash('success_msg', 'Change password success');
-        res.redirect('/account/signin');
-    } else {//Nếu không match
-        res.render('vwAccount/newpassword', {
-            error: 'New Password and Confirm New Password not match',
-        });
-    }
-});
-
 
 //Upgrade to seller
 router.post('/profile/upgrade', async (req, res) => {
@@ -603,117 +430,5 @@ router.post('/profile/upgrade', async (req, res) => {
     req.flash('success_msg', 'Your request has been sent');
     res.redirect('/account/profile');
 });
-
-
-router.get('/postproduct', restrict.forUserNotSeller, (req, res) => {
-    res.render('vwAccount/postproduct');
-})
-
-router.post('/postproduct', async (req, res) => {
-    //Lấy ra proID lớn nhất
-    const result = await productModel.getLargestProID();
-    var proId = +result[0].ProId;
-    proId++;
-
-    //Xác định folder chứa hình ảnh upload
-    FolderName = "./pictures/" + proId.toString(10);
-
-    //Tạo thư mục /pictures/proId
-    fs.mkdir(FolderName, (err) => {
-        if (err) console.log(err);
-        else console.log("Create directory success");
-    })
-
-    //Upload ảnh vào thư mục FolderName
-    upload.array('Picture', 3)(req, res, async err => {
-        if (err) {//Nếu lỗi
-            res.render('vwAccount/postproduct', {
-                error: 'Error while uploading images'
-            });
-        } else {//Nếu OK
-            //Nếu upload không đúng 3 hình
-            if (req.files.length !== 3) {
-                //Xóa thư mục /pictures/proId
-                fs.unlink(FolderName, (err) => {
-                    if (err) console.log(err);
-                    else console.log("Delete directory success");
-                });
-                return res.render('vwAccount/postproduct', {
-                    error: 'Please put in exactly 3 images'
-                });
-            }
-            //Ok 3 ảnh
-            //Đổi tên các bức ảnh
-            for (var i = 1; i <= req.files.length; i++) {
-                //3 file người dùng nhập vào rename thành temp
-                //từ 3 file temp này sharp ra 6 tấm ảnh (3 lớn 3 nhỏ)
-                const result = RenameFile(FolderName + "/" + req.files[i - 1].originalname, FolderName + "/" + i.toString(10) + "_temps" +
-                    path.extname(req.files[i - 1].originalname));
-                //Sharp 3 lớn
-                const result1 = SharpLargeImages(FolderName + "/" + i.toString(10) + "_temps" +
-                    path.extname(req.files[i - 1].originalname), FolderName + "/" + i.toString(10) + "_main.png");
-                //Sharp 3 nhỏ
-                const result2 = SharpSmallImages(FolderName + "/" + i.toString(10) + "_temps" +
-                    path.extname(req.files[i - 1].originalname), FolderName + "/" + i.toString(10) + "_thumbs.png");
-                //Xóa file temp dưới chỗ này thì lỗi vì tài nguyên bận
-            }
-            var timeexpired = moment();
-            timeexpired.set('date', timeexpired.get('date') + 7);
-            //Ghi product vào db
-            const product = {
-                ProductID: proId,
-                ProductName: req.body.ProductName,
-                CatId: req.body.Categories,
-                SellerID: req.session.authUser.UserID,
-                PriceStart: req.body.PriceStart,
-                PricePurchase: req.body.PricePurchase,
-                PriceStep: req.body.PriceStep,
-                Description: '<i class="fa fa-edit"></i> ' + moment().format('YYYY-MM-DD HH:mm:ss') + "<br>" + req.body.Description,
-                TimePost: moment().format('YYYY-MM-DD HH:mm:ss'),
-                TimeExp: timeexpired.format('YYYY-MM-DD HH:mm:ss'),
-            }
-            const result = await productModel.add(product);
-            for (var i = 1; i <= req.files.length; i++) {
-                const result3 = DeleteFileTemp(FolderName + "/" + i.toString(10) + "_temps" +
-                    path.extname(req.files[i - 1].originalname));
-            }
-
-            res.render('vwAccount/postproduct', {
-                success: 'Your product was successfully posted'
-            });
-        }
-    });
-})
-
-
-router.get('/allpostproduct', restrict.forUserNotSeller, async (req, res) => {
-    const products = await productModel.allBySellerID(req.session.authUser.UserID);
-    res.render('vwAccount/allpostproduct', {
-        products
-    });
-})
-
-
-router.get('/:id/update', restrict.forUserNotSignIn, async (req, res) => {
-    const product = await productModel.singleByProID(req.params.id);
-    //Nếu sản phẩm đó không phải là do người đang đăng nhập đăng thì về home
-    if (product.SellerID !== req.session.authUser.UserID) {
-        return res.redirect('/');
-    }
-    res.render('vwAccount/updatedescription', {
-        product
-    });
-})
-
-router.post('/:id/update', async (req, res) => {
-    const product = await productModel.singleByProID(req.params.id);
-    const entity = {
-        ProID: req.params.id, Description: product.Description + "<br>" +
-            '<i class="fa fa-edit"></i> ' + moment().format('YYYY-MM-DD HH:mm:ss') + "<br>" + req.body.Description
-    };
-    const result = await productModel.patch(entity);
-    req.flash('success_msg', 'Append description success');
-    res.redirect('/account/allpostproduct');
-})
 
 module.exports = router;

@@ -20,7 +20,7 @@ module.exports = {
         //Redirect về trang nhập email recovery
         if (req.session.email === null || req.session.email === undefined) {
             req.flash('error_msg', 'Please enter your email recovery first')
-            return res.redirect(`/account/forgotpassword`);
+            return res.redirect(`/forgotpassword`);
         }
         next();
     },
@@ -29,7 +29,7 @@ module.exports = {
         //Redirect về trang nhập OTP
         if (req.session.isTrueOTP !== true) {
             req.flash('error_msg', 'Please enter otp first')
-            return res.redirect(`/account/forgotpassword/otp`);
+            return res.redirect(`/forgotpassword/otp`);
         }
         next();
     },
