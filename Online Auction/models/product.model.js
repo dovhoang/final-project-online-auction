@@ -3,6 +3,18 @@ const config = require('../config/default.json');
 
 module.exports = {
   all: () => db.load('select * from Product'),
+  allWithBidInfo: _ => db.load(`
+  SELECT p3.ProductID, p3.ProductName, p3.PriceStart,p3.PricePurchase,
+  p3.TimeExp, p3.NumBid,p3.CurrentWinner, p3.TimePost, concat(u.FirstName," ", u.LastName) as WinnerName
+  FROM (SELECT p2.ProductID, p2.ProductName, p2.PriceStart,p2.PricePurchase,p2.TimeExp, p2.NumBid,p2.CurrentWinner, p2.TimePost
+        FROM (SELECT p1.ProductID,p1.CatID, p1.ProductName, p1.PriceStart,p1.PricePurchase,
+              p1.TimeExp, p1.CurrentWinner, p1.TimePost, COUNT(b.BidID) as NumBid
+              FROM Bid b RIGHT JOIN Product p1 ON b.ProID = p1.ProductID
+              GROUP BY p1.ProductID,p1.CatID, p1.ProductName, p1.PriceStart,p1.PricePurchase,
+              p1.TimeExp, p1.CurrentWinner, p1.TimePost) p2, Categories c
+        WHERE p2.CatID = c.CatID) p3 
+  LEFT JOIN Users u
+  ON u.UserID = p3.CurrentWinner`),
   allProductWithSellerID: sellerid => {
     const sql = `SELECT ProductID FROM Product WHERE SellerID = ${sellerid}`;
     return db.load(sql);
@@ -14,9 +26,6 @@ module.exports = {
   delBySellerID: sellerid => {
     db.del('Product', { SellerID: sellerid });
   },
-  // getProductOfSeller: sellerid => {
-  //   const sql = `SELECT `
-  // },
   allByCat: catId => db.load(`
       select * from Product p join Categories c
       on p.CatID = c.CatID

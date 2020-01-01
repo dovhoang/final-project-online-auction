@@ -86,13 +86,15 @@
 									{{/if_eq}}
 									{{/if}}
 									<li>
-										<form  class="form-inline my-2 my-lg-0 mr-2" method="POST" action="/search" id="search" name="search">
+										<form  class="form-inline my-2 my-lg-0 mr-2" method="post" action="/search" id="search" name="search">
 											<input class="form-control mr-sm-2" type="search" placeholder="Search"
 												aria-label="Search" id="search" name="search">
 											<button class="btn btn-outline-success my-2 my-sm-0"
-												type="submit">Search</button>
+												type="submit
+												">Search</button>
 										</form>
 									</li>
+									
 								</ul>
 								<ul class="navbar_user">
 									{{#if isAuthenticated}}
@@ -305,6 +307,21 @@
 		})
 	</script>
 	{{/if}}
+	{{!-- <script>
+		$(document).on("keyup", "#search",function(){
+			var data = $(this).val();
+			$.ajax({
+				async: false,
+				type: "post",
+				url: "../search",
+				contentType : "application/x-www-form-urlencoded",
+				dataType: "html"
+				data: {data:data},
+			})
+		})
+
+	</script> --}}
+
 </body>
 
 </html>
