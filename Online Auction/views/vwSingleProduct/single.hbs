@@ -47,7 +47,8 @@
 								<div class="single_product_image">
 									<div class="single_product_image_background">
 										{{!-- style="background-image:url(/{{ProductID}}/main_thumbs.png" )"></div> --}}
-										<img src="/{{ProductID}}/1_main.png" alt="{{ProductName}}"
+										{{!-- <img src="/{{ProductID}}/1_main.png" alt="{{ProductName}}" --}}
+											<img src="/{{ProductID}}/main_thumbs.png" alt="{{ProductName}}"
 											title="{{ProductName}}"></div>
 											
 								</div>
@@ -156,9 +157,15 @@
 
 						</div>
 						{{#if authUser.UserID}}
-						<div id="AutoBid">
-							<button id="btnAutoBid" class="btn  btn-secondary mt-5">AUTOMATIC BIDDING</button>
-						</div>
+						<form id="AutoBid" method="POST">
+							<input type="hidden" id="keyauto" value="autobid" name="key">
+							<input type="hidden" id="PriceAuto" value="-1" name="Price">	
+						</form>
+						<button id="btnAutoBid"  class="btn  btn-secondary mt-5">AUTOMATIC BIDDING
+								{{#if this.autoBidPrice}}
+						<span id="autoPrice">:{{this.autoBidPrice}}</span>
+						{{/if}}
+							</button>
 						{{/if}}
 					</div>
 				</div>

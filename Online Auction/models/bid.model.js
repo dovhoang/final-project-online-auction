@@ -15,7 +15,8 @@ module.exports = {
     ProductID=${proID}) as isBlocked`),
   fAutoBid: (proID, userID, price) => db.load(` SELECT fAutoBid(${proID}, ${userID}, ${price}) AS autoBid`),
   add: entity => db.add('Bid', entity),
-
+  MaxPrice: (proID, userID)  => db.load(`Select Price from AutoBid where ProductID=${proID} and UserID=${userID}
+    order by Price desc limit 1`),
   patch: (entity, bidid) => {
     const condition = { BidID: bidid };
     return db.patch('Bid', entity, condition);

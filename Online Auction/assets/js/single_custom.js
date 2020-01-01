@@ -453,42 +453,9 @@ $('#btnAutoBid').on('click', function (event) {
 		showLoaderOnConfirm: true
 	}).then((result) => {
 		if (result.value) {
-			const tmpid = window.location.pathname.split('product/id=')[1];
-			var data = {
-				key: 'autobid',
-				Price:result.value
-			};
-			$.ajax({
-				url: 'http://localhost:3000/product/id=' + tmpid,
-				data: data,
-				method: 'POST'
-			}).then(function (response) {
-				if (response === 1) {
-					Swal.fire(
-						'Success!',
-						'',
-						'success'
-					)
-				}
-				else {
-					Swal.fire(
-						'Faild!',
-						'Try again!!!',
-						'error'
-					)
-				}
-			}).catch(function (err) {
-				Swal.fire(
-					'Faild!',
-					'Try again!!!',
-					'error'
-				)
-				console.error(err);
-			});
-
-		}
-		else {
-
+				$('#PriceAuto').val(result.value);
+				alert($('#PriceAuto').val());
+				$('#AutoBid').submit();
 		}
 	})
 });
