@@ -3,6 +3,16 @@ const config = require('../config/default.json');
 
 module.exports = {
   all: () => db.load('select * from Product'),
+  allBySellerID: sellerid => {
+    const sql = `SELECT * FROM Product WHERE SellerID = ${sellerid}`;
+    return db.load(sql);
+  },
+  singleByProID: async proid => {
+    const product = await db.load1(`Product`, { ProductID: proid })
+    if (product.length === 0)
+      return null;
+    return product[0];
+  },
   allWithBidInfo: _ => db.load(`
   SELECT p3.ProductID, p3.ProductName, p3.PriceStart,p3.PricePurchase,
   p3.TimeExp, p3.NumBid,p3.CurrentWinner, p3.TimePost, concat(u.FirstName," ", u.LastName) as WinnerName
@@ -54,7 +64,7 @@ module.exports = {
   LEFT JOIN Users u
   ON u.UserID = p3.CurrentWinner`
   ),
-  getCategoryNameById: async id =>{
+  getCategoryNameById: async id => {
     const rows = await db.load(`select CatName from Categories where CatID = ${id}`)
     return rows[0].CatName;
   },
@@ -78,7 +88,7 @@ module.exports = {
 
   delInFav: (pid, uid) => db.load(`delete from Favorite where ProductID=${pid} and UserID=${uid}`),
   patch: entity => {
-    const condition = { ProID: entity.ProID };
+    const condition = { ProductID: entity.ProID };
     delete entity.ProID;
     return db.patch('Product', entity, condition);
   }

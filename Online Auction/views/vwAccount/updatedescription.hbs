@@ -1,0 +1,81 @@
+{{#section 'js'}}
+<script
+    src="https://cdn.tiny.cloud/1/9cgh18vp67j80gds5dkronb8wp8jhoebshn09lnmwgc3oidl/tinymce/5/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        selector: '#Description',
+        height: 600,
+        plugins: 'paste image link autolink lists table media',
+        menubar: false,
+        toolbar: [
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright',
+            'forecolor backcolor',
+            'table link image media',
+        ],
+    });
+</script>
+{{!-- <script>
+    function validate() {
+        var result = true;
+        //Lấy ra trường ProductName,PriceStart,PriceStep
+        const description = $('#Description').val();
+        //Kiểm tra các trường có trống không
+        if (description === '') {
+            $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Please fill in all fields</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".abcdef");
+            result = false;
+        }
+        return result;
+    }
+</script> --}}
+
+{{/section}}
+
+<div class="container">
+    <div class="card shadow mb-4" id="register">
+        <h3 class="card-header">
+            <i class="fa fa-edit text-danger"></i> Update description of {{product.ProductName}}
+        </h3>
+        <div class="card-body">
+            {{#if success_msg}}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{success_msg}}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+            <form onsubmit="return true;" method="POST" action="/account/{{product.ProductID}}/update" id="frmUpdateDescription"
+                name="frmUpdateDescription">
+                {{!-- Description --}}
+                <div class="row abcdef">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="Description" class="chulon">
+                                <i class="fa fa-info-circle"></i>
+                                Description
+                                <i class="fa fa-star text-danger"></i>
+                            </label>
+                            <textarea class="form-control" name="Description" id="Description"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-info mt-1 mb-1 indam" href="/account/allpostproduct" role="button">
+                    <i class="fa fa-backward" aria-hidden="true"></i>
+                    Post products
+                </a>
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-plus-square text-danger" aria-hidden="true"></i>
+                    Append
+                </button>
+            </form>
+        </div>
+        <div class="card-footer text-muted">
+            Footer
+        </div>
+    </div>
+</div>

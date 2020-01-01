@@ -1,0 +1,194 @@
+{{#if_eq authUser.Type 0}}
+{{#section 'js'}}
+<script>
+    $(`#frmRequest`).submit(function (e) {
+        e.preventDefault();
+        Swal.fire({
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Agree',
+            text: 'Sending request...',
+            timer: 6000,
+            timerProgressBar: true
+        });
+        this.submit();
+    });
+</script>
+{{/section}}
+{{/if_eq}}
+
+
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="card shadow" id="a">
+                <h4 class="card-header text-danger">
+                    <i class="fa fa-eye"></i>
+                    Views
+                </h4>
+                <div class="list-group list-group-flush">
+                    <a href="/account/profile" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-id-card text-info" aria-hidden="true"></i>
+                        Profile
+                    </a>
+
+                    <a href="/account/auctionproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-gavel text-success" aria-hidden="true"></i>
+                        Bidding List
+                    </a>
+
+                    <a href="/account/wonproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
+                        Won List
+                    </a>
+
+                    <a href="/account/favorite" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-heart text-danger" aria-hidden="true"></i>
+                        Watch List
+                    </a>
+                    <a href="/account/postproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-plus-square text-danger" aria-hidden="true"></i>
+                        Post a auction product
+                    </a>
+
+                    <a href="/account/allpostproduct" class="list-group-item list-group-item-action active indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-gavel text-dark" aria-hidden="true"></i>
+                        Post products
+                    </a>
+
+                    <a href="/account/allfinishpostproduct" class="list-group-item list-group-item-action indam hover"
+                        style="font-size: 18px;">
+                        <i class="fa fa-trophy text-warning" aria-hidden="true"></i>
+                        Post products have a winner
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="card shadow mb-4" id="register">
+                <h3 class="card-header text-danger">
+                    <i class="fa fa-upload"></i> All ur post products
+                </h3>
+                <div class="card-body">
+                    {{#if success_msg}}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{success_msg}}</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {{/if}}
+                    <div class="row profile_line1 bg-dark text-light">
+                        <div class="col-lg-2 indam chulon text-danger">
+                            #
+                        </div>
+                        <div class="col-lg-3 indam chulon">
+                            <i class="fa fa-font text-info"></i>
+                            Product name
+                        </div>
+                        <div class="col-lg-2 indam chulon">
+                            <i class="fa fa-cubes text-warning"></i>
+                            Category
+                        </div>
+                    </div>
+                    {{#each products}}
+
+
+                    <div class="row profile_line">
+                        <div class="col-lg-2 mt-1 mb-1 chulon">
+                            {{ProductID}}
+                        </div>
+                        <div class="col-lg-3 mt-1 mb-1 indam chulon" id="username{{UserID}}">
+                            {{ProductName}}
+                        </div>
+                        <div class="col-lg-2 mt-1 mb-1 indam chulon">
+                            {{!-- <script>
+                                var namecategory = ["Technology", "Tablet", "Smartphone", "Camera", "Appliances", "Fan", "Washing Machine"
+                                    , "Refrigerator", "Microwave", "Pump", "Fashion",
+                                    "Men", "Women", "Famous brand", "Children", "Laptop"];
+                                for (var i = 1; i <= 16; i++) {
+                                    { { #if_eq CatID i } }
+                                    namecategory[i - 1];
+                                    {
+                                        {
+                                            /if_eq}}
+                                        }
+                            </script> --}}
+                            {{#if_eq CatID 1}}
+                            Technology
+                            {{/if_eq}}
+                            {{#if_eq CatID 2}}
+                            Tablet
+                            {{/if_eq}}
+                            {{#if_eq CatID 3}}
+                            Smartphone
+                            {{/if_eq}}
+                            {{#if_eq CatID 4}}
+                            Camera
+                            {{/if_eq}}
+                            {{#if_eq CatID 5}}
+                            Appliances
+                            {{/if_eq}}
+                            {{#if_eq CatID 6}}
+                            Fan
+                            {{/if_eq}}
+                            {{#if_eq CatID 7}}
+                            Washing Machine
+                            {{/if_eq}}
+                            {{#if_eq CatID 8}}
+                            Refrigerator
+                            {{/if_eq}}
+                            {{#if_eq CatID 9}}
+                            Microwave
+                            {{/if_eq}}
+                            {{#if_eq CatID 10}}
+                            Pump
+                            {{/if_eq}}
+                            {{#if_eq CatID 11}}
+                            Fashion
+                            {{/if_eq}}
+                            {{#if_eq CatID 12}}
+                            Men
+                            {{/if_eq}}
+                            {{#if_eq CatID 13}}
+                            Women
+                            {{/if_eq}}
+                            {{#if_eq CatID 14}}
+                            Famous brand
+                            {{/if_eq}}
+                            {{#if_eq CatID 15}}
+                            Children
+                            {{/if_eq}}
+                            {{#if_eq CatID 16}}
+                            Laptop
+                            {{/if_eq}}
+                        </div>
+                        <div class="col-lg-5">
+                            <a class="btn btn-warning float-right mt-1 mb-1" href="/account/{{ProductID}}/update"
+                                role="button">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Update Description
+                            </a>
+                            <a class="btn btn-info float-right mt-1 mb-1 mr-1" href="/product/id={{ProductID}}"
+                                role="button">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                Views
+                            </a>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                <div class="card-footer text-muted">
+                    Footer
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

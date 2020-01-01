@@ -1,3 +1,5 @@
+const productModel = require('../models/product.model');
+
 module.exports = {
     forUserNotSignIn: (req, res, next) => {
         if (req.session.isAuthenticated === false) {
@@ -61,5 +63,5 @@ module.exports = {
             return res.redirect('/');
         }
         next();
-    }
+    },
 }

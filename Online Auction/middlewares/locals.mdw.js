@@ -21,8 +21,6 @@ module.exports = app => {
       const allSeller = await userModel.countSeller();
       res.locals.countAllSeller = allSeller[0].totalSeller;
     }
-    // res.locals.lcCategories = rows;
-    // res.locals.otp = req.flash('otp');
     if (typeof (req.session.isAuthenticated) === 'undefined') {
       req.session.isAuthenticated = false;
     }

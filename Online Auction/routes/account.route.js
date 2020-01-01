@@ -5,6 +5,7 @@ const moment = require('moment');
 const userModel = require('../models/user.model');
 const productModel = require('../models/product.model');
 const requestUpdateModel = require('../models/requestupdate.model');
+const categoriesModel = require('../models/category.model')
 const restrict = require('../middlewares/auth.mdw');
 const nodemailer = require('nodemailer');
 const path = require('path');
@@ -682,6 +683,37 @@ router.post('/postproduct', async (req, res) => {
             });
         }
     });
+})
+
+
+router.get('/allpostproduct', restrict.forUserNotSeller, async (req, res) => {
+    const products = await productModel.allBySellerID(req.session.authUser.UserID);
+    res.render('vwAccount/allpostproduct', {
+        products
+    });
+})
+
+
+router.get('/:id/update', restrict.forUserNotSignIn, async (req, res) => {
+    const product = await productModel.singleByProID(req.params.id);
+    //Nếu sản phẩm đó không phải là do người đang đăng nhập đăng thì về home
+    if (product.SellerID !== req.session.authUser.UserID) {
+        return res.redirect('/');
+    }
+    res.render('vwAccount/updatedescription', {
+        product
+    });
+})
+
+router.post('/:id/update', async (req, res) => {
+    const product = await productModel.singleByProID(req.params.id);
+    const entity = {
+        ProID: req.params.id, Description: product.Description + "<br>" +
+            '<i class="fa fa-edit"></i> ' + moment().format('YYYY-MM-DD HH:mm:ss') + "<br>" + req.body.Description
+    };
+    const result = await productModel.patch(entity);
+    req.flash('success_msg', 'Append description success');
+    res.redirect('/account/allpostproduct');
 })
 
 module.exports = router;
