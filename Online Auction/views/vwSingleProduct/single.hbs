@@ -6,7 +6,7 @@
 		</p>
 	</div>
 	{{else}}
-	<div class="super_container">
+	<div class="super_container" style="margin-top:-30px">
 		<div class="container single_product_container">
 			<div class="row">
 				<div class="col">
@@ -29,7 +29,6 @@
 				<div class="preview col-lg-7">
 					<div class="app-figure" id="zoom-fig">
 						<div class="row">
-<<<<<<< HEAD
 							<div class="selectors col-lg-2">
 								<a data-zoom-id="Zoom-1" href="/{{ProductID}}/1_main.png"
 									data-image="/{{ProductID}}/1_main.png"
@@ -53,42 +52,6 @@
 								href="/{{ProductID}}/1_main.png" data-zoom-image-2x="/{{ProductID}}/1_main.png"
 								data-image-2x="/{{ProductID}}/1_main.png">
 								<img src="/{{ProductID}}/1_main.png" srcset="/{{ProductID}}/1_main.png 2x" />
-=======
-							<div class="col-lg-3 thumbnails_col order-lg-1 order-2">
-								<div class="single_product_thumbnails">
-									<ul>
-										<li>
-											<img src="/{{ProductID}}/1_thumbs.png" alt="{{ProductName}}"
-												title="{{ProductName}}" id="thumb1">
-										</li>
-										<li class="active">
-											<img src="/{{ProductID}}/2_thumbs.png" alt="{{ProductName}}"
-												title="{{ProductName}}" id="thumb2">
-										</li>
-										<li>
-											<img src="/{{ProductID}}/3_thumbs.png" alt="{{ProductName}}"
-												title="{{ProductName}}" id="thumb3">
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div class="col-lg-9 image_col order-lg-2 order-1">
-								<div class="single_product_image">
-									<div class="single_product_image_background">
-										{{!-- style="background-image:url(/{{ProductID}}/main_thumbs.png" )"></div> --}}
-<<<<<<< HEAD
-										{{!-- <img src="/{{ProductID}}/1_main.png" alt="{{ProductName}}" --}}
-											<img src="/{{ProductID}}/main_thumbs.png" alt="{{ProductName}}"
-											title="{{ProductName}}"></div>
-											
-=======
-										<img src="/{{ProductID}}/1_main.png" alt="{{ProductName}}"
-											title="{{ProductName}}" id="main">
-									</div>
-
->>>>>>> 37b56849c7af7801501147ae21a32c2e091fc59a
-								</div>
->>>>>>> 21378c1a1467a4cd3fba6a7371ec2a6b0220f2ec
 							</div>
 						</div>
 					</div>
@@ -98,10 +61,11 @@
 
 						<div class="product_details_title">
 							<h2 id="main_product_name">{{ProductName}}</h2>
-
-							<div id="timepostingproduct">Time post:  <span>{{TimePost}}</span></div>
-							<div id="countdowntimer">Time left: <div class="product_expiration_date timer_num time_custom_number"></div></div>
-							
+							<div id="timepostingproduct">Time post: <span>{{TimePost}}</span></div>
+							<div class="d-flex flex-row">
+								<div id="countdowntimer">Time left: </div>
+								<div class="product_expiration_date timer_num time_custom_number ml-3"></div>
+							</div>
 							<div class="time_exp" style="visibility: hidden; font-size: 1px">{{TimeExp}}</div>
 						</div>
 						{{#if PricePurchase}}
@@ -115,10 +79,7 @@
 											fa-shopping-cart"></span></button>
 							</div>
 						</div>
-						{{else}}
-						</br></br></br>
 						{{/if}}
-
 						{{/each}}
 						<div class="row">
 							<div class="col-lg-3 current_bid">Current bid:</div>
@@ -198,13 +159,13 @@
 						{{#if authUser.UserID}}
 						<form id="AutoBid" method="POST">
 							<input type="hidden" id="keyauto" value="autobid" name="key">
-							<input type="hidden" id="PriceAuto" value="-1" name="Price">	
+							<input type="hidden" id="PriceAuto" value="-1" name="Price">
 						</form>
-						<button id="btnAutoBid"  class="btn  btn-secondary mt-5">AUTOMATIC BIDDING
-								{{#if this.autoBidPrice}}
-						<span id="autoPrice">:{{this.autoBidPrice}}</span>
-						{{/if}}
-							</button>
+						<button id="btnAutoBid" class="btn  btn-secondary mt-5">AUTOMATIC BIDDING
+							{{#if this.autoBidPrice}}
+							<span id="autoPrice">:{{this.autoBidPrice}}</span>
+							{{/if}}
+						</button>
 						{{/if}}
 					</div>
 				</div>

@@ -990,11 +990,11 @@ section
 .product_details_title
 {
 	font-weight: 500px;
-	line-height: 30px;
+	line-height: 20px;
 }
 .product_details_title p
 {
-	margin-top: 12px;
+	margin-top: 0;
 }
 .free_delivery
 {
@@ -1630,8 +1630,8 @@ section
 	color: #fe4c50;
 }
 #countdowntimer{
-	font-size: 24px;
-	margin-top: 20px;
+	font-size: 18px;
+	margin-top: 10px;
 }
 #countdowntimer span{
 	color: rgb(236, 55, 55);
@@ -1668,7 +1668,7 @@ section
 	font-weight: 500;
 	color: #b9b4c7;
 	line-height: 30px;
-	margin-top: 21px;
+	margin-top: 5px;
 }
 .money_instance_purchase{
 	font-weight: 500;
