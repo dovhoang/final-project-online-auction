@@ -10,7 +10,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.theme.default.min.css">
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.theme.default.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="/styles/main_styles.css">
 	<link rel="stylesheet" type="text/css" href="/styles/responsive.css">
@@ -21,9 +22,11 @@
 	<link rel="stylesheet" type="text/css" href="/styles/opp.css">
 	<link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
-	
-	{{!-- <link rel="stylesheet" href="../../assets/styles/main_styles.css">
-	<link rel="stylesheet" href="./styles/admin.css"> --}}
+	<link href="/styles/magiczoom.css" rel="stylesheet" type="text/css" media="screen" />
+	<script src="/js/magiczoom.js" type="text/javascript"></script>
+	<link href="/styles/zoom.css" rel="stylesheet" type="text/css" media="screen" />
+	<script src="/js/zoom.js" type="text/javascript"></script>
+
 	{{{_sections.css}}}
 </head>
 
@@ -86,15 +89,15 @@
 									{{/if_eq}}
 									{{/if}}
 									<li>
-										<form  class="form-inline my-2 my-lg-0 mr-2" method="post" action="/search" id="search" name="search">
+										<form class="form-inline my-2 my-lg-0 mr-2" method="post" action="/search"
+											id="search" name="search">
 											<input class="form-control mr-sm-2" type="search" placeholder="Search"
 												aria-label="Search" id="search" name="search">
-											<button class="btn btn-outline-success my-2 my-sm-0"
-												type="submit
+											<button class="btn btn-outline-success my-2 my-sm-0" type="submit
 												">Search</button>
 										</form>
 									</li>
-									
+
 								</ul>
 								<ul class="navbar_user">
 									{{#if isAuthenticated}}
@@ -175,17 +178,15 @@
 									</div>
 									{{else}}
 
-									
+
 									<ul class="top_nav_menu d-flex flex-row btn-sign">
 										<li>
-											<a class="btn btn-outline-primary " href="/account/signin"
-												role="button">
+											<a class="btn btn-outline-primary " href="/account/signin" role="button">
 												Sign in
 											</a>
 										</li>
 										<li>
-											<a class="btn btn-outline-success " href="/account/register"
-												role="button">
+											<a class="btn btn-outline-success " href="/account/register" role="button">
 												Sign up
 											</a>
 										</li>
@@ -265,6 +266,11 @@
 	<script src="/js/custom.js"></script>
 	<script src="/js/index.js"></script>
 	<script src="/js/single_custom.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/prettify/188.0.0/prettify.min.js"></script>
+
+
 	{{{_sections.js}}}
 	{{#if signinsuccess}}
 	<script>
@@ -308,15 +314,15 @@
 	</script>
 	{{/if}}
 	{{!-- <script>
-		$(document).on("keyup", "#search",function(){
+		$(document).on("keyup", "#search", function () {
 			var data = $(this).val();
 			$.ajax({
 				async: false,
 				type: "post",
 				url: "../search",
-				contentType : "application/x-www-form-urlencoded",
+				contentType: "application/x-www-form-urlencoded",
 				dataType: "html"
-				data: {data:data},
+				data: { data: data },
 			})
 		})
 
