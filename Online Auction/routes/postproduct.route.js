@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 var multer = require('multer');
 const sharp = require('sharp');
+const moment = require('moment');
 
 var FolderName = "./pictures/";
 var storage = multer.diskStorage({
@@ -22,7 +23,7 @@ function RenameFile(filetorename, renamefile) {
 
 function SharpLargeImages(fileinput, fileoutput) {
     sharp(fileinput)
-        .resize(500, 500)
+        .resize(485, 527)
         .toFile(fileoutput, function (err) {
             if (err) console.log(err)
             else console.log("Resize success");
@@ -31,7 +32,7 @@ function SharpLargeImages(fileinput, fileoutput) {
 
 function SharpSmallImages(fileinput, fileoutput) {
     sharp(fileinput)
-        .resize(100, 100)
+        .resize(131, 131)
         .toFile(fileoutput, function (err) {
             if (err) console.log(err)
             else console.log("Resize success");

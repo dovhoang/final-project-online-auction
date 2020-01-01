@@ -1,3 +1,4 @@
+
 <div class="container">
 	{{#if this.PrdEmpty}}
 	<div class="card-body">
@@ -15,7 +16,7 @@
 					{{#each this.product}}
 					<div class="breadcrumbs d-flex flex-row align-items-center">
 						<ul>
-							<li><a href="index.html">Home</a></li>
+							<li><a href="/">Home</a></li>
 							<li><a href="categories.html"><i class="fa fa-angle-right"
 										aria-hidden="true"></i>{{CatName}}</a></li>
 							<li class="active"><a href="#"><i class="fa fa-angle-right"
@@ -34,12 +35,18 @@
 							<div class="col-lg-3 thumbnails_col order-lg-1 order-2">
 								<div class="single_product_thumbnails">
 									<ul>
-										<li><img src="/{{ProductID}}/1_thumbs.png" alt="{{ProductName}}"
-												title="{{ProductName}}"></li>
-										<li class="active"><img src="/{{ProductID}}/2_thumbs.png" alt="{{ProductName}}"
-												title="{{ProductName}}"></li>
-										<li><img src="/{{ProductID}}/3_thumbs.png" alt="{{ProductName}}"
-												title="{{ProductName}}"></li>
+										<li>
+											<img src="/{{ProductID}}/1_thumbs.png" alt="{{ProductName}}"
+												title="{{ProductName}}" id="thumb1">
+										</li>
+										<li class="active">
+											<img src="/{{ProductID}}/2_thumbs.png" alt="{{ProductName}}"
+												title="{{ProductName}}" id="thumb2">
+										</li>
+										<li>
+											<img src="/{{ProductID}}/3_thumbs.png" alt="{{ProductName}}"
+												title="{{ProductName}}" id="thumb3">
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -48,8 +55,9 @@
 									<div class="single_product_image_background">
 										{{!-- style="background-image:url(/{{ProductID}}/main_thumbs.png" )"></div> --}}
 										<img src="/{{ProductID}}/1_main.png" alt="{{ProductName}}"
-											title="{{ProductName}}"></div>
-											
+											title="{{ProductName}}" id="main">
+									</div>
+
 								</div>
 							</div>
 						</div>
