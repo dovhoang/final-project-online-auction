@@ -436,6 +436,30 @@ jQuery(document).ready(function($)
     	}
 	}
 	
+	/* 
+  9. custom
+  */
+ var isClick1 = 0;
+ var isClick2 = 0;
+ $('#btnLike').on('click', function () {
+	 if (isClick1 == 0) {
+		 if (isClick2==1) $('#numDislike').text(parseInt($('#numDislike').text()) - 1);
+		 $('#numLike').text(parseInt($('#numLike').text()) + 1);
+		 $("#btnLike").removeClass("btn btn-light").addClass("btn btn-info");
+		 $("#btnDislike").removeClass("btn btn-info").addClass("btn btn-light");
+		 isClick1 = 1;isClick2 = 0;
+	 }
+ });
+ $('#btnDislike').on('click', function () {
+	 if (isClick2 == 0) {
+		 if (isClick1==1) $('#numLike').text(parseInt($('#numLike').text()) - 1);
+		 $('#numDislike').text(parseInt($('#numDislike').text()) + 1);
+		 $("#btnDislike").removeClass("btn btn-light").addClass("btn btn-info");
+		 $("#btnLike").removeClass("btn btn-info").addClass("btn btn-light");
+		 isClick2 = 1;isClick1 = 0;
+
+	 }
+ });
 
 	
 });

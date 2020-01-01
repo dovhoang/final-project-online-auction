@@ -1,0 +1,22 @@
+.nameReviewer
+{
+	font-size: 16px;
+	font-weight: 500;
+}
+.reviewDate
+{
+    margin-bottom: 10px;;
+}
+.rev{
+    width: 900px;
+	font-size: 20px;
+	font-weight: 700;
+}
+.formRv
+{
+    display: flex;
+    justify-content:space-between;
+}
+.btnRv{
+    font-size: 50px;
+}
