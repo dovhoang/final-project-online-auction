@@ -1,6 +1,8 @@
 const express = require('express');
 const productModel = require('../models/product.model');
 const bidModel = require('../models/bid.model');
+const userModel = require('../models/user.model');
+const nodemailer = require('nodemailer');
 const router = express.Router();
 
 
@@ -19,10 +21,10 @@ router.get('/id=:id', async (req, res) => {
     bidModel.MaxPrice(proid, userTmp)
   ]);
   var reviewLength = 0, isWinner = false, MaxPrice_AutoBid = null;
-  var curPrice=0;
+  var curPrice = 0;
   if (req.session.isAuthenticated && cwi[0].length != 0) {
     isWinner = (cwi[0][0].userID === req.session.authUser.UserID);
-    curPrice=cwi[0][0].CurrentBid;
+    curPrice = cwi[0][0].CurrentBid;
   }
   if (mp.length != 0) {
     if (req.session.isAuthenticated && mp[0].Price > curPrice) {
@@ -51,6 +53,49 @@ router.post('/id=:id', async (req, res) => {
     delete req.body.key;
     if (req.session.isAuthenticated && 1 == 1) {
       const status = await bidModel.fAuction(req.params.id, req.session.authUser.UserID, req.body.Price);
+      //Nếu đấu giá thành công
+      if (status[0].Auction === 1) {
+        //Tìm tên sản phẩm và thằng seller
+        const product = await productModel.singleByProID(req.params.id);
+        //Tìm ra email của thằng seller
+        const user1 = await userModel.singleByUserID(product.SellerID);
+        //Gửi mail
+        var transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          port: 465,
+          secure: true,
+          service: 'gmail',
+          auth: {
+            user: 'hiendeptraiso1thegioi@gmail.com',
+            pass: 'hiendeptraiqua'
+          }
+        });
+        //Gửi người ra giá
+        var mailOptions1 = {
+          from: 'hiendeptraiso1thegioi@gmail.com',
+          to: req.session.authUser.Email,
+          subject: 'Auction product',
+          text: 'You recieved message from ' + req.body.email,
+          html: `<b>Bid successfully on product ` + product.ProductName + `</b>`
+        }
+        transporter.sendMail(mailOptions1, (err, info) => {
+          if (err) console.log(err);
+          else console.log('Message sent: ' + info.response);
+        });
+        //Gửi thằng seller
+        var mailOptions2 = {
+          from: 'hiendeptraiso1thegioi@gmail.com',
+          to: user1.Email,
+          subject: 'Auction product',
+          text: 'You recieved message from ' + req.body.email,
+          html: `<b>` + req.session.authUser.Username + ` bid successfully on your ` + product.ProductName + ` product</b>`
+        }
+        transporter.sendMail(mailOptions2, (err, info) => {
+          if (err) console.log(err);
+          else console.log('Message sent: ' + info.response);
+        });
+      }
+
     }
     return res.redirect('back');
   }
@@ -80,7 +125,7 @@ router.post('/id=:id', async (req, res) => {
   if (req.body.key === 'autobid') {
     delete req.body.key;
     if (req.session.isAuthenticated) {
-       await bidModel.fAutoBid(req.params.id, req.session.authUser.UserID, req.body.Price);
+      await bidModel.fAutoBid(req.params.id, req.session.authUser.UserID, req.body.Price);
     }
     return res.redirect('back');
   }

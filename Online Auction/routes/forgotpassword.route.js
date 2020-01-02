@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userModel = require('../models/user.model');
 const restrict = require('../middlewares/auth.mdw');
+const nodemailer = require('nodemailer');
 
 //Forgot password
 router.get('/', restrict.forUserSignIn, (req, res) => {
