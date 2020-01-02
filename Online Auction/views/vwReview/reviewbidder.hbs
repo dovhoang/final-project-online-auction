@@ -1,20 +1,28 @@
- <div id="wrapper">
+<div id="wrapper">
+    
     <div class="my_profile row mb-5">
         <div class="col text-center">
             <div class="section_title new_arrivals_title">
                 <h4>BIDDER INFO</h4>
-                <button id="btnLike" class="btn btn-light">
-                    <i class="fa fa-thumbs-up"></i>
-                    <span id="numLike">8</span>
-                </button>
-                <button id="btnDislike" class="btn btn-light">
-                    <i class="fa fa-thumbs-down"></i>
-                    <span id="numDislike">2</span>
-                </button>
+                {{#each this.sellerInfo}}
+                 <a href="#btnLike">
+                    <button class="btn btn-light">
+                        <i class="fa fa-thumbs-up"></i>
+                        <span>{{RatingUp}}</span>
+                    </button>
+                </a>
+                <a href="#btnLike">
+                    <button class="btn btn-light">
+                        <i class="fa fa-thumbs-down"></i>
+                        <span>{{RatingDown}}</span>
+                    </button>
+                </a>
+                    {{/each}}
             </div>
         </div>
     </div>
-    <div class="card mb-3" style="max-width: 340px;">
+    {{#each this.sellerInfo}}
+    <div class="card mb-3" style="max-width: 500px;">
         <div class="row no-gutters">
             <div class="col-md-8">
                 <div class="card-body">
@@ -27,6 +35,7 @@
             </div>
         </div>
     </div>
+    {{/each}}
     <div class="row">
         <div class="col text-center">
             <div class="section_title new_arrivals_title">
@@ -35,53 +44,58 @@
             </div>
         </div>
     </div>
-    <div class="card mb-3" style="max-width: 1000px;">
+    <div class="card mb-3" style="max-width: 1100px;">
         <div class="row no-gutters">
             <div class="col-md-12">
                 <div class="card-body">
+                    {{#each this.review}}
                     <span class="row">
-                        <div class="col-lg-1 btnRv"><i class="fa fa-thumbs-up"></i></div>
+                        <div class="col-lg-1 btnRv">
+                            {{#if Rate}}
+                            <i class="fa fa-thumbs-up"></i></div>
+                            {{else}}
+                             <i class="fa fa-thumbs-down"></i></div>
+                            {{/if}}
                         <div class="user_review_container d-flex flex-column
                             flex-sm-row col-lg-11">
                             <div class="review">
-                                <div class="rev">Lorem ipsum
-                                    dolor sit amet, consectetur adipisicing
-                                    elit. Nesciunt quisquam magni mollitia
-                                    impedit. Illum reprehenderit quam harum qui
-                                    debitis perspiciatis accusamus, quisquam vel
-                                    corporis quos est voluptatibus corrupti,
-                                    reiciendis velit.</div>
-                                <div class="nameReviewer">Name: hieuho</div>
-                                <p class="reviewDate">Date: 02/01/2020 01:08:05</p>
+                                <div class="rev">{{Comment}}</div>
+                                <div class="nameReviewer">Name: {{nameBidder}}</div>
+                                <p class="reviewDate">Date: {{Time}}</p>
                             </div>
                         </div>
                     </span>
-                     <span class="row">
-                        <div class="col-lg-1 btnRv"><i class="fa fa-thumbs-down"></i></div>
-                        <div class="user_review_container d-flex flex-column
-                            flex-sm-row col-lg-11">
-                            <div class="review">
-                                <div class="rev">Lorem ipsum
-                                    dolor sit amet, consectetur adipisicing
-                                    elit. Nesciunt quisquam magni mollitia
-                                    impedit. Illum reprehenderit quam harum qui
-                                    debitis perspiciatis accusamus, quisquam vel
-                                    corporis quos est voluptatibus corrupti,
-                                    reiciendis velit.</div>
-                                <div class="nameReviewer">Name: hieuho</div>
-                                <p class="reviewDate">Date: 02/01/2020 01:08:05</p>
-                            </div>
-                        </div>
-                    </span>
+                    {{/each}}
                 </div>
             </div>
         </div>
-        <p class="formRv">
-            <input type="text" name="content" id="content" class="form-control"
-                value="" placeholder="...">
-            <button type="button" class="btn btn-primary btn-add-question">
-                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+         {{#if isAllowed}}
+             {{#each this.sellerInfo}}
+             <div>
+            <button id="btnLike" class="btn btn-light">
+                <i class="fa fa-thumbs-up"></i>
+                <span id="numLike">{{RatingUp}}</span>
             </button>
-        </p>
+            <button id="btnDislike" class="btn btn-light">
+                <i class="fa fa-thumbs-down"></i>
+                <span id="numDislike">{{RatingDown}}</span>
+            </button>
+            </div>
+            {{/each}}
+        <form method="POST">
+            <p class="formRv">
+                <input type="text" id="content"
+                    class="form-control"
+                    value="" placeholder="..." name="Comment">
+                    <input id="rate" type="hidden" value="-1" name="Rate">
+                <button type="submit" type="button" class="btn btn-primary
+                    btn-add-question">
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </button>
+            </p>
+        </form>
+        {{/if}}
     </div>
 </div>
+
+
