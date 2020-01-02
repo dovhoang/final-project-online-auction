@@ -61,17 +61,20 @@
                     <div class="row">
                         <div class="col-lg-4 indam text-light mt-1 mb-1 bg-dark
                             chulon pt-10 pb-10" style="padding-top:10px;padding-bottom:10px">
+                            <i class="fa fa-font text-primary"></i>
                             Product Name
+                        </div>
+                        <div class="col-lg-2 indam text-light mt-1 mb-1 bg-dark
+                            chulon" style="padding-top:10px;padding-bottom:10px">
+                            <i class="fa fa-money text-success"></i>
+                            Price
                         </div>
                         <div class="col-lg-3 indam text-light mt-1 mb-1 bg-dark
                             chulon" style="padding-top:10px;padding-bottom:10px">
-                            Price
-                        </div>
-                        <div class="col-lg-4 indam text-light mt-1 mb-1 bg-dark
-                            chulon" style="padding-top:10px;padding-bottom:10px">
+                            <i class="fa fa-clock-o text-danger"></i>
                             Time
                         </div>
-                        <div class="col-lg-1 indam text-light mt-1 mb-1 bg-dark
+                        <div class="col-lg-3 indam text-light mt-1 mb-1 bg-dark
                             chulon" style="padding-top:10px">
 
                         </div>
@@ -79,25 +82,22 @@
 
                     {{#each this.list}}
                     <div class="row profile_line">
-                        <div class="col-lg-4 indam text-dark mt-1 mb-1">
+                        <div class="col-lg-4 indam text-dark mt-1 mb-1 chulon">
                             <a href="/product/id={{ProductID}}"> {{ProductName}}</a>
                         </div>
-                        <div class="col-lg-2 indam text-dark mt-1 mb-1">
+                        <div class="col-lg-2 indam text-dark mt-1 mb-1 chulon">
                             {{Price}}
                         </div>
-                        <div class="col-lg-3 indam text-dark mt-1 mb-1">
+                        <div class="col-lg-3 indam text-dark mt-1 mb-1 chulon">
                             {{Time}}
                         </div>
-                        <div class="col-lg-2 indam text-dark mt-1 mb-1">
-                                <a href="#linkSeller">rate seller</a>
-                        </div>
-                        <div class="col-lg-1">
+                        <div class="col-lg-3 indam text-dark mt-1 mb-1 chulon">
                             <a class="btn btn-primary float-right mt-1
-                                mb-1" href="/product/id={{ProductID}}" role="button">
+                                mb-1 chulon" href="/product/id={{ProductID}}" role="button">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
+                            <a href="#linkSeller">rate seller</a>
                         </div>
-
                     </div>
                     {{/each}}
 

@@ -13,6 +13,7 @@ router.get('/', restrict.forUserNotSignIn, restrict.forAdmin, async (req, res) =
 });
 router.post('/', async (req, res) => {
     await productModel.delInFav(req.body.ProductID, req.session.authUser.UserID);
+    req.flash('success_msg', 'Remove product success');
     res.redirect('back');
 });
 
