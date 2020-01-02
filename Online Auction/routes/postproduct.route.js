@@ -23,7 +23,7 @@ function RenameFile(filetorename, renamefile) {
 
 function SharpLargeImages(fileinput, fileoutput) {
     sharp(fileinput)
-        .resize(485, 527)
+        .resize(500, 500)
         .toFile(fileoutput, function (err) {
             if (err) console.log(err)
             else console.log("Resize success");
@@ -32,7 +32,7 @@ function SharpLargeImages(fileinput, fileoutput) {
 
 function SharpSmallImages(fileinput, fileoutput) {
     sharp(fileinput)
-        .resize(131, 131)
+        .resize(132, 132)
         .toFile(fileoutput, function (err) {
             if (err) console.log(err)
             else console.log("Resize success");
