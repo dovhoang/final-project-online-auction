@@ -8,13 +8,19 @@ module.exports = {
       group by c.CatID, c.CatName, p.CatName`;
     return db.load(sql);
     },
-    single: id => db.load(`select * from Categories where CatID = ${id}`),
-    add: entity => db.add('Categories', entity),
+    single: id => {
+      const sql = `
+        select c.CatID, c.CatName, c.ParentID, p.CatName as ParentName
+        from Categories c left join Categories p on c.ParentID = p.CatID
+        where c.CatID = ${id}
+        group by c.CatID, c.CatName, p.CatName`;
+      return db.load(sql);
+      },
+    add: (catName, parentId) => db.add('Categories', {CatName: catName, ParentID: parentId}),
     del: id => db.del('Categories', { CatID: id }),
     patch: entity => {
-      const condition = { CatID: entity.CatID };
-      delete entity.CatID;
-      return db.patch('Categories', entity, condition);
+      const condition = { CatID: entity.catID };
+      return db.patch('Categories', {CatName: entity.catName, ParentID: entity.parentId}, condition);
     },
     allWithDetails: _ => {
       const sql = `

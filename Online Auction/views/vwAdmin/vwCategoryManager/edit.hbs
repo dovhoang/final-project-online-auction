@@ -1,0 +1,78 @@
+{{#section 'js'}}
+<script>
+  function validate() {
+    const result = true;
+    const catName = $('#catName').val();
+    //Kiểm tra các trường
+    if (catName == '') {
+      $(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Please enter on category name</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>`).insertBefore(".labelParentCat");
+      return false;
+    }
+    return result;
+  }
+</script>
+{{/section}}
+<div class="cate row">
+  <div class="card shadow col-lg-4">
+    <h4 class="card-header">
+      Category
+    </h4>
+    <div class="card-body">
+      <form method="POST">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="txtCatId">Category code</label>
+          </div>
+          <div class="form-group col-md-6">
+            <input type="text" class="form-control" id="txtCatId" name="catID" readonly value="{{this.category.CatID}}"
+              style="text-align: right;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="txtCatName">Category name</label>
+          <input type="text" class="form-control" id="txtCatName" name="catName" placeholder="Enter category name"
+            autofocus value="{{oldcatname}}">
+          {{#if correct}}
+          {{else}}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Category name already exists!</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {{/if}}
+          <label for="parentName" class="labelParentCat mt-3">Select parent</label>
+          <select id="parentName" name="parentId" class="custom-select custom-select-sm">
+            <option value="0" {{#if_eq oldparentid 0}} selected {{/if_eq}}>--Parent category--</option>
+            {{#each this.parentName}}
+            <option value="{{CatID}}" {{#if_eq ../oldparentid CatID}} selected {{/if_eq}}>{{CatName}}
+            </option>
+            {{/each}}
+          </select>
+        </div>
+        <div class="d-flex justify-content-between">
+          <a class="btn btn-outline-primary" href="/admin/categories" role="button">
+            <i class="fa fa-backward" aria-hidden="true"></i>
+            &nbspBack to list
+          </a>
+          <button type="submit" class="btn btn-outline-success" formaction="/admin/categories/patch">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            &nbspSave
+          </button>
+          <button type="submit" class="btn btn-outline-danger" formaction="/admin/categories/del">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+            &nbspDelete
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer text-muted">
+      Footer
+    </div>
+  </div>
+</div>
