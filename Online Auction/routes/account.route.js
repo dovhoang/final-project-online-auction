@@ -6,6 +6,7 @@ const userModel = require('../models/user.model');
 const requestUpdateModel = require('../models/requestupdate.model');
 const restrict = require('../middlewares/auth.mdw');
 const nodemailer = require('nodemailer');
+const request = require('request');
 
 //Register
 router.get('/register', restrict.forUserSignIn, async (req, res) => {
@@ -14,12 +15,33 @@ router.get('/register', restrict.forUserSignIn, async (req, res) => {
 
 
 router.post('/register', async (req, res) => {
+    let error = [];
+    //Kiểm tra captcha
+    if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+        return res.render('vwAccount/register', {
+            error_msg: "Please select captcha"
+        });
+    }
+    const secretKey = "6LdiUsgUAAAAAGMzB2NaH25P6HidWvJR9XHW_7kz";
+
+    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+
+    request(verificationURL, function (error, response, body) {
+        body = JSON.parse(body);
+
+        if (body.success !== undefined && !body.success) {
+            return res.render('vwAccount/register', {
+                error_msg: "Failed captcha verification"
+            });
+        }
+    });
+    //Chạy được xuống đây là captcha thành công
     //Kiểm tra trong db đã có user có username trùng không
     const [checkusername, checkemail] = await Promise.all([
         userModel.singleByUsername(req.body.user_name),
         userModel.singleByEmail(req.body.user_email)
     ]);
-    let error = [];
+
     if (checkusername != null)
         error.push({ msg: 'Username is already registered' });
     if (checkemail != null)
