@@ -444,6 +444,7 @@ jQuery(document).ready(function($)
  $('#btnLike').on('click', function () {
 	 if (isClick1 == 0) {
 		 if (isClick2==1) $('#numDislike').text(parseInt($('#numDislike').text()) - 1);
+		 $('#rate').val(1);
 		 $('#numLike').text(parseInt($('#numLike').text()) + 1);
 		 $("#btnLike").removeClass("btn btn-light").addClass("btn btn-info");
 		 $("#btnDislike").removeClass("btn btn-info").addClass("btn btn-light");
@@ -453,6 +454,7 @@ jQuery(document).ready(function($)
  $('#btnDislike').on('click', function () {
 	 if (isClick2 == 0) {
 		 if (isClick1==1) $('#numLike').text(parseInt($('#numLike').text()) - 1);
+		 $('#rate').val(0);
 		 $('#numDislike').text(parseInt($('#numDislike').text()) + 1);
 		 $("#btnDislike").removeClass("btn btn-light").addClass("btn btn-info");
 		 $("#btnLike").removeClass("btn btn-info").addClass("btn btn-light");
@@ -460,6 +462,6 @@ jQuery(document).ready(function($)
 
 	 }
  });
-
-	
+ 
+ 
 });
