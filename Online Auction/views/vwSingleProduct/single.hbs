@@ -31,27 +31,22 @@
 						<div class="row">
 							<div class="selectors col-lg-2">
 								<a data-zoom-id="Zoom-1" href="/{{ProductID}}/1_main.png"
-									data-image="/{{ProductID}}/1_main.png"
-									data-zoom-image-2x="/{{ProductID}}/1_main.png">
-									<img srcset="/{{ProductID}}/1_thumb.png 2x" src="/{{ProductID}}/1_main.png" />
+									data-image="/{{ProductID}}/1_main.png">
+									<img  src="/{{ProductID}}/1_thumb.png" />
 								</a>
 								<a data-zoom-id="Zoom-1" href="/{{ProductID}}/2_main.png"
-									data-image="/{{ProductID}}/2_main.png"
-									data-zoom-image-2x="/{{ProductID}}/2_main.png">
-									<img srcset="/{{ProductID}}/2_thumb.png 2x" src="/{{ProductID}}/2_thumb.png" />
+									data-image="/{{ProductID}}/2_main.png">
+									<img  src="/{{ProductID}}/2_thumb.png" />
 								</a>
 								<a data-zoom-id="Zoom-1" href="/{{ProductID}}/3_main.png"
-									data-image="/{{ProductID}}/3_main.png"
-									data-zoom-image-2x="/{{ProductID}}/3_main.png">
-									<img srcset="/{{ProductID}}/3_thumb.png 2x" src="/{{ProductID}}/3_thumb.png" />
+									data-image="/{{ProductID}}/3_main.png">
+									<img  src="/{{ProductID}}/3_thumb.png" />
 								</a>
-
 							</div>
 							<div id="Zoom-1" class="MagicZoom col-lg-10"
-								title="Show your product in stunning detail with Magic Zoom Plus."
-								href="/{{ProductID}}/1_main.png" data-zoom-image-2x="/{{ProductID}}/1_main.png"
-								data-image-2x="/{{ProductID}}/1_main.png">
-								<img src="/{{ProductID}}/1_main.png" srcset="/{{ProductID}}/1_main.png 2x" />
+								href="/{{ProductID}}/1_main.png" class="MagicZoom " 
+									data-options="zoomPosition: inner;zoomMode: magnifier;zoomWidth:50%; zoomHeight:50%">
+								<img src="/{{ProductID}}/1_main.png"/>
 							</div>
 						</div>
 					</div>
@@ -362,7 +357,7 @@
 								<div class="product-item m-1">
 									<div class="product discount product_filter ">
 										<div class="product_image">
-											<img class="rounded mx-auto d-block" src="/{{ProductID}}/main_thumbs.png"
+											<img class="rounded mx-auto d-block" src="/{{ProductID}}/1_main.png"
 												alt="{{ProductName}}" title="{{ProductName}}">
 										</div>
 										{{#if PricePurchase}}
