@@ -2,7 +2,7 @@ const express = require('express');
 const productModel = require('../models/product.model');
 const bidModel = require('../models/bid.model');
 const userModel = require('../models/user.model');
-const nodemailer = require('nodemailer');
+const helper = require('../helper/helper');
 const router = express.Router();
 
 
@@ -60,40 +60,15 @@ router.post('/id=:id', async (req, res) => {
         //Tìm ra email của thằng seller
         const user1 = await userModel.singleByUserID(product.SellerID);
         //Gửi mail
-        var transporter = nodemailer.createTransport({
-          host: 'smtp.gmail.com',
-          port: 465,
-          secure: true,
-          service: 'gmail',
-          auth: {
-            user: 'hiendeptraiso1thegioi@gmail.com',
-            pass: 'hiendeptraiqua'
-          }
-        });
-        //Gửi người ra giá
-        var mailOptions1 = {
-          from: 'hiendeptraiso1thegioi@gmail.com',
-          to: req.session.authUser.Email,
-          subject: 'Auction product',
-          text: 'You recieved message from ' + req.body.email,
-          html: `<b>Bid successfully on product ` + product.ProductName + `</b>`
-        }
-        transporter.sendMail(mailOptions1, (err, info) => {
-          if (err) console.log(err);
-          else console.log('Message sent: ' + info.response);
-        });
-        //Gửi thằng seller
-        var mailOptions2 = {
-          from: 'hiendeptraiso1thegioi@gmail.com',
-          to: user1.Email,
-          subject: 'Auction product',
-          text: 'You recieved message from ' + req.body.email,
-          html: `<b>` + req.session.authUser.Username + ` bid successfully on your ` + product.ProductName + ` product</b>`
-        }
-        transporter.sendMail(mailOptions2, (err, info) => {
-          if (err) console.log(err);
-          else console.log('Message sent: ' + info.response);
-        });
+        const result1 = helper.sendMail(req.session.authUser.Email, 'Auction product',
+          `<b>Bid successfully on product ` + product.ProductName + `</b>`);
+        if (result1 === false) console.log("Lỗi send email");
+        else console.log("Send mail thành công");
+
+        const result2 = helper.sendMail(user1.Email, 'Auction product',
+          `<b>` + req.session.authUser.Username + ` bid successfully on your ` + product.ProductName + ` product</b>`);
+        if (result2 === false) console.log("Lỗi send email");
+        else console.log("Send mail thành công");
       }
 
     }

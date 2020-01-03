@@ -5,8 +5,8 @@ const moment = require('moment');
 const userModel = require('../models/user.model');
 const requestUpdateModel = require('../models/requestupdate.model');
 const restrict = require('../middlewares/auth.mdw');
-const nodemailer = require('nodemailer');
 const request = require('request');
+const helper = require('../helper/helper');
 
 //Register
 router.get('/register', restrict.forUserSignIn, async (req, res) => {
@@ -56,35 +56,17 @@ router.post('/register', async (req, res) => {
     } else {//Nếu không có lỗi
         const otp = Math.floor(Math.random() * 1001);
         //Gửi email xác nhận
-        var transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 465,
-            secure: true,
-            service: 'gmail',
-            auth: {
-                user: 'hiendeptraiso1thegioi@gmail.com',
-                pass: 'hiendeptraiqua'
-            }
-        });
-        var mailOptions = {
-            from: 'hiendeptraiso1thegioi@gmail.com',
-            to: req.body.user_email,
-            subject: 'OTP Code',
-            text: 'You recieved message from ' + req.body.user_email,
-            html: `<b>Your OTP is: ${otp}</b>`
+        const result = helper.sendMail(req.body.user_email, 'OTP Code', `<b>Your OTP is: ${otp}</b>`);
+        //Nếu gửi mail lỗi
+        if (result === false) {
+            return res.render('vwAccount/register');
+        } else { // Nếu gửi mail ok
+            req.session.info = req.body;
+            req.session.OTP = otp;
+            req.flash('success_msg', 'Please check your email and verify by OTP');
+            // req.flash('otp', otp);
+            return res.redirect('/account/verify');
         }
-        transporter.sendMail(mailOptions, (err, info) => {
-            if (err) {
-                console.log(err);
-                return res.render('vwAccount/register');
-            } else {
-                req.session.info = req.body;
-                req.session.OTP = otp;
-                req.flash('success_msg', 'Please check your email and verify by OTP');
-                // req.flash('otp', otp);
-                return res.redirect('/account/verify');
-            }
-        });
     }
 });
 
@@ -118,7 +100,8 @@ router.post('/verify', async (req, res) => {
         delete info.user_email;
         delete info.user_dob;
         delete info.user_address;
-        //Thêm user vào bảng và render trang login
+        delete info['g-recaptcha-response'];
+        //Thêm user vào bảng và render trang login  
         const result = await userModel.add(info);
         req.session.info = null;
         req.session.OTP = null;

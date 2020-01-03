@@ -1,16 +1,18 @@
 const express = require('express');
 const categoryModel = require('../../models/category.model');
+const restrict = require('../../middlewares/auth.mdw');
 const router = express.Router();
 var correct = true;// Tên cate không bị trùng - add cate
-var correct2 =true;//Tên cate không bị trùng - edit cate
-router.get('/', async (req, res) => {
+var correct2 = true;//Tên cate không bị trùng - edit cate
+
+router.get('/', restrict.forUserNotAdmin, async (req, res) => {
   const rows = await categoryModel.all();
   res.render('vwAdmin/vwCategoryManager/index', {
     categories: rows,
     empty: rows.length === 0
   });
 });
-router.get('/add', async (req, res) => {
+router.get('/add', restrict.forUserNotAdmin, async (req, res) => {
   const parentName = await categoryModel.allCatLevel1();
   res.render('vwAdmin/vwCategoryManager/add', {
     parentName,
@@ -27,7 +29,7 @@ router.post('/add', async (req, res) => {
       correct = false;
     }
   });
-  
+
   if (correct === true) {
     const result = categoryModel.add(req.body.catName, req.body.parentId);
     res.redirect('/admin/categories')
@@ -45,7 +47,7 @@ router.get('/err', (req, res) => {
   throw new Error('error occured');
 })
 
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', restrict.forUserNotAdmin, async (req, res) => {
   const [rows, parentName] = await Promise.all([
     categoryModel.single(req.params.id),
     categoryModel.allCatLevel1(),
@@ -66,19 +68,19 @@ router.get('/edit/:id', async (req, res) => {
 
 router.post('/patch', async (req, res) => {
   correct2 = true;
-  const [catdata,parentName] = await Promise.all([
-  categoryModel.all(),
-  categoryModel.allCatLevel1(),
+  const [catdata, parentName] = await Promise.all([
+    categoryModel.all(),
+    categoryModel.allCatLevel1(),
   ]);
-  
+
   catdata.forEach(element => {
     if (element.CatName === req.body.catName) {// Nếu trùng tên
-      if(element.CatID != req.body.catID){// Khác id
+      if (element.CatID != req.body.catID) {// Khác id
         correct2 = false;
       }
     }
   });
-  console.log("correct",correct2);
+  console.log("correct", correct2);
   if (correct2 === true) {
     const result = categoryModel.patch(req.body);
     res.redirect('/admin/categories')
