@@ -4,7 +4,7 @@
         <div class="col text-center">
             <div class="section_title new_arrivals_title">
                 <h4>BIDDER INFO</h4>
-                {{#each this.sellerInfo}}
+                {{#each this.bidderInfo}}
                  <a href="#btnLike">
                     <button class="btn btn-light">
                         <i class="fa fa-thumbs-up"></i>
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    {{#each this.sellerInfo}}
+    {{#each this.bidderInfo}}
     <div class="card mb-3" style="max-width: 500px;">
         <div class="row no-gutters">
             <div class="col-md-8">
@@ -60,7 +60,7 @@
                             flex-sm-row col-lg-11">
                             <div class="review">
                                 <div class="rev">{{Comment}}</div>
-                                <div class="nameReviewer">Name: {{nameBidder}}</div>
+                                <div class="nameReviewer">Name: {{nameSeller}}</div>
                                 <p class="reviewDate">Date: {{Time}}</p>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
             </div>
         </div>
          {{#if isAllowed}}
-             {{#each this.sellerInfo}}
+             {{#each this.bidderInfo}}
              <div>
             <button id="btnLike" class="btn btn-light">
                 <i class="fa fa-thumbs-up"></i>

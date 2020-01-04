@@ -87,7 +87,7 @@
 									{{CurrentBid}}</span>$</div>
 							<div class="col-lg-4 line_product_price">
 								<i class="fa fa-trophy" aria-hidden="true"></i>
-								<span id="current_winner">{{curWinnerName}}</span>
+							<a href="/reviewbidder/..."><span id="current_winner">{{curWinnerName}}</span></a>
 							</div>
 
 							<div class="col-lg-3" id="winner_rate">
@@ -184,7 +184,7 @@
 							{{#each this.InfoLastestAuction}}
 							<tr>
 								<th scope="row">{{BidID}}</th>
-								<td>{{name}}</td>
+								<a href="/reviewbidder/..."><td>{{name}}</td></a>	
 								<td>{{Amount}}</td>
 								<td>
 									<ul class="star_rating1">
@@ -250,7 +250,7 @@
 										</div>
 										<p class="seller-info">
 											NAME:
-											<span>{{sellerName}}</span>
+											<a href="/reviewseller/{{Username}}"> <span>{{sellerName}}</span></a>
 										</p>
 										<p class="seller-info">
 											EMAIL:

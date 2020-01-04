@@ -7,7 +7,7 @@ router.get('/:Username', async (req, res) => {
     if (req.session.isAuthenticated) {
         const sellerInfo = await reviewModel.getInfoSellerByUserName(req.params.Username);
         const check = await reviewModel.checkUser(req.session.authUser.UserID, sellerInfo[0].UserID);
-        const rv = await reviewModel.getReview(sellerInfo[0].UserID);
+        const rv = await reviewModel.getReviewSeller(sellerInfo[0].UserID);
         if (check[0].result == 1)
             res.render('vwReview/reviewseller', {
                 isAllowed: true,
