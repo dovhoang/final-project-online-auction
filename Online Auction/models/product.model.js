@@ -3,6 +3,7 @@ const config = require('../config/default.json');
 
 module.exports = {
   all: () => db.load('select * from Product'),
+  allTimeExpExceptIsOver: () => db.load('SELECT ProductID,ProductName,SellerID,CurrentBid,TimeExp FROM Product WHERE IsOver = 0'),
   allBySellerID: sellerid => {
     const sql = `SELECT * FROM Product WHERE SellerID = ${sellerid}`;
     return db.load(sql);
@@ -90,6 +91,9 @@ module.exports = {
   patch: entity => {
     const condition = { ProductID: entity.ProID };
     delete entity.ProID;
+    return db.patch('Product', entity, condition);
+  },
+  patch2: (entity, condition) => {
     return db.patch('Product', entity, condition);
   }
 };

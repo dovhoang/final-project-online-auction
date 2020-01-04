@@ -158,7 +158,6 @@ router.post('/signin', async (req, res) => {
         req.flash('signinsuccess', true);
         res.redirect(url);
     }
-
 });
 
 //Sign out
