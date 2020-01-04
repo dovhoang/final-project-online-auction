@@ -33,6 +33,19 @@ module.exports = app => {
     res.locals.lcCatAll = rows;
     next();
   });
+  //Cập nhật lại biến session
+  app.use(async (req, res, next) => {
+    if (req.session.authUser !== undefined && req.session.authUser !== null && req.session.authUser.Type != 2) {
+      //Lấy lại user đang đăng nhập trong db xem có gì thay đổi không
+      const user = await userModel.singleByUserID(req.session.authUser.UserID);
+      if (user.Type !== req.session.authUser.Type) {
+        req.session.authUser.Type = user.Type;
+        res.locals.authUser = req.session.authUser;
+      }
+    }
+    next();
+  });
+  
   app.use(async (req, res, next) => {
     const rows = await categoryModel.allCatLevel1();
     res.locals.lcCatLevel1 = rows;

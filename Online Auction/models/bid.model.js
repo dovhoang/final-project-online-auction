@@ -2,6 +2,20 @@ const db = require('../utils/db');
 
 module.exports = {
   all: () => db.load('SELECT * FROM Bid'),
+  getLargestPriceBidOnProduct: async (proid) => {
+    const sql = `SELECT MAX(Amount) as larghestamount FROM Bid WHERE ProID = ${proid}`
+    const bid = await db.load(sql);
+    const sql1 = `SELECT * FROM Bid WHERE ProID=${proid} and Amount= ${bid[0].larghestamount}`
+    const bid1 = await db.load(sql1);
+    if (bid1.length === 0)
+      return null;
+    return bid1[0];
+  },
+  singleByProIDAndAmount: async (proid, amount) => {
+    const sql = `SELECT UserID FROM Bid WHERE ProID = ${proid} and Amount = ${amount}`
+    const bid = await db.load(sql);
+    return bid[0];
+  },
 
   singleByUserID: async userid => {
     const bid = await db.load1(`Bid`, { UserID: userid })

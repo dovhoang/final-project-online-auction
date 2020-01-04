@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
         productModel.getTop5PopularBid(),
         productModel.getTop5Price(),
     ]);
-    console.log(req.session.authUser);
+
     if (req.session.authUser !== undefined && req.session.authUser !== null) {
         const [userup, userdown] = await Promise.all([
             requestUpdateModel.singleByUsername(req.session.authUser.Username),

@@ -88,18 +88,19 @@ router.post('/', async (req, res) => {
             for (var i = 1; i <= req.files.length; i++) {
                 //3 file người dùng nhập vào rename thành temp
                 //từ 3 file temp này sharp ra 6 tấm ảnh (3 lớn 3 nhỏ)
-                const result = RenameFile(FolderName + "/" + req.files[i - 1].originalname, FolderName + "/" + i.toString(10) + "_temps" +
+                const result = RenameFile(FolderName + "/" + req.files[i - 1].originalname, FolderName + "/" + i.toString(10) + "_temp" +
                     path.extname(req.files[i - 1].originalname));
                 //Sharp 3 lớn
-                const result1 = SharpLargeImages(FolderName + "/" + i.toString(10) + "_temps" +
+                const result1 = SharpLargeImages(FolderName + "/" + i.toString(10) + "_temp" +
                     path.extname(req.files[i - 1].originalname), FolderName + "/" + i.toString(10) + "_main.png");
                 //Sharp 3 nhỏ
-                const result2 = SharpSmallImages(FolderName + "/" + i.toString(10) + "_temps" +
-                    path.extname(req.files[i - 1].originalname), FolderName + "/" + i.toString(10) + "_thumbs.png");
+                const result2 = SharpSmallImages(FolderName + "/" + i.toString(10) + "_temp" +
+                    path.extname(req.files[i - 1].originalname), FolderName + "/" + i.toString(10) + "_thumb.png");
                 //Xóa file temp dưới chỗ này thì lỗi vì tài nguyên bận
             }
             var timeexpired = moment();
-            timeexpired.set('date', timeexpired.get('date') + 7);
+            // timeexpired.set('date', timeexpired.get('date') + 7);
+            timeexpired.set('minute', timeexpired.get('minute') + 15);
             //Ghi product vào db
             const product = {
                 ProductID: proId,
@@ -112,10 +113,11 @@ router.post('/', async (req, res) => {
                 Description: '<b><i class="fa fa-edit"></i> ' + moment().format('YYYY-MM-DD HH:mm:ss') + "</b><br>" + req.body.Description,
                 TimePost: moment().format('YYYY-MM-DD HH:mm:ss'),
                 TimeExp: timeexpired.format('YYYY-MM-DD HH:mm:ss'),
+                IsOver: 0
             }
             const result = await productModel.add(product);
             for (var i = 1; i <= req.files.length; i++) {
-                const result3 = DeleteFileTemp(FolderName + "/" + i.toString(10) + "_temps" +
+                const result3 = DeleteFileTemp(FolderName + "/" + i.toString(10) + "_temp" +
                     path.extname(req.files[i - 1].originalname));
             }
 
