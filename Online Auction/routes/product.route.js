@@ -40,7 +40,7 @@ router.get('/id=:id', async (req, res) => {
   var userTmp = null;
   if (req.session.isAuthenticated) userTmp = req.session.authUser.UserID;
   const proid = req.params.id;
-  const [prd, sli, cwi, g4, review, relatedPrd, fvr, score, mp] = await Promise.all([
+  const [prd, sli, cwi, g4, review, relatedPrd, fvr, score, mp, cp] = await Promise.all([
     productModel.single(proid),
     productModel.getSellerInfo(proid),
     productModel.getCurrentWinner(proid),
@@ -49,7 +49,8 @@ router.get('/id=:id', async (req, res) => {
     productModel.get5RelatedProduct(proid),
     productModel.fvr(proid, userTmp),
     bidModel.getScore(userTmp),
-    bidModel.MaxPrice(proid, userTmp)
+    bidModel.MaxPrice(proid, userTmp),
+    productModel.getCateParent(proid),
   ]);
   var reviewLength = 0, isWinner = false, MaxPrice_AutoBid = null;
   var curPrice = 0, scoretmp = 0;
@@ -63,9 +64,9 @@ router.get('/id=:id', async (req, res) => {
     }
   }
   if (review[0].length != 0) reviewLength = review[0][0].CountRevByID;
-  if (score.length===0) scoretmp = -2; 
+  if (score.length === 0) scoretmp = -2;
   else scoretmp = score[0].score;
-  console.log("hello world"+userTmp);
+  console.log("hello world" + userTmp);
   res.render('vwSingleProduct/single', {
     Productid: proid,
     product: prd[0],
@@ -105,61 +106,62 @@ router.post('/id=:id', async (req, res) => {
           if (result1 === false) console.log("Lỗi send email");
           else console.log("Send mail thành công");
 
-        const result2 = helper.sendMail(user1.Email, 'Auction product',
-          `<b>` + req.session.authUser.Username + ` bid successfully on your ` + product.ProductName + ` product</b>`);
-        if (result2 === false) console.log("Lỗi send email");
-        else console.log("Send mail thành công");
-        //Cần tìm ra người giữ giá trước đó
-        //Tìm ra userid của người giữ giá trước đó
-        const result3 = await bidModel.getSecondLarghAmountWithProID(req.params.id);
-        //Tìm ra email của người giữ giá trước đó
-        const user = await userModel.singleByUserID(result3.UserID);
-        //Gửi mail
-        if (user !== null) {
-          const result4 = helper.sendMail(user.Email, 'Auction product',
-            `<b>Someone has take a lead on product ` + product.ProductName + `</b>`);
-          if (result4 === false) console.log("Lỗi send email");
+          const result2 = helper.sendMail(user1.Email, 'Auction product',
+            `<b>` + req.session.authUser.Username + ` bid successfully on your ` + product.ProductName + ` product</b>`);
+          if (result2 === false) console.log("Lỗi send email");
           else console.log("Send mail thành công");
+          //Cần tìm ra người giữ giá trước đó
+          //Tìm ra userid của người giữ giá trước đó
+          const result3 = await bidModel.getSecondLarghAmountWithProID(req.params.id);
+          //Tìm ra email của người giữ giá trước đó
+          const user = await userModel.singleByUserID(result3.UserID);
+          //Gửi mail
+          if (user !== null) {
+            const result4 = helper.sendMail(user.Email, 'Auction product',
+              `<b>Someone has take a lead on product ` + product.ProductName + `</b>`);
+            if (result4 === false) console.log("Lỗi send email");
+            else console.log("Send mail thành công");
+          }
+        }
+      }
+      return res.redirect('back');
+    }
+    if (req.body.key === 'review') {
+      delete req.body.key;
+      if (req.session.isAuthenticated) {
+        const date = new Date();
+        const entity = req.body;
+        entity.UserID = req.session.authUser.UserID;
+        entity.ReviewID = null;
+        entity.ProductId = req.params.id;
+        entity.TimePost = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
+          date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        await productModel.addReview(entity);
+        const tmp = await productModel.getReview(req.body.ProductId, 1);
+        return res.json(tmp[0][0]);
+      }
+    }
+    if (req.body.key === 'favorite') {
+      delete req.body.key;
+      if (req.session.isAuthenticated) {
+        const tmpx = await productModel.fInsertFavorite(req.params.id, req.session.authUser.UserID);
+        return res.json(tmpx[0].result);
+      }
+      return res.json(0);
+    }
+    if (req.body.key === 'autobid') {
+      delete req.body.key;
+      if (req.session.isAuthenticated) {
+        const score = await bidModel.getScore(req.session.authUser.UserID);
+        //diem danh gia tren 80%
+        if (score[0].score >= 0.8) {
+          await bidModel.fAutoBid(req.params.id, req.session.authUser.UserID, req.body.Price);
         }
       }
     }
     return res.redirect('back');
   }
-  if (req.body.key === 'review') {
-    delete req.body.key;
-    if (req.session.isAuthenticated) {
-      const date = new Date();
-      const entity = req.body;
-      entity.UserID = req.session.authUser.UserID;
-      entity.ReviewID = null;
-      entity.ProductId = req.params.id;
-      entity.TimePost = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +
-        date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-      await productModel.addReview(entity);
-      const tmp = await productModel.getReview(req.body.ProductId, 1);
-      return res.json(tmp[0][0]);
-    }
-  }
-  if (req.body.key === 'favorite') {
-    delete req.body.key;
-    if (req.session.isAuthenticated) {
-      const tmpx = await productModel.fInsertFavorite(req.params.id, req.session.authUser.UserID);
-      return res.json(tmpx[0].result);
-    }
-    return res.json(0);
-  }
-  if (req.body.key === 'autobid') {
-    delete req.body.key;
-    if (req.session.isAuthenticated) {
-      const score = await bidModel.getScore(req.session.authUser.UserID);
-      //diem danh gia tren 80%
-      if (score[0].score >= 0.8) {
-        await bidModel.fAutoBid(req.params.id, req.session.authUser.UserID, req.body.Price);
-      }
-    }
-  }
-  return res.redirect('back');
-})
+});
 
 module.exports = router;
 
