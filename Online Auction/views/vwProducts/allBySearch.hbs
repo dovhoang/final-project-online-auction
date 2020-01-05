@@ -2,8 +2,8 @@
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                <div class="section_title new_arrivals_title">
-                    <h4>{{this.keyword}}</h4>
+                <div class="section_title new_arrivals_title keyword">
+                    <h4>Search for keyword '<span>{{this.keyword}}</span>'</h4>
                 </div>
             </div>
         </div>
@@ -21,22 +21,22 @@
         </div>
         {{else}}
         <div class="d-flex ">
-            <a class="btn btn-outline-primary m-2" href="?sortby=Numbid&order=desc">Popular</a>
-            <a class="btn btn-outline-warning m-2 " href="?sortby=TimePost&order=desc">New</a>
+            <a class="btn btn-outline-primary m-2" href="?keyword={{this.keyword}}&page=1&sortby=Numbid&order=desc">Popular</a>
+            <a class="btn btn-outline-warning m-2 " href="?keyword={{this.keyword}}&page=1&sortby=TimePost&order=desc">New</a>
             <div class="dropdown m-2">
                 <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sort by
                 </button>
                 <div class="dropdown-menu m-0">
-                    <a class="dropdown-item" href="?sortby=PriceStart&order=asc">Price <i class="fa fa-level-up"
+                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=PriceStart&order=asc">Price <i class="fa fa-level-up"
                             aria-hidden="true"></i> </a>
-                    <a class="dropdown-item" href="?sortby=PriceStart&order=desc">Price <i class="fa fa-level-down"
+                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=PriceStart&order=desc">Price <i class="fa fa-level-down"
                             aria-hidden="true"></i></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="?sortby=TimeExp&order=asc">Expired time <i class="fa fa-level-up"
+                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=TimeExp&order=asc">Expired time <i class="fa fa-level-up"
                             aria-hidden="true"></i> </a>
-                    <a class="dropdown-item" href="?sortby=TimeExp&order=desc">Expired time <i class="fa fa-level-down"
+                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=TimeExp&order=desc">Expired time <i class="fa fa-level-down"
                             aria-hidden="true"></i></a>
                 </div>
             </div>
@@ -44,6 +44,19 @@
 
         <div class="row">
             <div class="col">
+                <div class="keyword mt-3" style="background-color:ivory;">
+                    {{!-- Search info --}}
+                    {{#if proname}}
+                        Showing results for product '<span>{{this.keyword}}</span>'<br>
+                    {{/if}}
+                    {{#if this.catname}}
+                    Showing results for category '{{#each this.catname}}
+                    &nbsp<span>{{this}}</span>,
+                    {{/each}}
+                    '
+                    {{/if}}
+                </div>
+                {{!-- List results  --}}
                 <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
                     {{#each this.products}}
                     <div class="product-item m-1">
@@ -58,18 +71,20 @@
                                 <span>Buy now: {{original/PricePurchase}} $</span></div>
                             {{/if}}
                             {{#if isNew}}
-								<div
-								class="product_bubble product_bubble_left product_bubble_red d-flex flex-column align-items-center">
-								<span>NEW</span></div>
-							{{/if}}
+                            <div
+                                class="product_bubble product_bubble_left product_bubble_red d-flex flex-column align-items-center">
+                                <span>NEW</span></div>
+                            {{/if}}
                             <div class="favorite favorite_left"></div>
                             <div class="product_info">
-                                <h6 class="product_name"><a href="/product/id={{original/ProductID}}">{{original/ProductName}}</a></h6>
+                                <h6 class="product_name"><a
+                                        href="/product/id={{original/ProductID}}">{{original/ProductName}}</a></h6>
                                 <div class="product_price price_custom">{{original/PriceStart}} $</div>
                                 <div class="d-flex flex-row time_custom justify-content-center">
                                     <div class="product_expiration_date timer_num time_custom_number"></div>
                                 </div>
-                                <div class="time_exp" style="visibility: hidden; font-size: 1px">{{original/TimeExp}}</div>
+                                <div class="time_exp" style="visibility: hidden; font-size: 1px">{{original/TimeExp}}
+                                </div>
                             </div>
                         </div>
                         <div class="d-flex justify-content-between">
@@ -77,7 +92,8 @@
                                 {{#if original/CurrentWinner}}
                                 &nbsp{{original/WinnerName}}
                                 {{/if}} </div>
-                            <div class="card_hammer"><i class="fa fa-gavel" aria-hidden="true"></i>{{original/NumBid}}</div>
+                            <div class="card_hammer"><i class="fa fa-gavel" aria-hidden="true"></i>{{original/NumBid}}
+                            </div>
                         </div>
                     </div>
                     {{/each}}
@@ -90,7 +106,7 @@
     <nav>
         <ul class="pagination" style="justify-content: center;">
             <li class="page-item {{#if_eq prev_value 0}} disabled {{/if_eq}}">
-                <a class="page-link" href="?keyword={{keyword}}&page={{prev_value}}&sortby={{sortby}}&order={{order}}">
+                <a class="page-link" href="?keyword={{this.keyword}}&page={{prev_value}}&sortby={{sortby}}&order={{order}}">
                     <i class="fa fa-backward" aria-hidden="true"></i>
                 </a>
             </li>
@@ -101,12 +117,12 @@
             </li>
             {{else}}
             <li class="page-item">
-                <a class="page-link" href="?keyword=&page={{value}}&sortby={{sortby}}&order={{order}}">{{value}}</a>
+                <a class="page-link" href="?keyword={{../this.keyword}}&page={{value}}&sortby={{sortby}}&order={{order}}">{{value}}</a>
             </li>
             {{/if}}
             {{/each}}
             <li class="page-item {{#if over_page}} disabled {{/if}}">
-                <a class="page-link" href="?keyword=&page={{next_value}}&sortby={{sortby}}&order={{order}}">
+                <a class="page-link" href="?keyword={{this.keyword}}&page={{next_value}}&sortby={{sortby}}&order={{order}}">
                     <i class="fa fa-forward" aria-hidden="true"></i>
                 </a>
             </li>
