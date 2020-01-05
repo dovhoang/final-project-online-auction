@@ -99,6 +99,16 @@ router.post('/id=:id', async (req, res) => {
           `<b>` + req.session.authUser.Username + ` bid successfully on your ` + product.ProductName + ` product</b>`);
         if (result2 === false) console.log("Lỗi send email");
         else console.log("Send mail thành công");
+        //Cần tìm ra người giữ giá trước đó
+        //Tìm ra userid của người giữ giá trước đó
+        const result3 = await bidModel.getSecondLarghAmountWithProID(req.params.id);
+        //Tìm ra email của người giữ giá trước đó
+        const user = await userModel.singleByUserID(result3.UserID);
+        //Gửi mail
+        const result4 = helper.sendMail(user.Email, 'Auction product',
+          `<b>Someone has take a lead on product ` + product.ProductName + `</b>`);
+        if (result4 === false) console.log("Lỗi send email");
+        else console.log("Send mail thành công");
       }
 
     }

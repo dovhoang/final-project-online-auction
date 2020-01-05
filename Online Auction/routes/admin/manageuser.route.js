@@ -159,7 +159,6 @@ router.post('/updowngrade/:id/down', async (req, res) => {
             });
         }
     }
-
     //Xóa tất cả các sản phẩm mà người dùng đã đăng(khi còn là seller)
     const result = await productModel.delBySellerID(req.params.id);
     //Hạ cấp cho user đổi type = 0(xuống bidder)

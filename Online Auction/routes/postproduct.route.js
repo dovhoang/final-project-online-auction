@@ -72,7 +72,7 @@ router.post('/', async (req, res) => {
                     .catch(error => console.log(error));
                 await sharp(FolderName + "/" + i.toString(10) + "_temp" +
                     path.extname(files[i - 1].originalname))
-                    .resize(500, 500)
+                    .resize(400, 400)
                     .toFile(FolderName + "/" + i.toString(10) + "_main.png");
                 await sharp(FolderName + "/" + i.toString(10) + "_temp" +
                     path.extname(files[i - 1].originalname))
