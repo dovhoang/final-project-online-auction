@@ -44,9 +44,9 @@
 								</a>
 							</div>
 							<div id="Zoom-1" class="MagicZoom col-lg-10" style="height: 400px"
-								href="/{{ProductID}}/1_main.png" class="MagicZoom " 
-									data-options="zoomPosition: inner;zoomMode: magnifier;zoomWidth:50%; zoomHeight:50%">
-								<img src="/{{ProductID}}/1_main.png"/>
+								href="/{{ProductID}}/1_main.png" class="MagicZoom "
+								data-options="zoomPosition: inner;zoomMode: magnifier;zoomWidth:50%; zoomHeight:50%">
+								<img src="/{{ProductID}}/1_main.png" />
 							</div>
 						</div>
 					</div>
@@ -178,13 +178,14 @@
 								<th scope="col">Amount</th>
 								<th scope="col">Rate</th>
 								<th scope="col">Time</th>
+								{{#if authUser.UserID}}<th scope="col"></th>{{/if}}
 							</tr>
 						</thead>
 						<tbody>
 							{{#each this.InfoLastestAuction}}
 							<tr>
 								<th scope="row">{{BidID}}</th>
-								<td><a href="/bidder/{{Username}}">{{name}}</a></td>
+								<td><a class="NameofUser" href="/bidder/{{Username}}">{{name}}</a></td>
 								<td>{{Amount}}</td>
 								<td>
 									<ul class="star_rating1">
@@ -192,6 +193,14 @@
 									</ul>
 								</td>
 								<td>{{time}}</td>
+								{{#if ../authUser.UserID}}
+								<form id="BanUser" method="post">
+									<input type="hidden" id="keyban" value="banbidder" name="key">
+									<input type="hidden" id="userId" value="{{UserID}}" name="userId">
+									<input type="hidden" id="proId" value="{{ProID}}" name="proId">
+								</form>
+								<td><i type="button" class=" btnBanUser fa fa-2x fa-ban text-danger" aria-hidden="true"></i></td>
+								{{/if}}
 							</tr>
 							{{/each}}
 						</tbody>
@@ -352,8 +361,7 @@
 					</div>
 					<div class="row">
 						<div class="col">
-							<div class="product-grid"
-								data-isotope='{" itemSelector" :" .product-item" ," layoutMode" :"
+							<div class="product-grid" data-isotope='{" itemSelector" :" .product-item" ," layoutMode" :"
 								fitRows"
 								}'>
 								{{#each this.relatedPrd}}
@@ -364,8 +372,7 @@
 												alt="{{ProductName}}" title="{{ProductName}}">
 										</div>
 										{{#if PricePurchase}}
-										<div
-											class="product_bubble product_bubble_right product_bubble_red d-flex
+										<div class="product_bubble product_bubble_right product_bubble_red d-flex
 											flex-column align-items-center">
 											<span>Buy now: {{PricePurchase}} $</span></div>
 										{{/if}}
@@ -404,13 +411,13 @@
 </div>
 {{#if isWinner}}
 <script>
-		window.onload = function () {
-			notify1();
-		}
-	</script>
+	window.onload = function () {
+		notify1();
+	}
+</script>
 {{/if}}
 {{#if this.score}}
 <script>
-	var tmpScore={{score}};
-	</script>
+	var tmpScore = {{ score }};
+</script>
 {{/if}}

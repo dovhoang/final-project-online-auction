@@ -1,5 +1,6 @@
 const express = require('express');
 const productModel = require('../models/product.model');
+const banbidderModel = require('../models/banbidder.model');
 const bidModel = require('../models/bid.model');
 const userModel = require('../models/user.model');
 const helper = require('../helper/helper');
@@ -159,6 +160,21 @@ router.post('/id=:id', async (req, res) => {
         await bidModel.fAutoBid(req.params.id, req.session.authUser.UserID, req.body.Price);
       }
     }
+<<<<<<< HEAD
+=======
+    if (req.body.key === 'banbidder') {//k vao dc
+      delete req.body.key;
+      if (req.session.isAuthenticated) {
+        const userId = req.body.userId;
+        const proId = req.body.proId;
+        console.log("rs",proId);
+        const rs = await banbidderModel.add({ ProductID: proId, UserID: userId });
+        console.log("rs",rs);
+        return res.redirect('back');
+      }
+    }
+    return res.redirect('back');
+>>>>>>> add ban bidder (not complete)
   }
   return res.redirect('back');
 });

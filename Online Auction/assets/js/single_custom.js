@@ -276,49 +276,48 @@ jQuery(document).ready(function ($) {
 
 $("#bid_form").submit(function (e) {
 	e.preventDefault();
-	if (tmpScore<0.8)
-	{
-		if (tmpScore>=0)
-		Swal.fire({
-			icon: 'warning',
-			title: 'Your score ='+tmpScore*100+'%<80%',
-			text: '',
-			showConfirmButton: true,
-			showCloseButton: true
-		});
-		else{
+	if (tmpScore < 0.8) {
+		if (tmpScore >= 0)
+			Swal.fire({
+				icon: 'warning',
+				title: 'Your score =' + tmpScore * 100 + '%<80%',
+				text: '',
+				showConfirmButton: true,
+				showCloseButton: true
+			});
+		else {
 			alert("error");
 		}
 	}
 	else
-	if (parseInt($('#placebid_value').text()) <= parseInt($('#product_price').text())) {
-		Swal.fire({
-			icon: 'warning',
-			title: 'Please bid again',
-			showConfirmButton: true,
-			showCloseButton: true
-		});
-	}
-	else {
-		Swal.fire({
-			title: 'Are you sure?',
-			text: "Price: " + $('#placebid_value').text(),
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Confirm'
-		}).then((result) => {
-			if (result.value) {
-				Swal.fire({
-					text: 'Bidding...',
-					timer: 5000,
-					timerProgressBar: true
-				})
-				$('#price').val($('#placebid_value').text());
-				this.submit();
-			}
-		});
-	}
+		if (parseInt($('#placebid_value').text()) <= parseInt($('#product_price').text())) {
+			Swal.fire({
+				icon: 'warning',
+				title: 'Please bid again',
+				showConfirmButton: true,
+				showCloseButton: true
+			});
+		}
+		else {
+			Swal.fire({
+				title: 'Are you sure?',
+				text: "Price: " + $('#placebid_value').text(),
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Confirm'
+			}).then((result) => {
+				if (result.value) {
+					Swal.fire({
+						text: 'Bidding...',
+						timer: 5000,
+						timerProgressBar: true
+					})
+					$('#price').val($('#placebid_value').text());
+					this.submit();
+				}
+			});
+		}
 });
 
 
@@ -473,4 +472,22 @@ $('#btnAutoBid').on('click', function (event) {
 		}
 	})
 });
+
+var allBtnBanUser = $(document).find('.btnBanUser')
+var allName = $(document).find('.NameofUser')
+console.log(allBtnBanUser)
+for (i = 0; i < allBtnBanUser.length; i++) {
+	allBtnBanUser[i].on('click', function (event) {
+		event.preventDefault();
+		Swal.fire({
+			title: 'Do you want to block the user: ' + allName[i].text() + '?',
+			showCancelButton: true,
+			confirmButtonText: 'OK',
+			showLoaderOnConfirm: true
+		})
+			.then(_ => {
+				$('#BanUser').submit();
+			})
+	});
+}
 
