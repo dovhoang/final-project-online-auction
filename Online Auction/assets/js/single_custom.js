@@ -276,6 +276,21 @@ jQuery(document).ready(function ($) {
 
 $("#bid_form").submit(function (e) {
 	e.preventDefault();
+	if (tmpScore<0.8)
+	{
+		if (tmpScore>=0)
+		Swal.fire({
+			icon: 'warning',
+			title: 'Your score ='+tmpScore*100+'%<80%',
+			text: '',
+			showConfirmButton: true,
+			showCloseButton: true
+		});
+		else{
+			alert("error");
+		}
+	}
+	else
 	if (parseInt($('#placebid_value').text()) <= parseInt($('#product_price').text())) {
 		Swal.fire({
 			icon: 'warning',
@@ -453,9 +468,8 @@ $('#btnAutoBid').on('click', function (event) {
 		showLoaderOnConfirm: true
 	}).then((result) => {
 		if (result.value) {
-				$('#PriceAuto').val(result.value);
-				alert($('#PriceAuto').val());
-				$('#AutoBid').submit();
+			$('#PriceAuto').val(result.value);
+			$('#AutoBid').submit();
 		}
 	})
 });
