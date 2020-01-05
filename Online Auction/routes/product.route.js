@@ -105,10 +105,12 @@ router.post('/id=:id', async (req, res) => {
         //Tìm ra email của người giữ giá trước đó
         const user = await userModel.singleByUserID(result3.UserID);
         //Gửi mail
-        const result4 = helper.sendMail(user.Email, 'Auction product',
-          `<b>Someone has take a lead on product ` + product.ProductName + `</b>`);
-        if (result4 === false) console.log("Lỗi send email");
-        else console.log("Send mail thành công");
+        if (user !== null) {
+          const result4 = helper.sendMail(user.Email, 'Auction product',
+            `<b>Someone has take a lead on product ` + product.ProductName + `</b>`);
+          if (result4 === false) console.log("Lỗi send email");
+          else console.log("Send mail thành công");
+        }
       }
 
     }
