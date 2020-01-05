@@ -7,19 +7,19 @@ const router = express.Router();
 const moment = require('moment');
 var cron = require('node-cron');
 
-cron.schedule('* * * * * *', async () => {
+cron.schedule('* * * * *', async () => {
   //Lấy ra thời gian kết thúc của tất cả các sản phẩm có IsOver = 0 (tức là chưa kết thúc)
   const product = await productModel.allTimeExpExceptIsOver();
   for (var i = 0; i < product.length; i++) {
     if (product[i].TimeExp.getTime() < Date.now()) {//Nếu sản phẩm đó đã kết thúc
       //Cập nhật lại biến IsOver = 1 tức là đã kết thúc
-      const condition = { ProductID: product[i].ProductID }
+      const condition = { ProductID: product[i].ProductID };
       const IsOver = { IsOver: 1 };
       const result = await productModel.patch2(IsOver, condition);
       //Tìm ra email của người bán sản phẩm
       const emailSeller = await userModel.singleByUserID(product[i].SellerID);
       //Nếu có người đấu giá
-      if (product[i].CurrentBid !== 0) {
+      if (product[i].CurrentBid != product[i].PriceStart) {
         //Tìm ra userid của người đó với currentbid
         const user = await bidModel.singleByProIDAndAmount(product[i].ProductID, product[i].CurrentBid);
         //Tìm ra email của người đó với userid tìm được để gửi mail
@@ -28,9 +28,10 @@ cron.schedule('* * * * * *', async () => {
         helper.sendMail(emailWinner.Email, 'Congratulation...You have a won product', `You have won on product ${product[i].ProductName}`);
         //Gửi mail người bán
         helper.sendMail(emailSeller.Email, 'Congratulation...Your product have a winner', `The winner is ${emailWinner.Username} with amount = ${product[i].CurrentBid} $`)
+      } else {
+        //Nếu không có người đấu giá => gửi mail cho người bán
+        helper.sendMail(emailSeller.Email, `Unfortunately...Your product ${product[i].ProductName} ended with no winner`, `Sorry for that`);
       }
-      //Nếu không có người đấu giá => gửi mail cho người bán
-      helper.sendMail(emailSeller.Email, `Unfortunately...Your product ${product[i].ProductName} ended with no winner`, `Sorry for that`);
     }
   }
 });
@@ -98,6 +99,18 @@ router.post('/id=:id', async (req, res) => {
           `<b>` + req.session.authUser.Username + ` bid successfully on your ` + product.ProductName + ` product</b>`);
         if (result2 === false) console.log("Lỗi send email");
         else console.log("Send mail thành công");
+        //Cần tìm ra người giữ giá trước đó
+        //Tìm ra userid của người giữ giá trước đó
+        const result3 = await bidModel.getSecondLarghAmountWithProID(req.params.id);
+        //Tìm ra email của người giữ giá trước đó
+        const user = await userModel.singleByUserID(result3.UserID);
+        //Gửi mail
+        if (user !== null) {
+          const result4 = helper.sendMail(user.Email, 'Auction product',
+            `<b>Someone has take a lead on product ` + product.ProductName + `</b>`);
+          if (result4 === false) console.log("Lỗi send email");
+          else console.log("Send mail thành công");
+        }
       }
 
     }
