@@ -32,21 +32,22 @@
 							<div class="selectors col-lg-2">
 								<a data-zoom-id="Zoom-1" href="/{{ProductID}}/1_main.png"
 									data-image="/{{ProductID}}/1_main.png">
-									<img  src="/{{ProductID}}/1_thumb.png" />
+									<img src="/{{ProductID}}/1_thumb.png" />
 								</a>
 								<a data-zoom-id="Zoom-1" href="/{{ProductID}}/2_main.png"
 									data-image="/{{ProductID}}/2_main.png">
-									<img  src="/{{ProductID}}/2_thumb.png" />
+									<img src="/{{ProductID}}/2_thumb.png" />
 								</a>
 								<a data-zoom-id="Zoom-1" href="/{{ProductID}}/3_main.png"
 									data-image="/{{ProductID}}/3_main.png">
-									<img  src="/{{ProductID}}/3_thumb.png" />
+									<img src="/{{ProductID}}/3_thumb.png" />
 								</a>
 							</div>
 							<div id="Zoom-1" class="MagicZoom col-lg-10"
-								href="/{{ProductID}}/1_main.png" class="MagicZoom " 
-									data-options="zoomPosition: inner;zoomMode: magnifier;zoomWidth:50%; zoomHeight:50%">
-								<img src="/{{ProductID}}/1_main.png"/>
+								href="/{{ProductID}}/1_main.png" class="MagicZoom"
+								data-options="zoomPosition:
+								inner;zoomMode: magnifier;zoomWidth:50%; zoomHeight:50%">
+								<img src="/{{ProductID}}/1_main.png" />
 							</div>
 						</div>
 					</div>
@@ -71,7 +72,7 @@
 							<div class="col-lg-2 money_instance_purchase">{{PricePurchase}}</div>
 							<div class="col-lg-10 money_instance_purchase">
 								<button type="button" class="btn btn-warning">Buy <span class="fa
-											fa-shopping-cart"></span></button>
+										fa-shopping-cart"></span></button>
 							</div>
 						</div>
 						{{/if}}
@@ -87,7 +88,7 @@
 									{{CurrentBid}}</span>$</div>
 							<div class="col-lg-4 line_product_price">
 								<i class="fa fa-trophy" aria-hidden="true"></i>
-							<a href="/bidder/{{Username}}"><span id="current_winner">{{curWinnerName}}</span></a>
+								<a href="/bidder/{{Username}}"><span id="current_winner">{{curWinnerName}}</span></a>
 							</div>
 
 							<div class="col-lg-3" id="winner_rate">
@@ -99,7 +100,7 @@
 							{{/each}}
 						</div>
 						<div class="placebid d-flex flex-column flex-sm-row
-								align-items-sm-center">
+							align-items-sm-center">
 							<div>Place bid:</div>
 							<div class="placebid_selector">
 								<span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
@@ -148,7 +149,7 @@
 							{{/if}}
 							{{/if}}
 							{{!-- <button type="button" class="btn btn-danger button_favorite"><span
-										class="fa fa-heart"></span></button> --}}
+									class="fa fa-heart"></span></button> --}}
 
 						</div>
 						{{#if authUser.UserID}}
@@ -156,7 +157,7 @@
 							<input type="hidden" id="keyauto" value="autobid" name="key">
 							<input type="hidden" id="PriceAuto" value="-1" name="Price">
 						</form>
-						<button id="btnAutoBid" class="btn  btn-secondary mt-5">AUTOMATIC BIDDING
+						<button id="btnAutoBid" class="btn btn-secondary mt-5">AUTOMATIC BIDDING
 							{{#if this.autoBidPrice}}
 							<span id="autoPrice">:{{this.autoBidPrice}}</span>
 							{{/if}}
@@ -304,7 +305,8 @@
 									{{#if authUser.UserID}}
 									<div class="col-lg-6 add_review_col">
 										<div class="add_review">
-											{{!-- <form id="review_form" method="post" target="uploader_iframe"></form> --}}
+											{{!-- <form id="review_form" method="post" target="uploader_iframe"></form>
+											--}}
 											<form id="review_form">
 												<input type="hidden" id="rate2" value="0" name="Rating">
 												<div>
@@ -352,17 +354,20 @@
 					<div class="row">
 						<div class="col">
 							<div class="product-grid"
-								data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+								data-isotope='{" itemSelector" :" .product-item" ," layoutMode" :"
+								fitRows"
+								}'>
 								{{#each this.relatedPrd}}
 								<div class="product-item m-1">
-									<div class="product discount product_filter ">
+									<div class="product discount product_filter">
 										<div class="product_image">
 											<img class="rounded mx-auto d-block" src="/{{ProductID}}/1_main.png"
 												alt="{{ProductName}}" title="{{ProductName}}">
 										</div>
 										{{#if PricePurchase}}
 										<div
-											class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
+											class="product_bubble product_bubble_right product_bubble_red d-flex
+											flex-column align-items-center">
 											<span>Buy now: {{PricePurchase}} $</span></div>
 										{{/if}}
 										<div class="favorite favorite_left"></div>
@@ -397,10 +402,16 @@
 		</div>
 		{{/if}}
 	</div>
-	{{#if isWinner}}
-	<script>
+</div>
+{{#if isWinner}}
+<script>
 		window.onload = function () {
 			notify1();
 		}
 	</script>
-	{{/if}}
+{{/if}}
+{{#if this.score}}
+<script>
+	var tmpScore={{score}};
+	</script>
+{{/if}}

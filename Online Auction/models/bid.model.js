@@ -37,6 +37,8 @@ module.exports = {
   add: entity => db.add('Bid', entity),
   MaxPrice: (proID, userID) => db.load(`Select Price from AutoBid where ProductID=${proID} and UserID=${userID}
     order by Price desc limit 1`),
+  getScore: (userID) => db.load(`Select (case when (Ratingup<>0 OR Ratingdown<>0) then Ratingup/(Ratingup+Ratingdown) else -1 end)  as score
+  ,Ratingup,Ratingdown from Users where UserID=${userID}`),
   patch: (entity, bidid) => {
     const condition = { BidID: bidid };
     return db.patch('Bid', entity, condition);

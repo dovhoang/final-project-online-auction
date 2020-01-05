@@ -39,7 +39,7 @@ router.get('/id=:id', async (req, res) => {
   var userTmp = null;
   if (req.session.isAuthenticated) userTmp = req.session.authUser.UserID;
   const proid = req.params.id;
-  const [prd, sli, cwi, g4, review, relatedPrd, fvr, mp] = await Promise.all([
+  const [prd, sli, cwi, g4, review, relatedPrd, fvr, score, mp] = await Promise.all([
     productModel.single(proid),
     productModel.getSellerInfo(proid),
     productModel.getCurrentWinner(proid),
@@ -47,10 +47,11 @@ router.get('/id=:id', async (req, res) => {
     productModel.getReview(proid),
     productModel.get5RelatedProduct(proid),
     productModel.fvr(proid, userTmp),
+    bidModel.getScore(userTmp),
     bidModel.MaxPrice(proid, userTmp)
   ]);
   var reviewLength = 0, isWinner = false, MaxPrice_AutoBid = null;
-  var curPrice = 0;
+  var curPrice = 0, scoretmp = 0;
   if (req.session.isAuthenticated && cwi[0].length != 0) {
     isWinner = (cwi[0][0].userID === req.session.authUser.UserID);
     curPrice = cwi[0][0].CurrentBid;
@@ -61,6 +62,9 @@ router.get('/id=:id', async (req, res) => {
     }
   }
   if (review[0].length != 0) reviewLength = review[0][0].CountRevByID;
+  if (score.length===0) scoretmp = -2; 
+  else scoretmp = score[0].score;
+  console.log("hello world"+userTmp);
   res.render('vwSingleProduct/single', {
     Productid: proid,
     product: prd[0],
@@ -72,6 +76,7 @@ router.get('/id=:id', async (req, res) => {
     reviewLength: reviewLength,
     relatedPrd: relatedPrd[0],
     favorite: fvr,
+    score: scoretmp,
     isWinner: isWinner,
     autoBidPrice: MaxPrice_AutoBid
   });
@@ -80,26 +85,30 @@ router.get('/id=:id', async (req, res) => {
 router.post('/id=:id', async (req, res) => {
   if (req.body.key === 'bid') {
     delete req.body.key;
-    if (req.session.isAuthenticated && 1 == 1) {
-      const status = await bidModel.fAuction(req.params.id, req.session.authUser.UserID, req.body.Price);
-      //Nếu đấu giá thành công
-      if (status[0].Auction === 1) {
-        //Tìm tên sản phẩm và thằng seller
-        const product = await productModel.singleByProID(req.params.id);
-        //Tìm ra email của thằng seller
-        const user1 = await userModel.singleByUserID(product.SellerID);
-        //Gửi mail
-        const result1 = helper.sendMail(req.session.authUser.Email, 'Auction product',
-          `<b>Bid successfully on product ` + product.ProductName + `</b>`);
-        if (result1 === false) console.log("Lỗi send email");
-        else console.log("Send mail thành công");
+    if (req.session.isAuthenticated) {
+      const score = await bidModel.getScore(req.session.authUser.UserID);
+      //diem danh gia tren 80%
+      if (score[0].score >= 0.8) {
+        //
+        const status = await bidModel.fAuction(req.params.id, req.session.authUser.UserID, req.body.Price);
+        //Nếu đấu giá thành công
+        if (status[0].Auction === 1) {
+          //Tìm tên sản phẩm và thằng seller
+          const product = await productModel.singleByProID(req.params.id);
+          //Tìm ra email của thằng seller
+          const user1 = await userModel.singleByUserID(product.SellerID);
+          //Gửi mail
+          const result1 = helper.sendMail(req.session.authUser.Email, 'Auction product',
+            `<b>Bid successfully on product ` + product.ProductName + `</b>`);
+          if (result1 === false) console.log("Lỗi send email");
+          else console.log("Send mail thành công");
 
-        const result2 = helper.sendMail(user1.Email, 'Auction product',
-          `<b>` + req.session.authUser.Username + ` bid successfully on your ` + product.ProductName + ` product</b>`);
-        if (result2 === false) console.log("Lỗi send email");
-        else console.log("Send mail thành công");
+          const result2 = helper.sendMail(user1.Email, 'Auction product',
+            `<b>` + req.session.authUser.Username + ` bid successfully on your ` + product.ProductName + ` product</b>`);
+          if (result2 === false) console.log("Lỗi send email");
+          else console.log("Send mail thành công");
+        }
       }
-
     }
     return res.redirect('back');
   }
@@ -129,9 +138,12 @@ router.post('/id=:id', async (req, res) => {
   if (req.body.key === 'autobid') {
     delete req.body.key;
     if (req.session.isAuthenticated) {
-      await bidModel.fAutoBid(req.params.id, req.session.authUser.UserID, req.body.Price);
+      const score = await bidModel.getScore(req.session.authUser.UserID);
+      //diem danh gia tren 80%
+      if (score[0].score >= 0.8) {
+        await bidModel.fAutoBid(req.params.id, req.session.authUser.UserID, req.body.Price);
+      }
     }
-    return res.redirect('back');
   }
   return res.redirect('back');
 })

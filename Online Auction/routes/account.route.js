@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const userModel = require('../models/user.model');
+const bidModel =require('../models/bid.model');
 const requestUpdateModel = require('../models/requestupdate.model');
 const restrict = require('../middlewares/auth.mdw');
 const request = require('request');
@@ -171,8 +172,12 @@ router.post('/signout', (req, res) => {
 
 
 //View profile
-router.get('/profile', restrict.forUserNotSignIn, restrict.forAdmin, (req, res) => {
-    res.render('vwAccount/profile');
+router.get('/profile', restrict.forUserNotSignIn, restrict.forAdmin, async(req, res) => {
+    const score = await bidModel.getScore(req.session.authUser.UserID);
+    score[0].score=score[0].score*100;
+    res.render('vwAccount/profile', {
+        infoReview: score
+    });
 })
 
 router.get('/profile/edit/username', restrict.forUserNotSignIn, restrict.forAdmin, (req, res) => {

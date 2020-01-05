@@ -78,6 +78,21 @@
                 <h3 class="card-header text-danger">
                     <i class="fa fa-info-circle"></i> Information
                 </h3>
+                 <h3 class="card-header text-info" id="scoreInProfile">
+                     <span>
+                    {{#each this.infoReview}}
+                    <i class="fa fa-thumbs-up"></i> <span class=" mr-5">{{Ratingup}}</span>
+                    <i class="fa fa-thumbs-down"></i> <span class=" mr-5">{{Ratingdown}}</span>
+                     <i class="fa fa-percent"></i> <span class=" mr-5">{{score}}</span>
+                     {{/each}}
+                     </span>
+                     <span>
+                         <a class="btn btn-success" href="/bidder/{{authUser.Username}}">
+                         <i class="fa fa-info-circle" aria-hidden="true"></i>Detail
+                         </a>
+                     </span>
+                </h3>
+                
                 <div class="card-body">
                     {{#if success_msg}}
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -87,6 +102,7 @@
                         </button>
                     </div>
                     {{/if}}
+                    
                     <div class="row profile_line">
                         <div class="col-lg-4 indam text-danger mt-1 mb-1 chulon">
                             <i class="fa fa-user"></i>
