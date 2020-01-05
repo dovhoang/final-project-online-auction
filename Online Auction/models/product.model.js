@@ -24,7 +24,7 @@ module.exports = {
               FROM Bid b RIGHT JOIN Product p1 ON b.ProID = p1.ProductID
               GROUP BY p1.ProductID,p1.CatID, p1.ProductName, p1.PriceStart,p1.PricePurchase,
               p1.TimeExp, p1.CurrentWinner, p1.TimePost) p2, Categories c
-        WHERE p2.CatID = c.CatID) p3 
+        WHERE p2.CatID = c.CatID and timediff(p2.TimeExp,NOW())>0) p3 
   LEFT JOIN Users u
   ON u.UserID = p3.CurrentWinner`),
   allProductWithSellerID: sellerid => {
@@ -46,9 +46,9 @@ module.exports = {
     const rows = await db.load(`
     select count(p.ProductID) as total 
     from Product p join Categories c
-    on p.CatID = c.CatID
-    where p.CatID = ${catId} and p.CatID = c.CatID  and c.ParentID != 0
-    or  (p.CatID = c.CatID and c.ParentID = ${catId})`)
+    on p.CatID = c.CatID and timediff(p.TimeExp,NOW())>0
+    where p.CatID = ${catId} 
+    and ((p.CatID = c.CatID  and c.ParentID != 0) or  (p.CatID = c.CatID and c.ParentID = ${catId}))`)
     return rows[0].total;
   },
   pageByCat: (catId, offset, sortby, order) => db.load(`
@@ -61,7 +61,7 @@ module.exports = {
               FROM Bid b RIGHT JOIN Product p1 ON b.ProID = p1.ProductID
               GROUP BY p1.ProductID,p1.CatID, p1.ProductName, p1.PriceStart,p1.PricePurchase,
               p1.TimeExp, p1.CurrentWinner, p1.TimePost) p2, Categories c
-        WHERE p2.CatID = c.CatID and (p2.CatID = ${catId} or c.ParentID = ${catId})
+        WHERE p2.CatID = c.CatID and (p2.CatID = ${catId} or c.ParentID = ${catId}) and timediff(p2.TimeExp,NOW())>0
         ORDER BY p2.${sortby} ${order}
         LIMIT ${config.paginate.limit} offset ${offset}) p3 
   LEFT JOIN Users u
@@ -72,6 +72,8 @@ module.exports = {
     return rows[0].CatName;
   },
   single: id => db.load(`CALL getSingleProduct(${id})`),
+  getCateParent: id =>db.load(`select c2.CatID,c2.CatName from Product p, Categories c1,Categories c2
+  where p.CatID = c1.CatID and c1.ParentID = c2.CatID`),
   getSellerInfo: id => db.load(`CALL getSellerInfo(${id});`),
   getCurrentWinner: id => db.load(`CALL getCurrentWinner(${id}) `),
   get3TimesLatestPrice: id => db.load(`CALL getInfo3TimesLatestPrice(${id}) `),

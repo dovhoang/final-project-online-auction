@@ -5,7 +5,7 @@
     "port": 3306,
     "user": "root",
     "password": "",
-    "database": "mydb"
+    "database": "onlineauction"
   },
   "paginate": {
     "limit": 5

@@ -40,7 +40,7 @@ router.get('/id=:id', async (req, res) => {
   var userTmp = null;
   if (req.session.isAuthenticated) userTmp = req.session.authUser.UserID;
   const proid = req.params.id;
-  const [prd, sli, cwi, g4, review, relatedPrd, fvr, mp] = await Promise.all([
+  const [prd, sli, cwi, g4, review, relatedPrd, fvr, mp,cp] = await Promise.all([
     productModel.single(proid),
     productModel.getSellerInfo(proid),
     productModel.getCurrentWinner(proid),
@@ -48,7 +48,8 @@ router.get('/id=:id', async (req, res) => {
     productModel.getReview(proid),
     productModel.get5RelatedProduct(proid),
     productModel.fvr(proid, userTmp),
-    bidModel.MaxPrice(proid, userTmp)
+    bidModel.MaxPrice(proid, userTmp),
+    productModel.getCateParent(proid),
   ]);
   var reviewLength = 0, isWinner = false, MaxPrice_AutoBid = null;
   var curPrice = 0;
@@ -65,6 +66,7 @@ router.get('/id=:id', async (req, res) => {
   res.render('vwSingleProduct/single', {
     Productid: proid,
     product: prd[0],
+    catparent: cp[0],
     PrdEmpty: prd[0].length === 0,
     sellerInfo: sli[0],
     curWinnerInfo: cwi[0],
