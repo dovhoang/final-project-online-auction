@@ -7,19 +7,19 @@ const router = express.Router();
 const moment = require('moment');
 var cron = require('node-cron');
 
-cron.schedule('* * * * * *', async () => {
+cron.schedule('* * * * *', async () => {
   //Lấy ra thời gian kết thúc của tất cả các sản phẩm có IsOver = 0 (tức là chưa kết thúc)
   const product = await productModel.allTimeExpExceptIsOver();
   for (var i = 0; i < product.length; i++) {
     if (product[i].TimeExp.getTime() < Date.now()) {//Nếu sản phẩm đó đã kết thúc
       //Cập nhật lại biến IsOver = 1 tức là đã kết thúc
-      const condition = { ProductID: product[i].ProductID }
+      const condition = { ProductID: product[i].ProductID };
       const IsOver = { IsOver: 1 };
       const result = await productModel.patch2(IsOver, condition);
       //Tìm ra email của người bán sản phẩm
       const emailSeller = await userModel.singleByUserID(product[i].SellerID);
       //Nếu có người đấu giá
-      if (product[i].CurrentBid !== 0) {
+      if (product[i].CurrentBid != product[i].PriceStart) {
         //Tìm ra userid của người đó với currentbid
         const user = await bidModel.singleByProIDAndAmount(product[i].ProductID, product[i].CurrentBid);
         //Tìm ra email của người đó với userid tìm được để gửi mail
@@ -28,9 +28,10 @@ cron.schedule('* * * * * *', async () => {
         helper.sendMail(emailWinner.Email, 'Congratulation...You have a won product', `You have won on product ${product[i].ProductName}`);
         //Gửi mail người bán
         helper.sendMail(emailSeller.Email, 'Congratulation...Your product have a winner', `The winner is ${emailWinner.Username} with amount = ${product[i].CurrentBid} $`)
+      } else {
+        //Nếu không có người đấu giá => gửi mail cho người bán
+        helper.sendMail(emailSeller.Email, `Unfortunately...Your product ${product[i].ProductName} ended with no winner`, `Sorry for that`);
       }
-      //Nếu không có người đấu giá => gửi mail cho người bán
-      helper.sendMail(emailSeller.Email, `Unfortunately...Your product ${product[i].ProductName} ended with no winner`, `Sorry for that`);
     }
   }
 });

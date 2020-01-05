@@ -3,7 +3,7 @@ const config = require('../config/default.json');
 
 module.exports = {
   all: () => db.load('select * from Product'),
-  allTimeExpExceptIsOver: () => db.load('SELECT ProductID,ProductName,SellerID,CurrentBid,TimeExp FROM Product WHERE IsOver = 0'),
+  allTimeExpExceptIsOver: () => db.load('SELECT ProductID,ProductName,SellerID,CurrentBid, PriceStart ,TimeExp FROM Product WHERE IsOver = 0'),
   allBySellerID: sellerid => {
     const sql = `SELECT * FROM Product WHERE SellerID = ${sellerid}`;
     return db.load(sql);

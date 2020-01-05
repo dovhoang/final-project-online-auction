@@ -6,6 +6,11 @@ const downgradeModel = require('../../models/downgrade.model');
 const categoryModel = require('../../models/category.model');
 const productModel = require('../../models/product.model');
 const bidModel = require('../../models/bid.model');
+const autobidModel = require('../../models/autobid.model');
+const blacklistModel = require('../../models/blacklist.model');
+const favoriteModel = require('../../models/favorite.model');
+const util = require('util');
+const fs = require('fs');
 const router = express.Router();
 const moment = require('moment');
 
@@ -20,21 +25,41 @@ router.get('/manage', restrict.forUserNotAdmin, async (req, res) => {
 
 //Xử lý xóa 
 router.post('/manage/:id/del', async (req, res) => {
-    //Xóa người dùng trong bảng RequestUpdate và Downgrade (nếu có)
-    const result1 = await requestUpdateModel.delByUserID(req.params.id);
-    const result2 = await downgradeModel.delByUserID(req.params.id);
-    //Xóa tất cả các lần đấu giá đó
-    const result3 = await bidModel.delByUserID(req.params.id);
+    //Xóa người dùng trong bảng RequestUpdate, Downgrade, Bid, AutoBid, BlackList, Favorite (nếu có)
+    const [result1, result2, result3, result6, result7, result8, result4] = await Promise.all([
+        requestUpdateModel.delByUserID(req.params.id),
+        downgradeModel.delByUserID(req.params.id),
+        bidModel.delByUserID(req.params.id),
+        autobidModel.del(req.params.id),
+        blacklistModel.del(req.params.id),
+        favoriteModel.del(req.params.id),
+        productModel.allProductWithSellerID(req.params.id),
+    ]);
     //Lấy ra các sản phẩm mà người bị xóa đã đăng
-    const result4 = await productModel.allProductWithSellerID(req.params.id);
     if (result4.length > 0) {
         //Xóa tất cả những lần bid của các users khác về các sản phẩm mà người bị xóa đã đăng
         for (var i = 0; i < result4.length; i++) {
-            const result3 = await bidModel.delByProID(result4[i]);
+            const result9 = await bidModel.delByProID(result4[i].ProductID);
+            //Xóa thư mục hình ảnh của các sản phẩm
+            var FolderName = "./pictures/" + result4[i].ProductID.toString(10);
+            const deletefiles = util.promisify(fs.unlink);
+            for (var j = 1; j <= 3; j++) {
+                await deletefiles(FolderName + "/" + j.toString(10) + "_main.png")
+                    .then(() => console.log('Delete main success'))
+                    .catch((err) => console.log(err));
+                await deletefiles(FolderName + "/" + j.toString(10) + "_thumb.png")
+                    .then(() => console.log('Delete thumb success'))
+                    .catch((err) => console.log(err));
+            }
+            fs.rmdir(FolderName, (err) => {
+                if (err) console.log(err);
+                else console.log("Delete directory success");
+            });
         }
     }
     //Nếu là seller thì xóa các sản phẩm mà seller đã đăng
     const result5 = await productModel.delBySellerID(req.params.id);
+
     //Xóa user trong db
     const rows = await userModel.delByID(req.params.id);
     req.flash('success_msg', 'Delete user success');
@@ -86,7 +111,6 @@ router.post('/updowngrade/:id/up', async (req, res) => {
     //Thêm 1 dòng vào bảng Downgrade
     const Type = { Type: 1 };
     const IsRefuse = { IsRefuse: 0 };
-
     const user = await userModel.singleByUserID(req.params.id);
     const add = { UserID: "", Username: "", IsDown: "" };
     add.UserID = req.params.id;
@@ -112,6 +136,30 @@ router.post('/updowngrade/:id/reject', async (req, res) => {
 });
 
 router.post('/updowngrade/:id/down', async (req, res) => {
+    const result4 = await productModel.allProductWithSellerID(req.params.id);
+    //Lấy ra các sản phẩm mà người bị hạ cấp đã đăng
+    if (result4.length > 0) {
+        //Xóa tất cả những lần bid của các users khác về các sản phẩm mà người bị hạ cấp đã đăng
+        for (var i = 0; i < result4.length; i++) {
+            const result9 = await bidModel.delByProID(result4[i].ProductID);
+            //Xóa thư mục hình ảnh của các sản phẩm
+            var FolderName = "./pictures/" + result4[i].ProductID.toString(10);
+            const deletefiles = util.promisify(fs.unlink);
+            for (var j = 1; j <= 3; j++) {
+                await deletefiles(FolderName + "/" + j.toString(10) + "_main.png")
+                    .then(() => console.log('Delete main success'))
+                    .catch((err) => console.log(err));
+                await deletefiles(FolderName + "/" + j.toString(10) + "_thumb.png")
+                    .then(() => console.log('Delete thumb success'))
+                    .catch((err) => console.log(err));
+            }
+            fs.rmdir(FolderName, (err) => {
+                if (err) console.log(err);
+                else console.log("Delete directory success");
+            });
+        }
+    }
+
     //Xóa tất cả các sản phẩm mà người dùng đã đăng(khi còn là seller)
     const result = await productModel.delBySellerID(req.params.id);
     //Hạ cấp cho user đổi type = 0(xuống bidder)

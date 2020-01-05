@@ -7,6 +7,7 @@ const fs = require('fs');
 var multer = require('multer');
 const sharp = require('sharp');
 const moment = require('moment');
+const util = require('util');
 
 var FolderName = "./pictures/";
 var storage = multer.diskStorage({
@@ -17,32 +18,6 @@ var storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 })
-function RenameFile(filetorename, renamefile) {
-    fs.renameSync(filetorename, renamefile);
-}
-
-function SharpLargeImages(fileinput, fileoutput) {
-    sharp(fileinput)
-        .resize(500, 500)
-        .toFile(fileoutput, function (err) {
-            if (err) console.log(err)
-            else console.log("Resize success");
-        });
-}
-
-function SharpSmallImages(fileinput, fileoutput) {
-    sharp(fileinput)
-        .resize(132, 132)
-        .toFile(fileoutput, function (err) {
-            if (err) console.log(err)
-            else console.log("Resize success");
-        });
-}
-
-function DeleteFileTemp(fileinput) {
-    //Xóa file temp
-    fs.unlinkSync(fileinput);
-}
 
 var upload = multer({ storage: storage })
 
@@ -51,6 +26,7 @@ router.get('/', restrict.forUserNotSeller, (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+    var error = 0;
     //Lấy ra proID lớn nhất
     const result = await productModel.getLargestProID();
     var proId = +result[0].ProId;
@@ -75,7 +51,7 @@ router.post('/', async (req, res) => {
             //Nếu upload không đúng 3 hình
             if (req.files.length !== 3) {
                 //Xóa thư mục /pictures/proId
-                fs.unlink(FolderName, (err) => {
+                fs.rmdir(FolderName, (err) => {
                     if (err) console.log(err);
                     else console.log("Delete directory success");
                 });
@@ -83,20 +59,30 @@ router.post('/', async (req, res) => {
                     error: 'Please put in exactly 3 images'
                 });
             }
+            const files = req.files;
             //Ok 3 ảnh
             //Đổi tên các bức ảnh
             for (var i = 1; i <= req.files.length; i++) {
                 //3 file người dùng nhập vào rename thành temp
                 //từ 3 file temp này sharp ra 6 tấm ảnh (3 lớn 3 nhỏ)
-                const result = RenameFile(FolderName + "/" + req.files[i - 1].originalname, FolderName + "/" + i.toString(10) + "_temp" +
-                    path.extname(req.files[i - 1].originalname));
-                //Sharp 3 lớn
-                const result1 = SharpLargeImages(FolderName + "/" + i.toString(10) + "_temp" +
-                    path.extname(req.files[i - 1].originalname), FolderName + "/" + i.toString(10) + "_main.png");
-                //Sharp 3 nhỏ
-                const result2 = SharpSmallImages(FolderName + "/" + i.toString(10) + "_temp" +
-                    path.extname(req.files[i - 1].originalname), FolderName + "/" + i.toString(10) + "_thumb.png");
-                //Xóa file temp dưới chỗ này thì lỗi vì tài nguyên bận
+                const renamefiles = util.promisify(fs.rename);
+                await renamefiles(FolderName + "/" + req.files[i - 1].originalname, FolderName + "/" + i.toString(10) + "_temp" +
+                    path.extname(req.files[i - 1].originalname))
+                    .then(() => console.log('Rename success'))
+                    .catch(error => console.log(error));
+                await sharp(FolderName + "/" + i.toString(10) + "_temp" +
+                    path.extname(files[i - 1].originalname))
+                    .resize(500, 500)
+                    .toFile(FolderName + "/" + i.toString(10) + "_main.png");
+                await sharp(FolderName + "/" + i.toString(10) + "_temp" +
+                    path.extname(files[i - 1].originalname))
+                    .resize(132, 132)
+                    .toFile(FolderName + "/" + i.toString(10) + "_thumb.png");
+                const deletefiles = util.promisify(fs.unlink);
+                await deletefiles(FolderName + "/" + i.toString(10) + "_temp" +
+                    path.extname(files[i - 1].originalname))
+                    .then(() => console.log('Delete success'))
+                    .catch((err) => console.log(err));
             }
             var timeexpired = moment();
             // timeexpired.set('date', timeexpired.get('date') + 7);
@@ -108,6 +94,7 @@ router.post('/', async (req, res) => {
                 CatId: req.body.Categories,
                 SellerID: req.session.authUser.UserID,
                 PriceStart: req.body.PriceStart,
+                CurrentBid: req.body.PriceStart,
                 PricePurchase: req.body.PricePurchase,
                 PriceStep: req.body.PriceStep,
                 Description: '<b><i class="fa fa-edit"></i> ' + moment().format('YYYY-MM-DD HH:mm:ss') + "</b><br>" + req.body.Description,
@@ -116,11 +103,6 @@ router.post('/', async (req, res) => {
                 IsOver: 0
             }
             const result = await productModel.add(product);
-            for (var i = 1; i <= req.files.length; i++) {
-                const result3 = DeleteFileTemp(FolderName + "/" + i.toString(10) + "_temp" +
-                    path.extname(req.files[i - 1].originalname));
-            }
-
             res.render('vwPostProduct/postproduct', {
                 success: 'Your product was successfully posted'
             });
