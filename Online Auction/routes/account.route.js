@@ -91,6 +91,7 @@ router.post('/verify', async (req, res) => {
         info.Email = info.user_email;
         info.DOB = dob;
         info.Type = 0;
+        info.RatingUp = 1;
 
         //Xóa những trường không cần thiết
         delete info.user_name;

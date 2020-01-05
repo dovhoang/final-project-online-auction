@@ -11,6 +11,13 @@ module.exports = {
       return null;
     return bid1[0];
   },
+  getSecondLarghAmountWithProID: async (proid) => {
+    const sql = `SELECT UserID,MAX(Amount) as secondlarghamount FROM Bid WHERE ProID=${proid} and Amount < (SELECT MAX(Amount) FROM Bid)`
+    const bid = await db.load(sql);
+    if (bid.length === 0)
+      return null;
+    return bid[0];
+  },
   singleByProIDAndAmount: async (proid, amount) => {
     const sql = `SELECT UserID FROM Bid WHERE ProID = ${proid} and Amount = ${amount}`
     const bid = await db.load(sql);

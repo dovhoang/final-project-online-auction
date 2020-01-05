@@ -1095,9 +1095,9 @@ section
 {
 	position: absolute;
 	top: -25px;
-	width: 100px;
 	height: 22px;
 	border-radius: 3px;
+	padding: 0 5px;
 	text-transform: uppercase;
 }
 .product_bubble span
@@ -1131,23 +1131,26 @@ section
 }
 .product_bubble_red::after
 {
+	border-color: transparent transparent transparent #da0000;
+}
+.product_bubble_green::after
+{
 	border-color: transparent transparent transparent #51a042;
 }
-.product_bubble_left::after
-{
-	border-color: #51a042 #51a042 transparent transparent;
-}
+
 .product_bubble_red
 {
-	background: #51a042;
+	background: #da0000;
 }
 .product_bubble_green
 {
 	background: #51a042;
 }
+
 .product_bubble_left
 {
-	left: 15px;
+	right: 15px;
+	top: 0px;
 }
 .product_bubble_right
 {

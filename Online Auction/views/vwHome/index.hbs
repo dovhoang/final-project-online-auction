@@ -84,8 +84,13 @@
 							</div>
 							{{#if PricePurchase}}
 							<div
-								class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
+								class="product_bubble product_bubble_right product_bubble_green d-flex flex-column align-items-center">
 								<span>Buy now: {{PricePurchase}} $</span></div>
+							{{/if}}
+							{{#if isNew}}
+								<div
+								class="product_bubble product_bubble_left product_bubble_red d-flex flex-column align-items-center">
+								<span>NEW</span></div>
 							{{/if}}
 							<div class="favorite favorite_left"></div>
 							<div class="product_info">
@@ -133,9 +138,15 @@
 							</div>
 							{{#if PricePurchase}}
 							<div
-								class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
+								class="product_bubble product_bubble_right product_bubble_green d-flex flex-column align-items-center">
 								<span>Buy now: {{PricePurchase}} $</span></div>
 							{{/if}}
+							{{#if isNew}}
+								<div
+								class="product_bubble product_bubble_left product_bubble_red d-flex flex-column align-items-center">
+								<span>NEW</span></div>
+							{{/if}}
+							
 							<div class="favorite favorite_left"></div>
 							<div class="product_info">
 								<h6 class="product_name"><a href="/product/id={{ProductID}}">{{ProductName}}</a></h6>
@@ -183,8 +194,13 @@
 							</div>
 							{{#if PricePurchase}}
 							<div
-								class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
+								class="product_bubble product_bubble_right product_bubble_green d-flex flex-column align-items-center">
 								<span>Buy now: {{PricePurchase}} $</span></div>
+							{{/if}}
+							{{#if isNew}}
+								<div
+								class="product_bubble product_bubble_left product_bubble_red d-flex flex-column align-items-center">
+								<span>NEW</span></div>
 							{{/if}}
 							<div class="favorite favorite_left"></div>
 							<div class="product_info">
