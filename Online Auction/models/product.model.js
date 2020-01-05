@@ -87,6 +87,7 @@ module.exports = {
   getProductRecently: userID => db.load(`CALL getProductRecently(${userID})`),
   fvr: (id, userID) => db.load(`Select * from Favorite where ProductID=${id} and UserID=${userID}`),
   fInsertFavorite: (proID, userID) => db.load(` SELECT fInsertFavorite(${proID}, ${userID}) AS result`),
+  getFinishedProducts: userID => db.load(`CALL getAllFinishedProducts(${userID}) `),
   add: entity => db.add('Product', entity),
   addReview: entity => db.add('Review', entity),
   del: id => db.del('Product', { ProID: id }),

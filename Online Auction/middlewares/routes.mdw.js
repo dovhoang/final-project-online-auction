@@ -13,6 +13,7 @@ module.exports = function (app) {
   app.use('/forgotpassword', require('../routes/forgotpassword.route'));
   app.use('/postproduct', require('../routes/postproduct.route'));
   app.use('/allpostproduct', require('../routes/allpostproduct.route'));
+  app.use('/allfinishedproducts', require('../routes/allfinishedproducts.route'));
   app.use('/bidder', require('../routes/bidder.route'));
   app.use('/seller', require('../routes/seller.route'));
 };
