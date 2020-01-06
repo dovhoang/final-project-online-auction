@@ -45,16 +45,12 @@ require('./middlewares/locals.mdw')(app);
 require('./middlewares/routes.mdw')(app);
 
 
-
-//comment lai de xem loi tren browser
-// app.use((req, res, next) => {
-//   res.send('You\'re lost');
-// })
-
-// app.use((err, req, res, next) => {
-//   console.error(err.stack);
-//   res.status(500).send('View error on console.');
-// })
+app.use((req, res, next) => {
+  res.render('vwError/error')
+})
+app.use((err, req, res, next) => {
+  res.render('vwError/error')
+})
 
 const PORT = 3000;
 app.listen(PORT, () => {

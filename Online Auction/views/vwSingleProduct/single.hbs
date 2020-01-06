@@ -1,438 +1,439 @@
 {{#if this.isBlocked}}
-	<div class="card-body"  style="margin-top:130px">
+<div class="card-body" style="margin-top:130px">
+	<p class="card-text">
+		You are blocked from this product
+	</p>
+</div>
+{{else}}
+<div class="container">
+	{{#if this.PrdEmpty}}
+	<div class="card-body" style="margin-top:130px">
 		<p class="card-text">
-			You are blocked from this product
+			Product not found...
 		</p>
 	</div>
-{{else}}
-		<div class="container">
-			{{#if this.PrdEmpty}}
-			<div class="card-body"  style="margin-top:130px">
-				<p class="card-text">
-					Product not found...
-				</p>
+	{{else}}
+	<div class="super_container" style="margin-top:-30px">
+		<div class="container single_product_container">
+			<div class="row">
+				<div class="col">
+					<!-- Breadcrumbs -->
+					{{#each this.product}}
+					<div class="breadcrumbs d-flex flex-row align-items-center">
+						<ul>
+							<li><a href="/categories/{{../catparent/CatID}}/products">{{../catparent/CatName}}</a></li>
+							<li><a href="/categories/{{CatID}}/products"><i class="fa fa-angle-right"
+										aria-hidden="true"></i>{{CatName}}</a></li>
+							<li class="active"><a href="#"><i class="fa fa-angle-right"
+										aria-hidden="true"></i>{{ProductName}}</a></li>
+						</ul>
+					</div>
+
+				</div>
 			</div>
-			{{else}}
-			<div class="super_container" style="margin-top:-30px">
-				<div class="container single_product_container">
-					<div class="row">
-						<div class="col">
-							<!-- Breadcrumbs -->
-							{{#each this.product}}
-							<div class="breadcrumbs d-flex flex-row align-items-center">
-								<ul>
-									<li><a href="/categories/{{../catparent/CatID}}/products">{{../catparent/CatName}}</a></li>
-									<li><a href="/categories/{{CatID}}/products"><i class="fa fa-angle-right"
-												aria-hidden="true"></i>{{CatName}}</a></li>
-									<li class="active"><a href="#"><i class="fa fa-angle-right"
-												aria-hidden="true"></i>{{ProductName}}</a></li>
-								</ul>
+
+			<div class="row">
+				<div class="preview col-lg-7">
+					<div class="app-figure" id="zoom-fig">
+						<div class="row">
+							<div class="selectors col-lg-2">
+								<a data-zoom-id="Zoom-1" href="/{{ProductID}}/1_main.png"
+									data-image="/{{ProductID}}/1_main.png">
+									<img src="/{{ProductID}}/1_thumb.png" />
+								</a>
+								<a data-zoom-id="Zoom-1" href="/{{ProductID}}/2_main.png"
+									data-image="/{{ProductID}}/2_main.png">
+									<img src="/{{ProductID}}/2_thumb.png" />
+								</a>
+								<a data-zoom-id="Zoom-1" href="/{{ProductID}}/3_main.png"
+									data-image="/{{ProductID}}/3_main.png">
+									<img src="/{{ProductID}}/3_thumb.png" />
+								</a>
 							</div>
-
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="preview col-lg-7">
-							<div class="app-figure" id="zoom-fig">
-								<div class="row">
-									<div class="selectors col-lg-2">
-										<a data-zoom-id="Zoom-1" href="/{{ProductID}}/1_main.png"
-											data-image="/{{ProductID}}/1_main.png">
-											<img src="/{{ProductID}}/1_thumb.png" />
-										</a>
-										<a data-zoom-id="Zoom-1" href="/{{ProductID}}/2_main.png"
-											data-image="/{{ProductID}}/2_main.png">
-											<img src="/{{ProductID}}/2_thumb.png" />
-										</a>
-										<a data-zoom-id="Zoom-1" href="/{{ProductID}}/3_main.png"
-											data-image="/{{ProductID}}/3_main.png">
-											<img src="/{{ProductID}}/3_thumb.png" />
-										</a>
-									</div>
-									<div id="Zoom-1" class="MagicZoom col-lg-10" style="height: 400px"
-										href="/{{ProductID}}/1_main.png" class="MagicZoom"
-										data-options="zoomPosition:
+							<div id="Zoom-1" class="MagicZoom col-lg-10" style="height: 400px"
+								href="/{{ProductID}}/1_main.png" class="MagicZoom" data-options="zoomPosition:
 										inner;zoomMode: magnifier;zoomWidth:50%; zoomHeight:50%">
-										<img src="/{{ProductID}}/1_main.png" />
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-5">
-							<div class="product_details">
-
-								<div class="product_details_title">
-									<h2 id="main_product_name">{{ProductName}}</h2>
-									<div id="timepostingproduct">Time post: <span>{{TimePost}}</span></div>
-									<div class="d-flex flex-row">
-										<div id="countdowntimer">Time left: </div>
-										<div class="product_expiration_date timer_num time_custom_number ml-3"></div>
-									</div>
-									<div class="time_exp" style="visibility: hidden; font-size: 1px">{{TimeExp}}</div>
-								</div>
-								{{#if PricePurchase}}
-								<div class="row">
-									<div class="col instance_purchase">Buy now:</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-2 money_instance_purchase">{{PricePurchase}}</div>
-									<div class="col-lg-10 money_instance_purchase">
-										<button type="button" class="btn btn-warning">Buy <span class="fa
-												fa-shopping-cart"></span></button>
-									</div>
-								</div>
-								{{/if}}
-								{{/each}}
-								<div class="row">
-									<div class="col-lg-3 current_bid">Current bid:</div>
-									<div class="col-lg-9 current_bid">Current winner:</div>
-								</div>
-								<div>{{this.status}}</div>
-								<div class="row">
-									{{#each this.curWinnerInfo}}
-									<div class="col-lg-3 line_product_price1"> <span id="product_price">
-											{{CurrentBid}}</span>$</div>
-									<div class="col-lg-4 line_product_price">
-										<i class="fa fa-trophy" aria-hidden="true"></i>
-										<a href="/bidder/{{Username}}"><span id="current_winner">{{curWinnerName}}</span></a>
-									</div>
-
-									<div class="col-lg-3" id="winner_rate">
-
-										<ul class="star_rating">
-											<span class="stars">{{rateStar}} </span>
-										</ul>
-									</div>
-									{{/each}}
-								</div>
-								{{#if_eq this.isSeller false}}
-								<div class="placebid d-flex flex-column flex-sm-row
-									align-items-sm-center">
-									<div>Place bid:</div>
-									<div class="placebid_selector">
-										<span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
-										{{#if this.PrdEmpty}}
-										<span id="placebid_value">0</span>
-										{{else}}
-										{{#each this.product}}
-										<span id="placebid_value">{{CurrentBid}}</span>
-										{{/each}}
-										{{/if}}
-										<span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
-									</div>
-									{{#each this.product}}
-									<button disabled id="priceStep" type="button" class="btn btn-success"
-										value="{{PriceStep}}">{{PriceStep}}</button>
-									{{/each}}
-									<form id="bid_form" method="post">
-										<input type="hidden" id="key" value="bid" name="key">
-										<input type="hidden" id="price" value="0" name="Price">
-										{{#if authUser.UserID}}
-										<button id="bidButton" type="submit" class="btn btn-danger m-1">
-											Place bid <span class="fas fa-hammer"></span>
-										</button>
-
-										{{else}}
-										<button disabled id="bid" type="submit" class="btn btn-danger m-1">Place
-											bid <span class="fas fa-hammer"></span>
-										</button>
-										{{/if}}
-									</form>
-									{{#if authUser.UserID}}
-									{{#if favorite}}
-									<form id="favoritePrd">
-										<button id="favoriteBtn" class="btn btn-danger" value="1">
-											<span class="fa fa-heart"></span>
-										</button>
-										<span id="ntf"></span>
-									</form>
-									{{else}}
-									<form id="favoritePrd">
-										<button id="favoriteBtn" class="btn btn-light" value="0">
-											<span class="fa fa-heart"></span>
-										</button>
-										<span id="ntf"></span>
-									</form>
-									{{/if}}
-									{{/if}}
-									{{!-- <button type="button" class="btn btn-danger button_favorite"><span
-											class="fa fa-heart"></span></button> --}}
-
-								</div>
-								{{#if authUser.UserID}}
-								<form id="AutoBid" method="POST">
-									<input type="hidden" id="keyauto" value="autobid" name="key">
-									<input type="hidden" id="PriceAuto" value="-1" name="Price">
-								</form>
-								<button id="btnAutoBid" class="btn btn-secondary mt-5">AUTOMATIC BIDDING
-									{{#if this.autoBidPrice}}
-									<span id="autoPrice">:{{this.autoBidPrice}}</span>
-									{{/if}}
-								</button>
-								{{/if}}
-								{{/if_eq}}
-
-							</div>
-						</div>
-
-					</div>
-
-					<!-- Đấu giá -->
-					<div class="auction">
-						<div class="container">
-							<table class="table">
-								<thead class="thead-dark">
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">User/Auto Bid</th>
-										<th scope="col">Amount</th>
-										<th scope="col">Rate</th>
-										<th scope="col">Time</th>
-										{{#if authUser.UserID}}<th scope="col"></th>{{/if}}
-									</tr>
-								</thead>
-								<tbody>
-									{{#each this.InfoLastestAuction}}
-									<tr>
-										<th scope="row">{{BidID}}</th>
-										<td><a class="NameofUser" href="/bidder/{{Username}}">{{name}}</a></td>
-										<td>{{Amount}}</td>
-										<td>
-											<ul class="star_rating1">
-												<span class="stars">{{rateStar}} </span>
-											</ul>
-										</td>
-										<td>{{time}}</td>
-										{{#if ../this.isSeller}}
-										<form class="BanUser" method="post">
-											<input type="hidden" value="banbidder" name="key">
-											<input type="hidden" value="{{UserID}}" name="userId">
-											<td><button type="submit" class="btnBanUser"><i class="fa fa-2x fa-ban
-														text-danger" aria-hidden="true"></i>
-												</button></td>
-										</form>
-										{{/if}}
-									</tr>
-									{{/each}}
-								</tbody>
-							</table>
-						</div>
-					</div>
-
-					<!-- Tabs -->
-
-					<div class="tabs_section_container">
-
-						<div class="container">
-							<div class="row">
-								<div class="col">
-									<div class="tabs_container">
-										<ul class="tabs d-flex flex-sm-row flex-column align-items-left
-											align-items-md-center justify-content-center">
-											<li class="tab active" data-active-tab="tab_1"><span>Product
-													Information</span></li>
-											<li class="tab" data-active-tab="tab_2"><span>Seller Information</span></li>
-											<li class="tab" data-active-tab="tab_3"><span>Reviews
-													(<span id="countRev0">{{reviewLength}}</span>)</span></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-
-									<!-- Tab Product Info -->
-
-									<div id="tab_1" class="tab_container active">
-										<div class="row">
-											<div class="col desc_col">
-												<div class="tab_title">
-													<h4>Product Information</h4>
-												</div>
-
-												{{#each this.product}}
-												<div class="info_product">
-													{{{description}}}
-												</div>
-												{{/each}}
-
-											</div>
-										</div>
-									</div>
-
-									<!-- Tab Seller Info -->
-									{{#each this.sellerInfo}}
-									<div id="tab_2" class="tab_container">
-										<div class="row">
-											<div class="col additional_info_col">
-												<div class="tab_title additional_info_title">
-													<h4>Seller Information</h4>
-												</div>
-												<p class="seller-info">
-													NAME:
-													<a href="/seller/{{Username}}"> <span>{{sellerName}}</span></a>
-												</p>
-												<p class="seller-info">
-													EMAIL:
-													<span>{{email}}</span>
-												</p>
-												<p class="seller-info1">
-													RATE:
-													<ul class="star_rating1">
-														<span class="stars">{{rateStar}} </span>
-													</ul>
-												</p>
-
-											</div>
-										</div>
-									</div>
-									{{/each}}
-
-									<!-- Tab Reviews -->
-
-									<div id="tab_3" class="tab_container">
-										<div class="row">
-											<!-- User Reviews -->
-											<div class="col-lg-6 reviews_col">
-												<div class="tab_title reviews_title">
-													<h4> Reviews (<span id="countRev">{{reviewLength}}</span>)</h4>
-												</div>
-												<span id="insert"></span>
-												<!-- User Review -->
-												{{#each this.review}}
-												<div class="user_review_container d-flex flex-column flex-sm-row">
-													<div class="user">
-														<div class="user_pic">
-															<img src="/users/default/person_default_image.png" alt="{{name}}"
-																title="{{name}}" />
-														</div>
-														<ul class="star_rating1">
-															<span class="stars">{{rateStar}} </span>
-														</ul>
-													</div>
-													<div class="review">
-														<div class="review_date">{{TimePost}}</div>
-														<div class="user_name">{{name}}</div>
-														<p>{{comment}}</p>
-													</div>
-												</div>
-												{{/each}}
-
-											</div>
-
-											<!-- Add Review -->
-											{{#if authUser.UserID}}
-											<div class="col-lg-6 add_review_col">
-												<div class="add_review">
-													{{!-- <form id="review_form" method="post" target="uploader_iframe"></form>
-													--}}
-													<form id="review_form">
-														<input type="hidden" id="rate2" value="0" name="Rating">
-														<div>
-															<h1>Your Rating:</h1>
-															<div class="user_star_rating">
-																<ul>
-																	<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-																	<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-																	<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-																	<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-																	<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
-																</ul>
-															</div>
-															<textarea id="review_message" class="input_review" name="Comment"
-																placeholder="Your Review" rows="4" required data-error="Please,
-																leave us a review."></textarea>
-														</div>
-														<div class="text-left text-sm-right">
-															<button id="review_submit" type="submit" class="red_button
-																review_submit_btn trans_300">submit</button>
-														</div>
-													</form>
-													<div id="notify"></div>
-												</div>
-											</div>
-											{{/if}}
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<!-- Related Product -->
-					<div class="new_arrivals">
-						<div class="container">
-							<div class="row">
-								<div class="col text-center">
-									<div class="section_title new_arrivals_title">
-										<h4>The product is almost finished</h4>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col">
-									<div class="product-grid" data-isotope='{" itemSelector" :"
-										.product-item" ," layoutMode" :"
-										fitRows"
-										}'>
-										{{#each this.relatedPrd}}
-										<div class="product-item m-1">
-											<div class="product discount product_filter">
-												<div class="product_image">
-													<img class="rounded mx-auto d-block" src="/{{ProductID}}/1_main.png"
-														alt="{{ProductName}}" title="{{ProductName}}">
-												</div>
-												{{#if PricePurchase}}
-												<div class="product_bubble product_bubble_right product_bubble_red
-													d-flex
-													flex-column align-items-center">
-													<span>Buy now: {{PricePurchase}} $</span></div>
-												{{/if}}
-												<div class="favorite favorite_left"></div>
-												<div class="product_info">
-													<h6 class="product_name"><a
-															href="/product/id={{ProductID}}">{{ProductName}}</a>
-													</h6>
-													<div class="product_price price_custom">{{PriceStart}} $</div>
-													<div class="d-flex flex-row time_custom justify-content-center">
-														<div class="product_expiration_date timer_num time_custom_number"></div>
-													</div>
-													<div class="time_exp" style="visibility: hidden; font-size: 1px">{{TimeExp}}
-													</div>
-												</div>
-											</div>
-											<div class="d-flex justify-content-between">
-												<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i>
-													{{#if CurrentWinner}}
-													&nbsp{{WinnerName}}
-													{{/if}} </div>
-												<div class="card_hammer"><i class="fa fa-gavel"
-														aria-hidden="true"></i>{{NumBid}}
-												</div>
-											</div>
-										</div>
-										{{/each}}
-									</div>
-								</div>
+								<img src="/{{ProductID}}/1_main.png" />
 							</div>
 						</div>
 					</div>
 				</div>
-				{{/if}}
+				<div class="col-lg-5">
+					<div class="product_details">
+
+						<div class="product_details_title">
+							<h2 id="main_product_name">{{ProductName}}</h2>
+							<div id="timepostingproduct">Time post: <span>{{TimePost}}</span></div>
+							<div class="d-flex flex-row">
+								<div id="countdowntimer">Time left: </div>
+								<div class="product_expiration_date timer_num time_custom_number ml-3"></div>
+							</div>
+							<div class="time_exp" style="visibility: hidden; font-size: 1px">{{TimeExp}}</div>
+						</div>
+						{{#if PricePurchase}}
+						<div class="row">
+							<div class="col instance_purchase">Buy now:</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-2 money_instance_purchase">{{PricePurchase}}</div>
+							<div class="col-lg-10 money_instance_purchase">
+								<button type="button" class="btn btn-warning">Buy <span class="fa
+												fa-shopping-cart"></span></button>
+							</div>
+						</div>
+						{{/if}}
+						{{/each}}
+						<div class="row">
+							<div class="col-lg-3 current_bid">Current bid:</div>
+							<div class="col-lg-9 current_bid">Current winner:</div>
+						</div>
+						<div>{{this.status}}</div>
+						<div class="row">
+							{{#each this.curWinnerInfo}}
+							<div class="col-lg-3 line_product_price1"> <span id="product_price">
+									{{CurrentBid}}</span>$</div>
+							<div class="col-lg-4 line_product_price">
+								<i class="fa fa-trophy" aria-hidden="true"></i>
+								<a href="/bidder/{{Username}}"><span id="current_winner">{{curWinnerName}}</span></a>
+							</div>
+
+							<div class="col-lg-3" id="winner_rate">
+
+								<ul class="star_rating">
+									<span class="stars">{{rateStar}} </span>
+								</ul>
+							</div>
+							{{/each}}
+						</div>
+						{{#if_eq this.isSeller false}}
+						<div class="placebid d-flex flex-column flex-sm-row
+									align-items-sm-center">
+							<div>Place bid:</div>
+							<div class="placebid_selector">
+								<span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+								{{#if this.PrdEmpty}}
+								<span id="placebid_value">0</span>
+								{{else}}
+								{{#each this.product}}
+								<span id="placebid_value">{{CurrentBid}}</span>
+								{{/each}}
+								{{/if}}
+								<span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+							</div>
+							{{#each this.product}}
+							<button disabled id="priceStep" type="button" class="btn btn-success"
+								value="{{PriceStep}}">{{PriceStep}}</button>
+							{{/each}}
+							<form id="bid_form" method="post">
+								<input type="hidden" id="key" value="bid" name="key">
+								<input type="hidden" id="price" value="0" name="Price">
+								{{#if authUser.UserID}}
+								<button id="bidButton" type="submit" class="btn btn-danger m-1">
+									Place bid <span class="fas fa-hammer"></span>
+								</button>
+
+								{{else}}
+								<button disabled id="bid" type="submit" class="btn btn-danger m-1">Place
+									bid <span class="fas fa-hammer"></span>
+								</button>
+								{{/if}}
+							</form>
+							{{#if authUser.UserID}}
+							{{#if favorite}}
+							<form id="favoritePrd">
+								<button id="favoriteBtn" class="btn btn-danger" value="1">
+									<span class="fa fa-heart"></span>
+								</button>
+								<span id="ntf"></span>
+							</form>
+							{{else}}
+							<form id="favoritePrd">
+								<button id="favoriteBtn" class="btn btn-light" value="0">
+									<span class="fa fa-heart"></span>
+								</button>
+								<span id="ntf"></span>
+							</form>
+							{{/if}}
+							{{/if}}
+							{{!-- <button type="button" class="btn btn-danger button_favorite"><span
+											class="fa fa-heart"></span></button> --}}
+
+						</div>
+						{{#if authUser.UserID}}
+						<form id="AutoBid" method="POST">
+							<input type="hidden" id="keyauto" value="autobid" name="key">
+							<input type="hidden" id="PriceAuto" value="-1" name="Price">
+						</form>
+						<button id="btnAutoBid" class="btn btn-secondary mt-5">AUTOMATIC BIDDING
+							{{#if this.autoBidPrice}}
+							<span id="autoPrice">:{{this.autoBidPrice}}</span>
+							{{/if}}
+						</button>
+						{{/if}}
+						{{/if_eq}}
+
+					</div>
+				</div>
+
+			</div>
+
+			<!-- Đấu giá -->
+			<div class="auction">
+				<div class="container">
+					<table class="table">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">User/Auto Bid</th>
+								<th scope="col">Amount</th>
+								<th scope="col">Rate</th>
+								<th scope="col">Time</th>
+								{{#if authUser.UserID}}<th scope="col"></th>{{/if}}
+							</tr>
+						</thead>
+						<tbody>
+							{{#each this.InfoLastestAuction}}
+							<tr>
+								<th scope="row">{{BidID}}</th>
+								<td><a class="NameofUser" href="/bidder/{{Username}}">{{name}}</a></td>
+								<td>{{Amount}}</td>
+								<td>
+									<ul class="star_rating1">
+										<span class="stars">{{rateStar}} </span>
+									</ul>
+								</td>
+								<td>{{time}}</td>
+								{{#if ../this.isSeller}}
+								<form class="BanUser" method="post">
+									<input type="hidden" value="banbidder" name="key">
+									<input type="hidden" value="{{UserID}}" name="userId">
+									<td><button type="submit" class="btnBanUser"><i class="fa fa-2x fa-ban
+														text-danger" aria-hidden="true"></i>
+										</button></td>
+								</form>
+								{{/if}}
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<!-- Tabs -->
+
+			<div class="tabs_section_container">
+
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="tabs_container">
+								<ul class="tabs d-flex flex-sm-row flex-column align-items-left
+											align-items-md-center justify-content-center">
+									<li class="tab active" data-active-tab="tab_1"><span>Product
+											Information</span></li>
+									<li class="tab" data-active-tab="tab_2"><span>Seller Information</span></li>
+									<li class="tab" data-active-tab="tab_3"><span>Reviews
+											(<span id="countRev0">{{reviewLength}}</span>)</span></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+
+							<!-- Tab Product Info -->
+
+							<div id="tab_1" class="tab_container active">
+								<div class="row">
+									<div class="col desc_col">
+										<div class="tab_title">
+											<h4>Product Information</h4>
+										</div>
+
+										{{#each this.product}}
+										<div class="info_product">
+											{{{description}}}
+										</div>
+										{{/each}}
+
+									</div>
+								</div>
+							</div>
+
+							<!-- Tab Seller Info -->
+							{{#each this.sellerInfo}}
+							<div id="tab_2" class="tab_container">
+								<div class="row">
+									<div class="col additional_info_col">
+										<div class="tab_title additional_info_title">
+											<h4>Seller Information</h4>
+										</div>
+										<p class="seller-info">
+											NAME:
+											<a href="/seller/{{Username}}"> <span>{{sellerName}}</span></a>
+										</p>
+										<p class="seller-info">
+											EMAIL:
+											<span>{{email}}</span>
+										</p>
+										<p class="seller-info1">
+											RATE:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+											<ul class="star_rating1">
+												<span class="stars">{{rateStar}} </span>
+											</ul>
+										</p>
+
+									</div>
+								</div>
+							</div>
+							{{/each}}
+
+							<!-- Tab Reviews -->
+
+							<div id="tab_3" class="tab_container">
+								<div class="row">
+									<!-- User Reviews -->
+									<div class="col-lg-6 reviews_col">
+										<div class="tab_title reviews_title">
+											<h4> Reviews (<span id="countRev">{{reviewLength}}</span>)</h4>
+										</div>
+										<span id="insert"></span>
+										<!-- User Review -->
+										{{#each this.review}}
+										<div class="user_review_container d-flex flex-column flex-sm-row">
+											<div class="user">
+												<div class="user_pic">
+													<img src="/users/default/person_default_image.png" alt="{{name}}"
+														title="{{name}}" />
+												</div>
+												<ul class="star_rating1">
+													<span class="stars">{{rateStar}} </span>
+												</ul>
+											</div>
+											<div class="review">
+												<div class="review_date">{{TimePost}}</div>
+												<div class="user_name">{{name}}</div>
+												<p>{{comment}}</p>
+											</div>
+										</div>
+										{{/each}}
+
+									</div>
+
+									<!-- Add Review -->
+									{{#if authUser.UserID}}
+									<div class="col-lg-6 add_review_col">
+										<div class="add_review">
+											{{!-- <form id="review_form" method="post" target="uploader_iframe"></form>
+													--}}
+											<form id="review_form">
+												<input type="hidden" id="rate2" value="0" name="Rating">
+												<div>
+													<h1>Your Rating:</h1>
+													<div class="user_star_rating">
+														<ul>
+															<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+															<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+															<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+															<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+															<li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+														</ul>
+													</div>
+													<textarea id="review_message" class="input_review" name="Comment"
+														placeholder="Your Review" rows="4" required data-error="Please,
+																leave us a review."></textarea>
+												</div>
+												<div class="text-left text-sm-right">
+													<button id="review_submit" type="submit" class="red_button
+																review_submit_btn trans_300">submit</button>
+												</div>
+											</form>
+											<div id="notify"></div>
+										</div>
+									</div>
+									{{/if}}
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Related Product -->
+			<div class="new_arrivals">
+				<div class="container">
+					<div class="row">
+						<div class="col text-center">
+							<div class="section_title new_arrivals_title">
+								<h4>The most relevant products</h4>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="product-grid"
+								data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+								{{#each this.relatedPrd}}
+								<div class="product-item m-1">
+									<div class="product discount product_filter">
+										<div class="product_image">
+											<img class="rounded mx-auto d-block" src="/{{ProductID}}/1_main.png"
+												alt="{{ProductName}}" title="{{ProductName}}">
+										</div>
+										{{#if PricePurchase}}
+										<div
+											class="product_bubble product_bubble_right product_bubble_green d-flex flex-column align-items-center">
+											<span>Buy now: {{PricePurchase}} $</span></div>
+										{{/if}}
+										{{#if isNew}}
+										<div
+											class="product_bubble product_bubble_left product_bubble_red d-flex flex-column align-items-center">
+											<span>NEW</span></div>
+										{{/if}}
+										<div class="favorite favorite_left"></div>
+										<div class="product_info">
+											<h6 class="product_name"><a
+													href="/product/id={{ProductID}}">{{ProductName}}</a>
+											</h6>
+											<div class="product_price price_custom">{{PriceStart}} $</div>
+											<div class="d-flex flex-row time_custom justify-content-center">
+												<div class="product_expiration_date timer_num time_custom_number"></div>
+											</div>
+											<div class="time_exp" style="visibility: hidden; font-size: 1px">{{TimeExp}}
+											</div>
+										</div>
+									</div>
+									<div class="d-flex justify-content-between">
+										<div class="card_winner"><i class="fa fa-trophy" aria-hidden="true"></i>
+											{{#if CurrentWinner}}
+											&nbsp{{WinnerName}}
+											{{/if}} </div>
+										<div class="card_hammer"><i class="fa fa-gavel"
+												aria-hidden="true"></i>{{NumBid}}
+										</div>
+									</div>
+								</div>
+								{{/each}}
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	{{#if isWinner}}
-		<script>
-				window.onload = function () {
-					notify1();
-				}
-			</script>
+	</div>
 	{{/if}}
-	{{#if this.score}}
-		<script>
-				var tmpScore = {{ score }};
-			</script>
-	{{/if}}
+</div>
+{{#if isWinner}}
+<script>
+	window.onload = function () {
+		notify1();
+	}
+</script>
+{{/if}}
+{{#if this.score}}
+<script>
+	var tmpScore = {{ score }};
+</script>
+{{/if}}
 {{/if}}
