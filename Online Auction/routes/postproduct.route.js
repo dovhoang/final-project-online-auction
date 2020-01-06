@@ -85,8 +85,8 @@ router.post('/', async (req, res) => {
                     .catch((err) => console.log(err));
             }
             var timeexpired = moment();
-            // timeexpired.set('date', timeexpired.get('date') + 7);
-            timeexpired.set('minute', timeexpired.get('minute') + 15);
+            timeexpired.set('date', timeexpired.get('date') + 7);
+            // timeexpired.set('minute', timeexpired.get('minute') + 15);
             //Ghi product vào db
             const product = {
                 ProductID: proId,
