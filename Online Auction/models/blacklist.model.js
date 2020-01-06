@@ -10,7 +10,8 @@ module.exports = {
       return null;
     return user[0];
   },
-
+  fUpdateCurWinner: (proID,userID) => db.load(`select fUpdateCurWinner(${proID},${userID}) as result`),
+  removeBid: (proID,userID) => db.load(`Call removeBid(${proID},${userID})`),
   add: entity => db.add('BlackList', entity),
 
   patch: (entity, username) => {

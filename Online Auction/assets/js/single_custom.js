@@ -276,6 +276,7 @@ jQuery(document).ready(function ($) {
 
 $("#bid_form").submit(function (e) {
 	e.preventDefault();
+
 	if (tmpScore < 0.8) {
 		if (tmpScore >= 0)
 			Swal.fire({
@@ -473,20 +474,18 @@ $('#btnAutoBid').on('click', function (event) {
 	})
 });
 
-var allBtnBanUser = $(document).find('.btnBanUser')
-var allName = $(document).find('.NameofUser')
-console.log(allBtnBanUser)
-for (i = 0; i < allBtnBanUser.length; i++) {
-	allBtnBanUser[i].on('click', function (event) {
+var allName = $(document).find('.NameofUser');
+var allBanUser=$(document).find('.BanUser');
+for (i = 0; i < allBanUser.length; i++) {
+	allBanUser[i].addEventListener('submit', function (event) {
 		event.preventDefault();
 		Swal.fire({
-			title: 'Do you want to block the user: ' + allName[i].text() + '?',
+			title: 'Do you want to block the user: ',//+ allName[i].textContent+ '?',
 			showCancelButton: true,
 			confirmButtonText: 'OK',
 			showLoaderOnConfirm: true
-		})
-			.then(_ => {
-				$('#BanUser').submit();
+		}).then(_ => {
+			this.submit();
 			})
 	});
 }

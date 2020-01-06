@@ -1,6 +1,6 @@
 const express = require('express');
 const productModel = require('../models/product.model');
-const banbidderModel = require('../models/banbidder.model');
+const blacklistModel = require('../models/blacklist.model');
 const bidModel = require('../models/bid.model');
 const userModel = require('../models/user.model');
 const helper = require('../helper/helper');
@@ -40,50 +40,58 @@ cron.schedule('* * * * *', async () => {
 router.get('/id=:id', async (req, res) => {
   var userTmp = null;
   if (req.session.isAuthenticated) userTmp = req.session.authUser.UserID;
-  const proid = req.params.id;
-  const [prd, sli, cwi, g4, review, relatedPrd, fvr, score, mp, cp] = await Promise.all([
-    productModel.single(proid),
-    productModel.getSellerInfo(proid),
-    productModel.getCurrentWinner(proid),
-    productModel.get3TimesLatestPrice(proid),
-    productModel.getReview(proid),
-    productModel.get5RelatedProduct(proid),
-    productModel.fvr(proid, userTmp),
-    bidModel.getScore(userTmp),
-    bidModel.MaxPrice(proid, userTmp),
-    productModel.getCateParent(proid),
-  ]);
-  var reviewLength = 0, isWinner = false, MaxPrice_AutoBid = null;
-  var curPrice = 0, scoretmp = 0;
-  if (req.session.isAuthenticated && cwi[0].length != 0) {
-    isWinner = (cwi[0][0].userID === req.session.authUser.UserID);
-    curPrice = cwi[0][0].CurrentBid;
-  }
-  if (mp.length != 0) {
-    if (req.session.isAuthenticated && mp[0].Price > curPrice) {
-      MaxPrice_AutoBid = mp[0].Price;
+  const isBlocked = await bidModel.checkBlock(req.params.id, userTmp);
+  console.log(isBlocked);
+  if (isBlocked.length != 0 && isBlocked[0].isBlocked != 1) {
+    const proid = req.params.id;
+    const [prd, sli, cwi, g4, review, relatedPrd, fvr, score, mp, cp] = await Promise.all([
+      productModel.single(proid),
+      productModel.getSellerInfo(proid),
+      productModel.getCurrentWinner(proid),
+      productModel.get3TimesLatestPrice(proid),
+      productModel.getReview(proid),
+      productModel.get5RelatedProduct(proid),
+      productModel.fvr(proid, userTmp),
+      bidModel.getScore(userTmp),
+      bidModel.MaxPrice(proid, userTmp),
+      productModel.getCateParent(proid),
+    ]);
+    var reviewLength = 0, isWinner = false, MaxPrice_AutoBid = null;
+    var curPrice = 0, scoretmp = 0;
+    if (req.session.isAuthenticated && cwi[0].length != 0) {
+      isWinner = (cwi[0][0].userID === req.session.authUser.UserID);
+      curPrice = cwi[0][0].CurrentBid;
     }
+    if (mp.length != 0) {
+      if (req.session.isAuthenticated && mp[0].Price > curPrice) {
+        MaxPrice_AutoBid = mp[0].Price;
+      }
+    }
+    if (review[0].length != 0) reviewLength = review[0][0].CountRevByID;
+    if (score.length === 0) scoretmp = -2;
+    else scoretmp = score[0].score;
+    res.render('vwSingleProduct/single', {
+      Productid: proid,
+      product: prd[0],
+      catparent: cp[0],
+      PrdEmpty: prd[0].length === 0,
+      sellerInfo: sli[0],
+      isSeller: sli[0][0].UserID === userTmp,
+      curWinnerInfo: cwi[0],
+      InfoLastestAuction: g4[0],
+      review: review[0],
+      reviewLength: reviewLength,
+      relatedPrd: relatedPrd[0],
+      favorite: fvr,
+      score: scoretmp,
+      isWinner: isWinner,
+      autoBidPrice: MaxPrice_AutoBid,
+      isBlocked: false
+    });
   }
-  if (review[0].length != 0) reviewLength = review[0][0].CountRevByID;
-  if (score.length === 0) scoretmp = -2;
-  else scoretmp = score[0].score;
-  res.render('vwSingleProduct/single', {
-    Productid: proid,
-    product: prd[0],
-    catparent: cp[0],
-    PrdEmpty: prd[0].length === 0,
-    sellerInfo: sli[0],
-    curWinnerInfo: cwi[0],
-    InfoLastestAuction: g4[0],
-    review: review[0],
-    reviewLength: reviewLength,
-    relatedPrd: relatedPrd[0],
-    favorite: fvr,
-    score: scoretmp,
-    isWinner: isWinner,
-    autoBidPrice: MaxPrice_AutoBid
+  else res.render('vwSingleProduct/single', {
+    isBlocked: true
   });
-
 });
 router.post('/id=:id', async (req, res) => {
   if (req.body.key === 'bid') {
@@ -160,21 +168,22 @@ router.post('/id=:id', async (req, res) => {
         await bidModel.fAutoBid(req.params.id, req.session.authUser.UserID, req.body.Price);
       }
     }
-<<<<<<< HEAD
-=======
-    if (req.body.key === 'banbidder') {//k vao dc
-      delete req.body.key;
-      if (req.session.isAuthenticated) {
+
+    return res.redirect('back');
+  }
+  if (req.body.key === 'banbidder') {
+    delete req.body.key;
+    const sli = await productModel.getSellerInfo(req.params.id);
+    if (req.session.isAuthenticated) {
+      if (sli[0][0].UserID === req.session.authUser.UserID) {
         const userId = req.body.userId;
-        const proId = req.body.proId;
-        console.log("rs",proId);
-        const rs = await banbidderModel.add({ ProductID: proId, UserID: userId });
-        console.log("rs",rs);
+        const proId = req.params.id;
+        const rs = await blacklistModel.add({ ProductID: proId, UserID: userId });
+        await blacklistModel.removeBid(proId, userId);
+        await blacklistModel.fUpdateCurWinner(proId, userId);
         return res.redirect('back');
       }
     }
-    return res.redirect('back');
->>>>>>> add ban bidder (not complete)
   }
   return res.redirect('back');
 });
