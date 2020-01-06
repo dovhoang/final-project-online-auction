@@ -136,4 +136,11 @@ margin-bottom: 100px;
 .keyword span{
   color: red;
 }
-
+.my-custom-scrollbar {
+  position: relative;
+  height: 300px;
+  overflow: auto;
+  }
+.table-wrapper-scroll-y {
+  display: block;
+  }
