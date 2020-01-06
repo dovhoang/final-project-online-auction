@@ -2,6 +2,7 @@ const db = require('../utils/db');
 const config = require('../config/default.json');
 
 module.exports = {
+  
   all: () => db.load('select * from Product'),
   allTimeExpExceptIsOver: () => db.load('SELECT ProductID,ProductName,SellerID,CurrentBid, PriceStart ,TimeExp FROM Product WHERE IsOver = 0'),
   allBySellerID: sellerid => {
@@ -42,15 +43,15 @@ module.exports = {
       select * from Product p join Categories c
       on p.CatID = c.CatID
       where p.CatID = ${catId} or c.ParentID = ${catId}`),
-  countByCat: async catId => {
-    const rows = await db.load(`
-    select count(p.ProductID) as total 
-    from Product p join Categories c
-    on p.CatID = c.CatID and timediff(p.TimeExp,NOW())>0
-    where p.CatID = ${catId} 
-    and ((p.CatID = c.CatID  and c.ParentID != 0) or  (p.CatID = c.CatID and c.ParentID = ${catId}))`)
-    return rows[0].total;
-  },
+      countByCat: async catId => {
+        const rows = await db.load(`
+        select count(p.ProductID) as total 
+        from Product p join Categories c
+        on p.CatID = c.CatID 
+        where timediff(p.TimeExp,NOW())>0 and 
+        (p.CatID = ${catId} or c.ParentID = ${catId})`)
+        return rows[0].total;
+      },
   pageByCat: (catId, offset, sortby, order) => db.load(`
   SELECT p3.ProductID, p3.ProductName, p3.PriceStart,p3.PricePurchase,
   p3.TimeExp, p3.NumBid,p3.CurrentWinner, p3.TimePost, concat("***** ", u.LastName) as WinnerName,

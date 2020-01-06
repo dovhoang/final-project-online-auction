@@ -3,6 +3,7 @@ const productModel = require('../models/product.model');
 const blacklistModel = require('../models/blacklist.model');
 const bidModel = require('../models/bid.model');
 const userModel = require('../models/user.model');
+const wonproductModel = require('../models/wonproduct.model');
 const helper = require('../helper/helper');
 const router = express.Router();
 const moment = require('moment');
@@ -28,7 +29,15 @@ cron.schedule('* * * * * *', async () => {
         //Gửi mail
         helper.sendMail(emailWinner.Email, 'Congratulation...You have a won product', `You have won on product ${product[i].ProductName}`);
         //Gửi mail người bán
-        helper.sendMail(emailSeller.Email, 'Congratulation...Your product have a winner', `The winner is ${emailWinner.Username} with amount = ${product[i].CurrentBid} $`)
+        helper.sendMail(emailSeller.Email, 'Congratulation...Your product have a winner', `The winner is ${emailWinner.Username} with amount = ${product[i].CurrentBid} $`);
+        //Thêm product vào bảng WonProduct
+        const wonproduct = {
+          UserID: user.UserID,
+          ProductID: product[i].ProductID,
+          Price: product[i].CurrentBidu,
+          Time: moment().format('YYYY-MM-DD HH:mm:ss'),
+        }
+        const result5 = await wonproductModel.add(wonproduct);
       } else {
         //Nếu không có người đấu giá => gửi mail cho người bán
         helper.sendMail(emailSeller.Email, `Unfortunately...Your product ${product[i].ProductName} ended with no winner`, `Sorry for that`);

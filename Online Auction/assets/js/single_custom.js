@@ -334,12 +334,11 @@ $('#favoritePrd').on('submit', function (event) {
 	}
 	else {
 		$('#favoriteBtn').attr("disabled", true);
-		const tmpid = window.location.pathname.split('product/id=')[1];
 		var data = {
 			key: 'favorite'
 		};
 		$.ajax({
-			url: 'http://localhost:3000/product/id=' + tmpid,
+			url: window.location.href,
 			data: data,
 			method: 'POST'
 		}).then(function (response) {
@@ -365,7 +364,6 @@ $('#favoritePrd').on('submit', function (event) {
 $('#review_form').on('submit', function (event) {
 	event.preventDefault(); // Stop the form from causing a page refresh.
 	$('#review_submit').attr("disabled", true);
-	const tmpid = window.location.pathname.split('product/id=')[1];
 	var data = {
 		key: 'review',
 		Rating: $('#rate2').val(),
@@ -374,7 +372,7 @@ $('#review_form').on('submit', function (event) {
 
 	$('#notify').append('Uploading...');
 	$.ajax({
-		url: 'http://localhost:3000/product/id=' + tmpid,
+		url:  window.location.href,
 		data: data,
 		method: 'POST'
 	}).then(function (response) {

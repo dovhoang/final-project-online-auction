@@ -44,6 +44,11 @@ router.post('/', async (req, res) => {
     //Upload ảnh vào thư mục FolderName
     upload.array('Picture', 3)(req, res, async err => {
         if (err) {//Nếu lỗi
+            //Xóa thư mục /pictures/proId
+            fs.rmdir(FolderName, (err) => {
+                if (err) console.log(err);
+                else console.log("Delete directory success");
+            });
             res.render('vwPostProduct/postproduct', {
                 error: 'Error while uploading images'
             });

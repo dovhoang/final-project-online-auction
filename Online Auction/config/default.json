@@ -5,9 +5,9 @@
     "port": 3306,
     "user": "root",
     "password": "",
-    "database": "mydb"
+    "database": "localfinal"
   },
   "paginate": {
-    "limit": 5
+    "limit": 5  
   }
 }
