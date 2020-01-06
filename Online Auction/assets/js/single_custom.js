@@ -475,18 +475,21 @@ $('#btnAutoBid').on('click', function (event) {
 });
 
 var allName = $(document).find('.NameofUser');
-var allBanUser=$(document).find('.BanUser');
+var allBanUser = $(document).find('.BanUser');
 for (i = 0; i < allBanUser.length; i++) {
 	allBanUser[i].addEventListener('submit', function (event) {
 		event.preventDefault();
 		Swal.fire({
-			title: 'Do you want to block the user: ',//+ allName[i].textContent+ '?',
+			title: 'Do you want to block user?',//+ allName[i].textContent+ '?',
 			showCancelButton: true,
 			confirmButtonText: 'OK',
 			showLoaderOnConfirm: true
-		}).then(_ => {
-			this.submit();
-			})
+		}).then(result => {
+			if (result.value) {
+				this.submit();
+			}
+			// this.submit();
+		})
 	});
 }
 

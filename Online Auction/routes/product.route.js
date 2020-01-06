@@ -8,7 +8,7 @@ const router = express.Router();
 const moment = require('moment');
 var cron = require('node-cron');
 
-cron.schedule('* * * * *', async () => {
+cron.schedule('* * * * * *', async () => {
   //Lấy ra thời gian kết thúc của tất cả các sản phẩm có IsOver = 0 (tức là chưa kết thúc)
   const product = await productModel.allTimeExpExceptIsOver();
   for (var i = 0; i < product.length; i++) {
@@ -181,6 +181,14 @@ router.post('/id=:id', async (req, res) => {
         const rs = await blacklistModel.add({ ProductID: proId, UserID: userId });
         await blacklistModel.removeBid(proId, userId);
         await blacklistModel.fUpdateCurWinner(proId, userId);
+
+        //Tìm ra email của user bị ban
+        const user = await userModel.singleByUserID(userId);
+        //Tìm tên sản phẩm
+        const product = await productModel.singleByProID(req.params.id);
+        //Gửi mail
+        helper.sendMail(user.Email, 'Auction product',
+          `Unfortunately...You have been banned away from product ${product.ProductName}<br>You can't bid on this product anymore`);
         return res.redirect('back');
       }
     }
