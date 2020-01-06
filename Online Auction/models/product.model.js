@@ -17,7 +17,7 @@ module.exports = {
   allWithBidInfo: _ => db.load(`
   SELECT p3.ProductID, p3.ProductName, p3.PriceStart,p3.PricePurchase,
   p3.TimeExp, p3.NumBid,p3.CurrentWinner, p3.TimePost,p3.CatName, concat("***** ", u.LastName) as WinnerName,
-  (CASE WHEN TIME_TO_SEC(timediff(NOW(),p3.TimePost))<7*86400 THEN 1 ELSE 0 END) as isNew
+  (CASE WHEN TIME_TO_SEC(timediff(NOW(),p3.TimePost))<86400 THEN 1 ELSE 0 END) as isNew
   FROM (SELECT p2.ProductID, p2.ProductName, p2.PriceStart,p2.PricePurchase,p2.TimeExp, p2.NumBid,p2.CurrentWinner, p2.TimePost, c.CatName
         FROM (SELECT p1.ProductID,p1.CatID, p1.ProductName, p1.PriceStart,p1.PricePurchase,
               p1.TimeExp, p1.CurrentWinner, p1.TimePost, COUNT(b.BidID) as NumBid
@@ -53,8 +53,8 @@ module.exports = {
   },
   pageByCat: (catId, offset, sortby, order) => db.load(`
   SELECT p3.ProductID, p3.ProductName, p3.PriceStart,p3.PricePurchase,
-  p3.TimeExp, p3.NumBid,p3.CurrentWinner, p3.TimePost, concat(u.FirstName," ", u.LastName) as WinnerName,
-  (CASE WHEN TIME_TO_SEC(timediff(NOW(),p3.TimePost))<7*86400 THEN 1 ELSE 0 END) as isNew
+  p3.TimeExp, p3.NumBid,p3.CurrentWinner, p3.TimePost, concat("***** ", u.LastName) as WinnerName,
+  (CASE WHEN TIME_TO_SEC(timediff(NOW(),p3.TimePost))<86400 THEN 1 ELSE 0 END) as isNew
   FROM (SELECT p2.ProductID, p2.ProductName, p2.PriceStart,p2.PricePurchase,p2.TimeExp, p2.NumBid,p2.CurrentWinner, p2.TimePost
         FROM (SELECT p1.ProductID,p1.CatID, p1.ProductName, p1.PriceStart,p1.PricePurchase,
               p1.TimeExp, p1.CurrentWinner, p1.TimePost, COUNT(b.BidID) as NumBid

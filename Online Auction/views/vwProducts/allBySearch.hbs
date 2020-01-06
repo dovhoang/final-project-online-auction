@@ -8,36 +8,40 @@
             </div>
         </div>
         {{#if this.empty}}
-        <div style="max-height:450px">
+        <div style="margin-top:-60px; max-height: 500px">
             <div id="notfound">
                 <div class="notfound">
                     <div class="notfound-404">
-                        <h1>Oops!</h1>
-                        <h2>There aren't any products here ...</h2>
+                        <div></div>
+                        <h1>!</h1>
                     </div>
-                    <a href="/">Go TO Homepage</a>
+                    <h4>There aren't any products here ...
+                    </h4>
+                    <a href="/">home page</a>
                 </div>
             </div>
         </div>
         {{else}}
         <div class="d-flex ">
-            <a class="btn btn-outline-primary m-2" href="?keyword={{this.keyword}}&page=1&sortby=Numbid&order=desc">Popular</a>
-            <a class="btn btn-outline-warning m-2 " href="?keyword={{this.keyword}}&page=1&sortby=TimePost&order=desc">New</a>
+            <a class="btn btn-outline-primary m-2"
+                href="?keyword={{this.keyword}}&page=1&sortby=Numbid&order=desc">Popular</a>
+            <a class="btn btn-outline-warning m-2 "
+                href="?keyword={{this.keyword}}&page=1&sortby=TimePost&order=desc">New</a>
             <div class="dropdown m-2">
                 <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sort by
                 </button>
                 <div class="dropdown-menu m-0">
-                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=PriceStart&order=asc">Price <i class="fa fa-level-up"
-                            aria-hidden="true"></i> </a>
-                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=PriceStart&order=desc">Price <i class="fa fa-level-down"
-                            aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=PriceStart&order=asc">Price
+                        <i class="fa fa-level-up" aria-hidden="true"></i> </a>
+                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=PriceStart&order=desc">Price
+                        <i class="fa fa-level-down" aria-hidden="true"></i></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=TimeExp&order=asc">Expired time <i class="fa fa-level-up"
-                            aria-hidden="true"></i> </a>
-                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=TimeExp&order=desc">Expired time <i class="fa fa-level-down"
-                            aria-hidden="true"></i></a>
+                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=TimeExp&order=asc">Expired
+                        time <i class="fa fa-level-up" aria-hidden="true"></i> </a>
+                    <a class="dropdown-item" href="?keyword={{this.keyword}}&page=1&sortby=TimeExp&order=desc">Expired
+                        time <i class="fa fa-level-down" aria-hidden="true"></i></a>
                 </div>
             </div>
         </div>
@@ -47,7 +51,7 @@
                 <div class="keyword mt-3" style="background-color:ivory;">
                     {{!-- Search info --}}
                     {{#if proname}}
-                        Showing results for product '<span>{{this.keyword}}</span>'<br>
+                    Showing results for product '<span>{{this.keyword}}</span>'<br>
                     {{/if}}
                     {{#if this.catname}}
                     Showing results for category '{{#each this.catname}}
@@ -106,7 +110,8 @@
     <nav>
         <ul class="pagination" style="justify-content: center;">
             <li class="page-item {{#if_eq prev_value 0}} disabled {{/if_eq}}">
-                <a class="page-link" href="?keyword={{this.keyword}}&page={{prev_value}}&sortby={{sortby}}&order={{order}}">
+                <a class="page-link"
+                    href="?keyword={{this.keyword}}&page={{prev_value}}&sortby={{sortby}}&order={{order}}">
                     <i class="fa fa-backward" aria-hidden="true"></i>
                 </a>
             </li>
@@ -117,12 +122,14 @@
             </li>
             {{else}}
             <li class="page-item">
-                <a class="page-link" href="?keyword={{../this.keyword}}&page={{value}}&sortby={{sortby}}&order={{order}}">{{value}}</a>
+                <a class="page-link"
+                    href="?keyword={{../this.keyword}}&page={{value}}&sortby={{sortby}}&order={{order}}">{{value}}</a>
             </li>
             {{/if}}
             {{/each}}
             <li class="page-item {{#if over_page}} disabled {{/if}}">
-                <a class="page-link" href="?keyword={{this.keyword}}&page={{next_value}}&sortby={{sortby}}&order={{order}}">
+                <a class="page-link"
+                    href="?keyword={{this.keyword}}&page={{next_value}}&sortby={{sortby}}&order={{order}}">
                     <i class="fa fa-forward" aria-hidden="true"></i>
                 </a>
             </li>
