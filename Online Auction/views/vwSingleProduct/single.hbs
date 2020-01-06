@@ -155,8 +155,6 @@
 							</form>
 							{{/if}}
 							{{/if}}
-							{{!-- <button type="button" class="btn btn-danger button_favorite"><span
-											class="fa fa-heart"></span></button> --}}
 
 						</div>
 						{{#if authUser.UserID}}
@@ -174,8 +172,7 @@
 
 					</div>
 				</div>
-
-<<<<<<< HEAD
+</div>
 					<!-- Đấu giá -->
 					<div class="auction">
 						<div class="container table-wrapper-scroll-y my-custom-scrollbar">
@@ -187,7 +184,7 @@
 										<th scope="col">Amount</th>
 										<th scope="col">Rate</th>
 										<th scope="col">Time</th>
-										{{#if authUser.UserID}}<th scope="col"></th>{{/if}}
+									{{#if this.isSeller}}<th scope="col"></th>{{/if}}
 									</tr>
 								</thead>
 								<tbody>
@@ -207,41 +204,6 @@
 											<input type="hidden" value="banbidder" name="key">
 											<input type="hidden" value="{{UserID}}" name="userId">
 											<td><button type="submit" class="btnBanUser"><i class="fa fa-2x fa-ban
-=======
-			</div>
-
-			<!-- Đấu giá -->
-			<div class="auction">
-				<div class="container">
-					<table class="table">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">User/Auto Bid</th>
-								<th scope="col">Amount</th>
-								<th scope="col">Rate</th>
-								<th scope="col">Time</th>
-								{{#if authUser.UserID}}<th scope="col"></th>{{/if}}
-							</tr>
-						</thead>
-						<tbody>
-							{{#each this.InfoLastestAuction}}
-							<tr>
-								<th scope="row">{{BidID}}</th>
-								<td><a class="NameofUser" href="/bidder/{{Username}}">{{name}}</a></td>
-								<td>{{Amount}}</td>
-								<td>
-									<ul class="star_rating1">
-										<span class="stars">{{rateStar}} </span>
-									</ul>
-								</td>
-								<td>{{time}}</td>
-								{{#if ../this.isSeller}}
-								<form class="BanUser" method="post">
-									<input type="hidden" value="banbidder" name="key">
-									<input type="hidden" value="{{UserID}}" name="userId">
-									<td><button type="submit" class="btnBanUser"><i class="fa fa-2x fa-ban
->>>>>>> 7fe5858b1d730dc79252ce7774f90cf8afa96050
 														text-danger" aria-hidden="true"></i>
 										</button></td>
 								</form>
