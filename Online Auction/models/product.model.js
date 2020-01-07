@@ -73,8 +73,8 @@ module.exports = {
     return rows[0].CatName;
   },
   single: id => db.load(`CALL getSingleProduct(${id})`),
-  getCateParent: proid =>db.load(`select c2.CatID,c2.CatName from Product p, Categories c1,Categories c2
-  where p.CatID = c1.CatID and c1.ParentID = c2.CatID and p.ProductID=${proid}`),
+  getCateParent: id =>db.load(`select c2.CatID,c2.CatName from Product p, Categories c1,Categories c2
+  where p.CatID = c1.CatID and c1.ParentID = c2.CatID and p.Product = ${id}`),
   getSellerInfo: id => db.load(`CALL getSellerInfo(${id});`),
   getCurrentWinner: id => db.load(`CALL getCurrentWinner(${id}) `),
   get3TimesLatestPrice: id => db.load(`CALL getInfo3TimesLatestPrice(${id}) `),
