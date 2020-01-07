@@ -57,10 +57,10 @@ module.exports = {
                 }
             }
         } else if (sortby === 3) {//sort time post
-            if (order === 1) {
+            if (order === 0) {
                 for (let i = 0; i < array.length - 1; i++) {
                     for (let j = i + 1; j < array.length; j++) {
-                        if (array[j].original.TimePost > array[i].original.TimePost) {
+                        if (array[j].original.TimePost < array[i].original.TimePost) {
                             let t = array[i];
                             array[i] = array[j];
                             array[j] = t;

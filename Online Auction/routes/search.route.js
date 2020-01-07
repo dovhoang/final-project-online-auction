@@ -57,7 +57,7 @@ router.get('/', async (req, res) => {
         }
     }
     //sắp xếp
-    var arrsortby=["PriceStart","TimeExp","New","Popular"];
+    var arrsortby=["PriceStart","TimeExp","TimePost","NumBid"];
     var intsortby, intorder;
     for(i=0;i<arrsortby.length;i++){
         if (arrsortby[i]===sortby){
@@ -69,7 +69,7 @@ router.get('/', async (req, res) => {
     }else{
         intorder= 1;
     }
-    const rs = await searchModel.interChangeSort(results,intsortby,intorder);
+    const rs = await searchModel.interChangeSort(results,intorder,intsortby);
     //Phân trang
     if (page < 1) page = 1;
     const offset = (page - 1) * config.paginate.limit;
